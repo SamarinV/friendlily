@@ -1,0 +1,29 @@
+.block {
+	margin-left: 10px;
+	padding: 10px;
+	background-color: white;
+	border-radius: 15px;
+	border: 1px solid gray;
+	box-sizing: border-box;
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.img {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+}
+.content {
+	margin-left: 20px;
+}
+.name {
+	color: 	rgb(88, 88, 253);
+	cursor: pointer;
+}
+.name:hover {
+	color: rgb(178, 105, 247);
+}
+.text {
+	margin-top: 10px;
+}

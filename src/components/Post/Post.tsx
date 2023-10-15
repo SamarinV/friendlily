@@ -1,4 +1,4 @@
-import { PersonType } from "../Profile/Profile";
+import { PersonType } from "../../pages/Profile/Profile";
 import s from "./Post.module.css";
 
 type PropsType = {

@@ -1,9 +1,9 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import Profile from "./components/Profile/Profile";
+import Profile from "./pages/Profile/Profile";
 
 function App() {
   return (
@@ -13,9 +13,15 @@ function App() {
         <div className="navbar-content">
           <Navbar />
           <Routes>
-            <Route path="vchate/profile" element={<Profile />} />
+            <Route path="/" element={<Profile />} />
+            <Route path="/message" element={<div>Сообщения</div>} />
+            <Route path="/login" element={<div>Логин</div>} />
+            <Route path="/news" element={<div>Новости</div>} />
+            <Route path="/music" element={<div>Музыка</div>} />
+            <Route path="/setting" element={<div>Настройки</div>} />
+            <Route path="*" element={<Profile />} />
+            {/* <Route path="*" element={<NotFoundPage />} /> */}
           </Routes>
-          <Profile />
         </div>
       </div>
     </div>

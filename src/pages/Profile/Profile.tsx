@@ -1,4 +1,4 @@
-import Post from "../Post/Post";
+import Post from "../../components/Post/Post";
 import s from "./Profile.module.css";
 
 export type PersonType = {

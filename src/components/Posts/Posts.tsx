@@ -1,8 +1,9 @@
 import { ChangeEvent, useState } from "react";
-import { UserType } from "../../pages/Profile/Profile";
+import { UserType } from "../../pages/ProfilePage/ProfilePage";
 import Post from "../Post/Post";
 import s from "./Posts.module.css";
 import Button from "../Button/Button";
+import Block from "../Block/Block";
 
 type AllPostsType = {
   id: number;
@@ -50,7 +51,7 @@ const Posts = (props: PropsType) => {
   };
   return (
     <>
-      <div className={s.block}>
+      <Block>
         <input
           className={s.input}
           type="text"
@@ -59,7 +60,7 @@ const Posts = (props: PropsType) => {
           placeholder="Что у вас нового?"
         ></input>
         <Button func={addPost} name="Опубликовать" />
-      </div>
+      </Block>
       {allPosts.map((post) => {
         return <Post key={post.id} post={post} />;
       })}

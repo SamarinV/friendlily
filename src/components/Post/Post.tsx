@@ -1,4 +1,5 @@
-import { UserType } from "../../pages/Profile/Profile";
+import { UserType } from "../../pages/ProfilePage/ProfilePage";
+import Block from "../Block/Block";
 import s from "./Post.module.css";
 
 type PropsType = {
@@ -7,7 +8,7 @@ type PropsType = {
 
 const Post = (props: PropsType) => {
   return (
-    <div className={s.block}>
+    <Block>
       <img className={s.img} src={props.post.user.avatar} alt="Фото" />
       <div className={s.content}>
         <span
@@ -16,7 +17,7 @@ const Post = (props: PropsType) => {
         <div className={s.text}>{props.post.content}</div>
       </div>
       <div>{props.post.date}</div>
-    </div>
+    </Block>
   );
 };
 

@@ -1,7 +1,8 @@
 import { ChangeEvent, useState } from "react";
 import Post from "../../components/Post/Post";
-import s from "./Profile.module.css";
+import s from "./ProfilePage.module.css";
 import Posts from "../../components/Posts/Posts";
+import Block from "../../components/Block/Block";
 
 export type UserType = {
   id: number;
@@ -45,7 +46,7 @@ const user: UserType = {
 //   },
 // ];
 
-const Profile = () => {
+const ProfilePage = () => {
   // const [inputValue, setInputValue] = useState("");
   // const inputPostHandler = (event: ChangeEvent<HTMLInputElement>) => {
   //   setInputValue(event.target.value);
@@ -60,7 +61,7 @@ const Profile = () => {
   // };
   return (
     <div className={s.wrapper}>
-      <div className={s.block}>
+      <Block>
         <img className={s.img} src={user.avatar} alt="Фото пользователя" />
         <div className={s.person}>
           <div className={s.description}>
@@ -75,10 +76,10 @@ const Profile = () => {
             <span>Дата рождения: {user.birthday}</span>
           </div>
         </div>
-      </div>
+      </Block>
       <Posts user={user}></Posts>
     </div>
   );
 };
 
-export default Profile;
+export default ProfilePage;

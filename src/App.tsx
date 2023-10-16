@@ -3,7 +3,13 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import Profile from "./pages/Profile/Profile";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import MessagePage from "./pages/MessagePage/MessagePage";
+import NewsPage from "./pages/NewsPage/NewsPage";
+import MusicPage from "./pages/MusicPage/MusicPage";
+import SettingPage from "./pages/Setting/Setting";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
 
 function App() {
   return (
@@ -14,14 +20,13 @@ function App() {
           <Navbar />
           <Routes>
             <Route>
-              <Route path="/profile" element={<Profile />} />
-              <Route path="message" element={<div>Сообщения</div>} />
-              <Route path="login" element={<div>Логин</div>} />
-              <Route path="news" element={<div>Новости</div>} />
-              <Route path="music" element={<div>Музыка</div>} />
-              <Route path="setting" element={<div>Настройки</div>} />
-              <Route path="*" element={<Profile />} />
-              {/* <Route path="*" element={<NotFoundPage />} /> */}
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="message" element={<MessagePage />} />
+              <Route path="login" element={<LoginPage />} />
+              <Route path="news" element={<NewsPage />} />
+              <Route path="music" element={<MusicPage />} />
+              <Route path="setting" element={<SettingPage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </div>

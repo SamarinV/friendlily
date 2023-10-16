@@ -1,7 +1,9 @@
+import { ChangeEvent, useState } from "react";
 import Post from "../../components/Post/Post";
 import s from "./Profile.module.css";
+import Posts from "../../components/Posts/Posts";
 
-export type PersonType = {
+export type UserType = {
   id: number;
   link: string;
   avatar: string;
@@ -11,7 +13,7 @@ export type PersonType = {
   birthday: string;
 };
 
-const person: PersonType = {
+const user: UserType = {
   id: 1,
   link: "",
   avatar: "https://coolsen.ru/wp-content/uploads/2021/06/186-2.jpg",
@@ -21,50 +23,60 @@ const person: PersonType = {
   birthday: "18.08.1992",
 };
 
-type AllPostsType = {
-  id: number;
-  person: PersonType;
-  content: string;
-  date: string;
-}[];
+// type AllPostsType = {
+//   id: number;
+//   user: UserType;
+//   content: string;
+//   date: string;
+// }[];
 
-const posts: AllPostsType = [
-  {
-    id: 1,
-    person: person,
-    content: "Что сделать",
-    date: "17.06.2023",
-  },
-  {
-    id: 2,
-    person: person,
-    content: "чтобы все заработало?",
-    date: "17.06.2023",
-  },
-];
+// let posts: AllPostsType = [
+//   {
+//     id: 1,
+//     user: user,
+//     content: "Что сделать",
+//     date: "17.06.2023",
+//   },
+//   {
+//     id: 2,
+//     user: user,
+//     content: "чтобы все заработало?",
+//     date: "17.06.2023",
+//   },
+// ];
 
 const Profile = () => {
+  // const [inputValue, setInputValue] = useState("");
+  // const inputPostHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  //   setInputValue(event.target.value);
+  // };
+  // const addPost = () => {
+  //   const newId = posts.length + 1;
+  //   posts = [
+  //     ...posts,
+  //     { id: newId, user: user, content: inputValue, date: `${new Date()}` },
+  //   ];
+  //   setInputValue("");
+  // };
   return (
     <div className={s.wrapper}>
       <div className={s.block}>
-        <img className={s.img} src={person.avatar} alt="Фото пользователя" />
+        <img className={s.img} src={user.avatar} alt="Фото пользователя" />
         <div className={s.person}>
           <div className={s.description}>
             <span>
-              {person.name} {person.lastName}
+              {user.name} {user.lastName}
             </span>
           </div>
           <div className={s.description}>
-            <span>Город: {person.city}</span>
+            <span>Город: {user.city}</span>
           </div>
           <div className={s.description}>
-            <span>Дата рождения: {person.birthday}</span>
+            <span>Дата рождения: {user.birthday}</span>
           </div>
         </div>
       </div>
-      {posts.map((post) => {
-        return <Post key={post.id} post={post} />;
-      })}
+      <Posts user={user}></Posts>
     </div>
   );
 };

@@ -13,14 +13,16 @@ function App() {
         <div className="navbar-content">
           <Navbar />
           <Routes>
-            <Route path="/" element={<Profile />} />
-            <Route path="/message" element={<div>Сообщения</div>} />
-            <Route path="/login" element={<div>Логин</div>} />
-            <Route path="/news" element={<div>Новости</div>} />
-            <Route path="/music" element={<div>Музыка</div>} />
-            <Route path="/setting" element={<div>Настройки</div>} />
-            <Route path="*" element={<Profile />} />
-            {/* <Route path="*" element={<NotFoundPage />} /> */}
+            <Route>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="message" element={<div>Сообщения</div>} />
+              <Route path="login" element={<div>Логин</div>} />
+              <Route path="news" element={<div>Новости</div>} />
+              <Route path="music" element={<div>Музыка</div>} />
+              <Route path="setting" element={<div>Настройки</div>} />
+              <Route path="*" element={<Profile />} />
+              {/* <Route path="*" element={<NotFoundPage />} /> */}
+            </Route>
           </Routes>
         </div>
       </div>

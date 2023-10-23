@@ -18,7 +18,7 @@ const Navbar = () => {
           </div>
         )}
       </NavLink>
-      <NavLink className={s.link} to="/message">
+      <NavLink className={s.link} to="message">
         {({ isActive }) => (
           <div className={s.displayFlex}>
             <MessageLogo className={s.logo} />

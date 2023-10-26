@@ -4,9 +4,10 @@ import Post from "../Post/Post";
 import s from "./Posts.module.css";
 import Button from "../Button/Button";
 import Block from "../Block/Block";
+import { v4 as uuidv4 } from "uuid";
 
 type AllPostsType = {
-  id: number;
+  id: string;
   user: UserType;
   content: string;
   date: string;
@@ -19,16 +20,16 @@ type PropsType = {
 const Posts = (props: PropsType) => {
   let posts: AllPostsType = [
     {
-      id: 1,
+      id: "1",
       user: props.user,
       content: "Что сделать",
-      date: "17.06.2023",
+      date: "19.10.2023 9:56",
     },
     {
-      id: 2,
+      id: "2",
       user: props.user,
       content: "чтобы все заработало?",
-      date: "17.06.2023",
+      date: "19.10.2023 9:57",
     },
   ];
   const [allPosts, setAllPosts] = useState(posts);
@@ -37,14 +38,16 @@ const Posts = (props: PropsType) => {
     setInputValue(event.target.value);
   };
   const addPost = () => {
-    const newId = posts.length + 1;
+    const date = new Date();
     setAllPosts([
       ...allPosts,
       {
-        id: newId,
+        id: uuidv4(),
         user: props.user,
         content: inputValue,
-        date: `${new Date()}`,
+        date: `${date.getDate()}.${
+          date.getMonth() + 1
+        }.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`,
       },
     ]);
     setInputValue("");

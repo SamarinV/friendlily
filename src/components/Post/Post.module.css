@@ -15,7 +15,12 @@
 	border-radius: 50%;
 }
 .content {
+	width: 100%;
 	margin-left: 20px;
+}
+.nameAndDate {
+	display: flex;
+	justify-content: space-between;
 }
 .name {
 	color: 	rgb(88, 88, 253);
@@ -23,6 +28,9 @@
 }
 .name:hover {
 	color: rgb(178, 105, 247);
+}
+.date {
+	font-size: 12px;
 }
 .text {
 	margin-top: 10px;

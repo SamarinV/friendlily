@@ -4,117 +4,46 @@ import s from "./MessagePage.module.css";
 import { ChangeEvent, useState } from "react";
 import { ReactComponent as IconChatWithoutUser } from "../../assets/chatWithoutUser.svg";
 import Button from "../../components/Button/Button";
-
-const user = {
-  userId: 1,
-  userName: "Владимир Самарин",
-  openedChatId: "",
-  chats: [
-    {
-      id: 1,
-      chatName: "Mr. Propper",
-      messages: [
-        {
-          id: 1,
-          name: "Mr. Propper",
-          text: "Уборку заказывали?",
-        },
-        {
-          id: 2,
-          name: "Владимир",
-          text: "Да!",
-        },
-        {
-          id: 3,
-          name: "Mr. Propper",
-          text: "Когда прийти?",
-        },
-        {
-          id: 4,
-          name: "Владимир",
-          text: "Завтра в 12:00",
-        },
-      ],
-    },
-
-    {
-      id: 2,
-      chatName: "Юля",
-      messages: [
-        {
-          id: 1,
-          name: "Юля",
-          text: "Привет",
-        },
-        {
-          id: 2,
-          name: "Владимир",
-          text: "Привет",
-        },
-        {
-          id: 3,
-          name: "Юля",
-          text: "Как дела?",
-        },
-        {
-          id: 4,
-          name: "Владимир",
-          text: "Супер, а у тебя?",
-        },
-      ],
-    },
-    {
-      id: 3,
-      chatName: "Юра",
-      messages: [
-        {
-          id: 1,
-          name: "Юра",
-          text: "Привет",
-        },
-        {
-          id: 2,
-          name: "Владимир",
-          text: "Привет",
-        },
-        {
-          id: 3,
-          name: "Юря",
-          text: "Что, бухаем сегодня?",
-        },
-        {
-          id: 4,
-          name: "Владимир",
-          text: "Да, давай по пивку!",
-        },
-      ],
-    },
-  ],
-};
+import { StateType } from "../../redux/state";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { sendMessage } from "../../redux/chatsSlice";
 
 const MessagePage = () => {
-  const [userState, setUserState] = useState(user);
-  const [viewMessages, setViewMessages] = useState<any[]>([]);
+  const dispatch = useDispatch();
+
+  const chats = useSelector((store: StateType) => store.chats);
+  const user = useSelector((store: StateType) => store.user);
+  const [idOpenedChat, setIdOpenedChat] = useState("");
   const [inputValue, setInputValue] = useState("");
 
-  const openedChat = (id: any) => {
-    const elem = userState.chats.find((el) => el.id === id);
-    elem && setViewMessages(elem.messages);
-    setUserState({ ...userState, openedChatId: id });
+  const openedChat = (id: string) => {
+    setIdOpenedChat(id);
   };
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
-  const sendMessage = () => {
-    setUserState({ ...userState });
+
+  const sendMessageHandler = () => {
+    if (idOpenedChat) {
+      dispatch(
+        sendMessage({
+          id: idOpenedChat,
+          text: inputValue,
+          userName: user.name,
+        })
+      );
+      setInputValue("");
+    }
   };
+
   return (
     <div className={s.wrapper}>
       <Block>
         <div className={s.chatWrapper}>
           <h3 className={s.chatTitle}>Чаты</h3>
-          {user.chats.map((chat) => {
+          {chats.map((chat) => {
             return (
               <NavLink
                 key={chat.id}
@@ -122,23 +51,25 @@ const MessagePage = () => {
                 onClick={() => openedChat(chat.id)}
                 className={s.link}
               >
-                {chat.id}. {chat.chatName}
+                {chat.chatName}
               </NavLink>
             );
           })}
         </div>
       </Block>
       <Block>
-        {viewMessages.length ? (
+        {idOpenedChat ? ( // Проверяем, выбран ли чат
           <div className={s.chatWrapper}>
             <h3 className={s.chatTitle}>Выбранный чат</h3>
-            {viewMessages.map((item) => {
-              return (
-                <div key={item.id} className={s.message}>
-                  {item.name}: {item.text}
-                </div>
-              );
-            })}
+            {chats
+              .find((chat) => chat.id === idOpenedChat)
+              ?.messages.map((item) => {
+                return (
+                  <div key={item.id} className={s.message}>
+                    {item.name}: {item.text}
+                  </div>
+                );
+              })}
             <div className={s.blockWithInput}>
               <input
                 className={s.input}
@@ -146,7 +77,7 @@ const MessagePage = () => {
                 onChange={(e) => onChangeHandler(e)}
                 placeholder="Здесь можно написать сообщение..."
               />
-              <Button name="Отправить" func={sendMessage} />
+              <Button name="Отправить" func={sendMessageHandler} />
             </div>
           </div>
         ) : (

@@ -1,20 +1,26 @@
-import { UserType } from "../../pages/ProfilePage/ProfilePage";
+import { PostType } from "../../redux/state";
 import Block from "../Block/Block";
 import s from "./Post.module.css";
 
+// type PostType = {
+//   id: string;
+//   user: any;
+//   userAvatar: string;
+//   content: string;
+//   date: string;
+// };
+
 type PropsType = {
-  post: { id: string; user: UserType; content: string; date: string };
+  post: PostType;
 };
 
 const Post = (props: PropsType) => {
   return (
     <Block>
-      <img className={s.img} src={props.post.user.avatar} alt="Фото" />
+      <img className={s.img} src={props.post.userAvatar} alt="Фото" />
       <div className={s.content}>
         <div className={s.nameAndDate}>
-          <span
-            className={s.name}
-          >{`${props.post.user.name} ${props.post.user.lastName}`}</span>
+          <span className={s.name}>{props.post.user}</span>
 
           <span className={s.date}>{props.post.date}</span>
         </div>

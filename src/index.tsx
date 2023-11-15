@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import "./index.css";
-import App from "./App";
+import router from "./routes/router";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 ReactDOM.render(
-  <BrowserRouter basename="vchate">
-    <App />
-  </BrowserRouter>,
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>,
   document.getElementById("root")
 );

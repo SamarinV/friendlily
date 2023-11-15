@@ -1,50 +1,8 @@
-import { ChangeEvent, useState } from "react";
-import Post from "../../components/Post/Post";
 import s from "./ProfilePage.module.css";
 import Posts from "../../components/Posts/Posts";
 import Block from "../../components/Block/Block";
-
-export type UserType = {
-  id: number;
-  link: string;
-  avatar: string;
-  name: string;
-  lastName: string;
-  city: string;
-  birthday: string;
-};
-
-const user: UserType = {
-  id: 1,
-  link: "",
-  avatar: "https://coolsen.ru/wp-content/uploads/2021/06/186-2.jpg",
-  name: "Владимир",
-  lastName: "Самарин",
-  city: "Геленджик",
-  birthday: "18.08.1992",
-};
-
-// type AllPostsType = {
-//   id: number;
-//   user: UserType;
-//   content: string;
-//   date: string;
-// }[];
-
-// let posts: AllPostsType = [
-//   {
-//     id: 1,
-//     user: user,
-//     content: "Что сделать",
-//     date: "17.06.2023",
-//   },
-//   {
-//     id: 2,
-//     user: user,
-//     content: "чтобы все заработало?",
-//     date: "17.06.2023",
-//   },
-// ];
+import { useSelector } from "react-redux";
+import { StateType } from "../../redux/state";
 
 const ProfilePage = () => {
   // const [inputValue, setInputValue] = useState("");
@@ -59,6 +17,8 @@ const ProfilePage = () => {
   //   ];
   //   setInputValue("");
   // };
+
+  const user = useSelector((store: StateType) => store.user);
   return (
     <div className={s.wrapper}>
       <Block>
@@ -77,7 +37,7 @@ const ProfilePage = () => {
           </div>
         </div>
       </Block>
-      <Posts user={user}></Posts>
+      <Posts />
     </div>
   );
 };

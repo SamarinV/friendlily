@@ -1,83 +1,71 @@
 import { NavLink } from "react-router-dom";
 import Block from "../../components/Block/Block";
 import s from "./MessagePage.module.css";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { ReactComponent as IconChatWithoutUser } from "../../assets/chatWithoutUser.svg";
-import Button from "../../components/Button/Button";
 import { StateType } from "../../redux/state";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 import { sendMessage } from "../../redux/chatsSlice";
+import { Avatar, Paper } from "@mui/material";
+import React from "react";
+import InputWithButton from "../../components/InputWithButton/InputWithButton";
 
 const MessagePage = () => {
-  const dispatch = useDispatch();
-
-  const chats = useSelector((store: StateType) => store.chats);
-  const user = useSelector((store: StateType) => store.user);
+  const userDialogs = useSelector((store: StateType) => store.chats.users);
+  const messages = useSelector((store: StateType) => store.chats.dialogs);
   const [idOpenedChat, setIdOpenedChat] = useState("");
-  const [inputValue, setInputValue] = useState("");
 
   const openedChat = (id: string) => {
     setIdOpenedChat(id);
   };
-
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
-
-  const sendMessageHandler = () => {
-    if (idOpenedChat) {
-      dispatch(
-        sendMessage({
-          id: idOpenedChat,
-          text: inputValue,
-          userName: user.name,
-        })
-      );
-      setInputValue("");
-    }
-  };
-
   return (
     <div className={s.wrapper}>
       <Block>
         <div className={s.chatWrapper}>
           <h3 className={s.chatTitle}>Чаты</h3>
-          {chats.map((chat) => {
-            return (
-              <NavLink
-                key={chat.id}
-                to={`${chat.id}`}
-                onClick={() => openedChat(chat.id)}
-                className={s.link}
-              >
-                {chat.chatName}
-              </NavLink>
-            );
-          })}
+          {userDialogs &&
+            userDialogs.map((chat) => {
+              return (
+                <NavLink
+                  key={chat.id}
+                  to={`${chat.id}`}
+                  onClick={() => openedChat(chat.id)}
+                  className={s.link}
+                >
+                  {chat.fullName}
+                </NavLink>
+              );
+            })}
         </div>
       </Block>
       <Block>
         {idOpenedChat ? ( // Проверяем, выбран ли чат
           <div className={s.chatWrapper}>
-            <h3 className={s.chatTitle}>Выбранный чат</h3>
-            {chats
-              .find((chat) => chat.id === idOpenedChat)
-              ?.messages.map((item) => {
+            <h3 className={s.chatTitle}>Выбраный чат</h3>
+            {messages &&
+              messages[idOpenedChat].messages.map((item) => {
                 return (
-                  <div key={item.id} className={s.message}>
-                    {item.name}: {item.text}
-                  </div>
+                  <Paper
+                    elevation={3}
+                    key={item.id}
+                    className={`${s.messageBlock} ${item.isMe && s.myMessages}`}
+                  >
+                    <Avatar alt={item.fullName} src={item.avatar} />
+                    <div className={s.margin}></div>
+                    <div className={s.messageNameAndText}>
+                      <span>{item.fullName}:</span>
+                      <span className={s.text}>{item.message}</span>
+                    </div>
+                  </Paper>
                 );
               })}
             <div className={s.blockWithInput}>
-              <input
-                className={s.input}
-                value={inputValue}
-                onChange={(e) => onChangeHandler(e)}
+              <InputWithButton
+                id={idOpenedChat}
                 placeholder="Здесь можно написать сообщение..."
+                buttonName="Отправить"
+                actionCreator={sendMessage}
               />
-              <Button name="Отправить" func={sendMessageHandler} />
             </div>
           </div>
         ) : (
@@ -91,4 +79,4 @@ const MessagePage = () => {
   );
 };
 
-export default MessagePage;
+export default React.memo(MessagePage);

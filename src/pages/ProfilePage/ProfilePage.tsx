@@ -3,21 +3,10 @@ import Posts from "../../components/Posts/Posts";
 import Block from "../../components/Block/Block";
 import { useSelector } from "react-redux";
 import { StateType } from "../../redux/state";
+import { useEffect } from "react";
+import React from "react";
 
 const ProfilePage = () => {
-  // const [inputValue, setInputValue] = useState("");
-  // const inputPostHandler = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setInputValue(event.target.value);
-  // };
-  // const addPost = () => {
-  //   const newId = posts.length + 1;
-  //   posts = [
-  //     ...posts,
-  //     { id: newId, user: user, content: inputValue, date: `${new Date()}` },
-  //   ];
-  //   setInputValue("");
-  // };
-
   const user = useSelector((store: StateType) => store.user);
   return (
     <div className={s.wrapper}>
@@ -42,4 +31,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default React.memo(ProfilePage);

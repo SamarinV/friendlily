@@ -26,16 +26,32 @@
 	padding-bottom: 10px;
 
 }
-.message {
+.messageBlock {
 	margin-top: 15px;
+	margin-right: auto;
+	display: flex;
+	padding: 15px;
 }
-.blockWithInput {
+.myMessages {
+	margin-left: auto;
+	margin-right: 0;
+	flex-direction: row-reverse;
 }
-.input {
-	width: 100%;
-	box-sizing: border-box;
+.messageNameAndText {
+	display: flex;
+	flex-direction: column;
+}
+.margin {
+	margin-left: 15px;
+}
+.text {
+	margin-top: 10px;
+}
+.blockWithInput{
 	margin-top: 15px;
+	display: flex;
 }
+
 .chatWithoutUser {
 	display: flex;
 	align-items: center;

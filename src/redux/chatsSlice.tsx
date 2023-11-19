@@ -2,31 +2,55 @@ import { createSlice } from "@reduxjs/toolkit";
 import { ChatsType } from "./state";
 import { v1 } from "uuid";
 
-const initialState: ChatsType = [];
+const initialState: ChatsType = {};
 
 const chatsSlice = createSlice({
   name: "chats",
   initialState,
   reducers: {
-    sendMessage: (state, action) => {
-      const { id, userName, text } = action.payload;
-      const chatIndex = state.findIndex((chat) => chat.id === id);
+    sendMessage: (state, action): ChatsType => {
+      const { id, text, user } = action.payload;
+      const findedChat = state.users?.find((user) => user.id === id);
 
-      if (chatIndex !== -1) {
+      if (findedChat && state.dialogs) {
         const newMessage = {
           id: v1(),
-          name: userName,
-          text: text,
+          isMe: true,
+          fullName: user.name + " " + user.lastName,
+          link: "",
+          avatar: user.avatar,
+          message: text,
         };
 
-        const updatedChat = {
-          ...state[chatIndex],
-          messages: [...state[chatIndex].messages, newMessage],
-        };
+        // const copyDialogds = {
+        //   // ...state.dialogs[chatIndex],
+        //   // state.messages: [...state[chatIndex].messages, newMessage],
+        //   dialogs: {
+        //     ...state.dialogs,
+        //     [id]: {
+        //       inputValue: "AGA",
+        //       messages: [...state.dialogs[id].messages, newMessage],
+        //     },
+        //   },
+        // };
 
-        const updatedChats = [...state];
-        updatedChats[chatIndex] = updatedChat;
-        return updatedChats; // Возвращаем новый массив чатов
+        // const updatedChats = {...state};
+        // updatedChats[chatIndex] = updatedChat;
+        // const users = { ...state.users, {} };
+
+        // state.users?.sort(function (x) {
+        //   return x.id === id ? -1 : 0;
+        // });
+        return {
+          ...state,
+          dialogs: {
+            ...state.dialogs,
+            [id]: {
+              inputValue: "",
+              messages: [...state.dialogs[id].messages, newMessage],
+            },
+          },
+        };
       }
 
       return state; // Если чат не найден, возвращаем неизмененное состояние

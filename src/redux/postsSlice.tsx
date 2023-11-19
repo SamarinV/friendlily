@@ -14,7 +14,7 @@ const postsSlice = createSlice({
         id: v1(),
         user: action.payload.name,
         userAvatar: action.payload.userAvatar,
-        content: action.payload.text,
+        message: action.payload.text,
         date: `${date.getDate()}.${
           date.getMonth() + 1
         }.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`,

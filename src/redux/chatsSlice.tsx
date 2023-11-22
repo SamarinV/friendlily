@@ -21,26 +21,6 @@ const chatsSlice = createSlice({
           avatar: user.avatar,
           message: text,
         };
-
-        // const copyDialogds = {
-        //   // ...state.dialogs[chatIndex],
-        //   // state.messages: [...state[chatIndex].messages, newMessage],
-        //   dialogs: {
-        //     ...state.dialogs,
-        //     [id]: {
-        //       inputValue: "AGA",
-        //       messages: [...state.dialogs[id].messages, newMessage],
-        //     },
-        //   },
-        // };
-
-        // const updatedChats = {...state};
-        // updatedChats[chatIndex] = updatedChat;
-        // const users = { ...state.users, {} };
-
-        // state.users?.sort(function (x) {
-        //   return x.id === id ? -1 : 0;
-        // });
         return {
           ...state,
           dialogs: {
@@ -55,12 +35,28 @@ const chatsSlice = createSlice({
 
       return state; // Если чат не найден, возвращаем неизмененное состояние
     },
+    changeInputValue: (state, action) => {
+      const { id, value } = action.payload;
+      const findedChat = state.users?.find((user) => user.id === id);
+      if (findedChat && state.dialogs) {
+        return {
+          ...state,
+          dialogs: {
+            ...state.dialogs,
+            [id]: {
+              inputValue: value,
+              messages: [...state.dialogs[id].messages],
+            },
+          },
+        };
+      }
+    },
     removeChat: (state, action) => {
       // return state.filter((chat) => chat.id !== action.payload.id);
     },
   },
 });
 
-export const { sendMessage, removeChat } = chatsSlice.actions;
+export const { sendMessage, changeInputValue, removeChat } = chatsSlice.actions;
 
 export default chatsSlice.reducer;

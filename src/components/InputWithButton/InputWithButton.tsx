@@ -27,7 +27,6 @@ const InputWithButton: React.FC<InputWithButtonType> = ({
     setInputValue(event.target.value);
   };
   const sendHandler = () => {
-    console.log(typeof actionCreator);
     //если есть id, значит идет отправка сообщения
     if (id) {
       dispatch(

@@ -1,0 +1,17 @@
+.chatWithoutUser {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	font-size: 17px;
+	font-weight: 900;
+}
+
+.iconWithoutUser {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	fill: rgba(4, 0, 255, 0.309);
+}

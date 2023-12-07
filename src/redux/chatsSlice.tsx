@@ -33,30 +33,14 @@ const chatsSlice = createSlice({
         };
       }
 
-      return state; // Если чат не найден, возвращаем неизмененное состояние
-    },
-    changeInputValue: (state, action) => {
-      const { id, value } = action.payload;
-      const findedChat = state.users?.find((user) => user.id === id);
-      if (findedChat && state.dialogs) {
-        return {
-          ...state,
-          dialogs: {
-            ...state.dialogs,
-            [id]: {
-              inputValue: value,
-              messages: [...state.dialogs[id].messages],
-            },
-          },
-        };
-      }
+      return state;
     },
     removeChat: (state, action) => {
-      // return state.filter((chat) => chat.id !== action.payload.id);
+      // TODO
     },
   },
 });
 
-export const { sendMessage, changeInputValue, removeChat } = chatsSlice.actions;
+export const { sendMessage, removeChat } = chatsSlice.actions;
 
 export default chatsSlice.reducer;

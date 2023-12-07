@@ -3,7 +3,6 @@ import Posts from "../../components/Posts/Posts";
 import Block from "../../components/Block/Block";
 import { useSelector } from "react-redux";
 import { StateType } from "../../redux/state";
-import { useEffect } from "react";
 import React from "react";
 
 const ProfilePage = () => {

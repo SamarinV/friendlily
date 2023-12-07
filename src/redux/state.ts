@@ -32,7 +32,6 @@ export type UserInChatsType = {
 }[];
 
 export type DialogType = {
-  inputValue: string;
   messages: MessageType[];
 };
 
@@ -91,7 +90,6 @@ export const state: StateType = {
     ],
     dialogs: {
       [idForMessages1]: {
-        inputValue: "",
         messages: [
           {
             id: v1(),
@@ -128,7 +126,6 @@ export const state: StateType = {
         ],
       },
       [idForMessages2]: {
-        inputValue: "",
         messages: [
           {
             id: v1(),

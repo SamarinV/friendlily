@@ -42,9 +42,9 @@ const Navbar = () => {
         text="Сообщения"
       />
       <NavLinkWithLogo
-        to="news"
+        to="users"
         logo={<NewsLogo className={s.logo} />}
-        text="Новости"
+        text="Пользователи"
       />
       <NavLinkWithLogo
         to="music"

@@ -3,9 +3,9 @@ import App from "../App";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import MessagePage from "../pages/MessagePage/MessagePage";
 import MusicPage from "../pages/MusicPage/MusicPage";
-import NewsPage from "../pages/NewsPage/NewsPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import Setting from "../pages/Setting/Setting";
+import UsersPage from "../pages/UsersPage/UsersPage";
 
 const router = createBrowserRouter([
   {
@@ -25,12 +25,12 @@ const router = createBrowserRouter([
         element: <MusicPage />,
       },
       {
-        path: "news",
-        element: <NewsPage />,
-      },
-      {
         path: "profile",
         element: <ProfilePage />,
+      },
+      {
+        path: "users",
+        element: <UsersPage />,
       },
       {
         path: "setting",

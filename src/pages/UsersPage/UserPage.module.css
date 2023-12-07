@@ -1,0 +1,11 @@
+.usersList{
+	display: flex;
+	flex-direction: column;
+}
+.user{
+	display: flex;
+}
+.blockNameStatus{
+	display: flex;
+	flex-direction: column;
+}

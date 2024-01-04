@@ -7,7 +7,7 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import Setting from "../pages/Setting/Setting";
 import UsersPage from "../pages/UsersPage/UsersPage";
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: "/vchate",
     element: <App />,
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         element: <MusicPage />,
       },
       {
-        path: "profile",
+        path: "profile/:id",
         element: <ProfilePage />,
       },
       {
@@ -39,5 +39,3 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
-export default router;

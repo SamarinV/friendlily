@@ -1,11 +1,13 @@
 import s from "./Navbar.module.css";
-import { ReactComponent as ProfileLogo } from "../../assets/profile.svg";
-import { ReactComponent as MessageLogo } from "../../assets/message.svg";
-import { ReactComponent as NewsLogo } from "../../assets/news.svg";
-import { ReactComponent as MusicLogo } from "../../assets/music.svg";
-import { ReactComponent as SettingLogo } from "../../assets/setting.svg";
+import { ReactComponent as ProfileLogo } from "../../assets/navbar/profile.svg";
+import { ReactComponent as MessageLogo } from "../../assets/navbar/message.svg";
+import { ReactComponent as NewsLogo } from "../../assets/navbar/news.svg";
+import { ReactComponent as MusicLogo } from "../../assets/navbar/music.svg";
+import { ReactComponent as SettingLogo } from "../../assets/navbar/setting.svg";
 import { NavLink } from "react-router-dom";
 import React, { memo } from "react";
+import { AppRootStateType } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 type NavLinkWithLogoType = {
   to: string;
@@ -29,10 +31,13 @@ const NavLinkWithLogo: React.FC<NavLinkWithLogoType> = memo(
 );
 
 const Navbar = () => {
+  const authUserId = useSelector<AppRootStateType, number>(
+    (state) => state.auth.id
+  );
   return (
     <nav className={s.nav}>
       <NavLinkWithLogo
-        to="profile"
+        to={`profile/${authUserId}`}
         logo={<ProfileLogo className={s.logo} />}
         text="Профиль"
       />

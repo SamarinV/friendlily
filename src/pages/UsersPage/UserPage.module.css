@@ -1,6 +1,8 @@
+
 .usersList{
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 }
 .user{
 	display: flex;
@@ -8,4 +10,10 @@
 .blockNameStatus{
 	display: flex;
 	flex-direction: column;
+	margin-left: 20px;
+}
+.status {
+	font-size: 0.8em;
+	color: grey;
+	margin-top: 10px;
 }

@@ -8,16 +8,53 @@ export type UserType = {
   status: string | null;
   uniqueUrlName: string | null;
 };
-type ResponseType = {
+export type UsersResponseType = {
   error: string | null;
   items: UserType[];
   totalCount: number;
 };
+type followUnFollowResponseType = {
+  resultCode: number;
+  messages: string[];
+  data: {};
+};
+export type GetUserProfileResponseType = {
+  userId: number;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  fullName: string;
+  contacts: {
+    github: string;
+    vk: string;
+    facebook: string;
+    instagram: string;
+    twitter: string;
+    website: string;
+    youtube: string;
+    mainLink: string;
+  };
+  photos: {
+    small: string;
+    large: string;
+  };
+};
+
+const instance = axios.create({
+  baseURL: "https://social-network.samuraijs.com/api/1.0/",
+  withCredentials: true,
+});
 
 export const usersAPI = {
   getUsers(page: number) {
-    return axios.get<ResponseType>(
-      `https://social-network.samuraijs.com/api/1.0/users?count=20&page=${page}`
-    );
+    return instance.get<UsersResponseType>(`users?count=20&page=${page}`);
+  },
+  getUserProfile(userId: number) {
+    return instance.get(`profile/${userId}`);
+  },
+  followUser(userId: number) {
+    return instance.post<followUnFollowResponseType>(`/follow/${userId}`, {});
+  },
+  unFollowUser(userId: number) {
+    return instance.delete<followUnFollowResponseType>(`/follow/${userId}`, {});
   },
 };

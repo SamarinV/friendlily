@@ -1,23 +1,13 @@
 .wrapper {
 	width: 100%;
 }
-.block {
-	margin-left: 10px;
-	padding: 10px;
-	background-color: white;
-	border-radius: 15px;
-	border: 1px solid gray;
-	box-sizing:border-box;
-	display: flex;
-	margin-bottom: 20px;
-}
 .wrapper div:last-child {
 	margin-bottom: 0;
 }
 .img {
 	width: 200px;
-	max-height: 200px;
-	object-fit: cover;
+	height: 250px;
+	object-fit:fill;
 	object-position: bottom;
 	border-radius: 5px;
 }
@@ -26,7 +16,18 @@
 	flex-direction: column;
 	margin-left: 20px;
 }
-.description {
+.fullName {
+	font-size: 1.5em;
 	margin-bottom: 15px;
-
+}
+.contacts {
+	font-size: 1.2em;
+	margin: 10px 0 10px;
+}
+.link {
+	color:blue;
+	text-decoration: none;
+}
+.link:hover {
+	color:blueviolet;
 }

@@ -1,4 +1,3 @@
-import axios from "axios"
 import { instance } from "../../../common/api/common.api"
 
 export const usersAPI = {

@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice, isFulfilled } from "@reduxjs/toolkit"
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
-import { AuthUserType, LoginParams, authAPI } from "../api/auth-api"
+import { AuthUser, LoginParams, authAPI } from "../api/auth-api"
 import { appActions } from "app/app.slice"
 
 type InitialState = {
-  userData: AuthUserType
+  userData: AuthUser
 	isLoggedIn: boolean
 	captcha: string
 }
@@ -63,7 +63,7 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
   }
 )
 
-const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean, data: AuthUserType }, undefined>(
+const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean, data: AuthUser }, undefined>(
   `${slice.name}/initializeApp`,
   async (_, { rejectWithValue, dispatch }) => {
     const res = await authAPI.me().finally(() => {

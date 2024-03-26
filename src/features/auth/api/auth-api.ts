@@ -1,15 +1,16 @@
 import { instance } from "common/api/common.api"
+import { BaseResponse } from "common/types/types"
 
 export const authAPI = {
   me() {
-    return instance.get<ResponseType>(`/auth/me`)
+    return instance.get<BaseResponse<AuthUser>>(`/auth/me`)
   },
   login(arg: LoginParams) {
-		return instance.post<ResponseType>(`/auth/login`)
-	},
+    return instance.post<BaseResponse<AuthUser>>(`/auth/login`)
+  },
   logout() {
-		return instance.delete<ResponseType>(`/auth/login`)
-	},
+    return instance.delete<BaseResponse<AuthUser>>(`/auth/login`)
+  },
 }
 
 export type LoginParams = {
@@ -18,14 +19,7 @@ export type LoginParams = {
   rememberMe: boolean
   captcha?: string | undefined
 }
-
-type ResponseType = {
-  data: AuthUserType
-  fieldsErrors?: []
-  messages: string[]
-  resultCode: number
-}
-export type AuthUserType = {
+export type AuthUser = {
   id: number
   login: string
   email: string

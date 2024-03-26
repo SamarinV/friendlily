@@ -1,0 +1,23 @@
+.openModal {
+	max-width: 500px;
+	background-color: white;
+	border-radius: 5px;
+	padding: 7px;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.modalHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 15px;
+	border-bottom: 1px solid grey;
+}
+
+.modalContent {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+}

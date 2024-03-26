@@ -1,21 +1,17 @@
 import { useSelector } from "react-redux"
 import { Navigate, useNavigate } from "react-router-dom"
 import { AppRootStateType } from "app/store"
-import LinearLoader from "common/components/LinearLoader/LinearLoader"
 
 const Login = () => {
-  const isAuthenticated = useSelector<AppRootStateType>((state) => state.auth.userData.id)
-  const isLoading = useSelector<AppRootStateType>((state) => state.app.status)
-
+  const userId = useSelector<AppRootStateType>((state) => state.auth.userData.id)
+  const isInitialized = useSelector<AppRootStateType>((state) => state.app.isInitialized)
   const navigate = useNavigate()
-
-  if (isLoading === "loading") {
-    return <LinearLoader />
+  if (userId) {
+    navigate(`/profile/${userId}`)
   }
-
-  if (isAuthenticated) {
-    navigate(`/profile/${isAuthenticated}`)
-  }
+if (!isInitialized) {
+  return <></>
+}
   return (
     <h1>
       <Navigate to="/login" />
@@ -25,3 +21,4 @@ const Login = () => {
 }
 
 export default Login
+

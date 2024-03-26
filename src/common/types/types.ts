@@ -48,3 +48,10 @@ export type ChatsType = {
   users?: UserInChatsType;
   dialogs?: Record<string, DialogType>;
 };
+
+export type BaseResponse<T> = {
+  data: T
+  fieldsErrors?: []
+  messages: string[]
+  resultCode: number
+}

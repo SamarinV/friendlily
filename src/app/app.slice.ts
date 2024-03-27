@@ -1,5 +1,7 @@
 import { createSlice, isFulfilled, isPending, isRejected, PayloadAction } from "@reduxjs/toolkit"
 import { authThunks } from "features/auth/model/auth.slice"
+import { profileAPI } from "features/profile/api/profile-api"
+import { profileThunks } from "features/profile/model/profile.slice"
 
 const initialState = {
   status: "idle" as RequestStatusType,
@@ -26,7 +28,14 @@ const slice = createSlice({
   },
   extraReducers(builder) {
     builder.addMatcher(isPending, (state, action) => {
-      state.status = "loading"
+      if (
+        action.type === profileThunks.savePhoto.pending.type ||
+        action.type === profileThunks.saveStatus.pending.type
+      ) {
+        return
+      } else {
+        state.status = "loading"
+      }
     })
     builder.addMatcher(isFulfilled, (state, action) => {
       state.status = "succeeded"
@@ -34,9 +43,7 @@ const slice = createSlice({
     builder.addMatcher(isRejected, (state, action: any) => {
       state.status = "failed"
       if (action.payload) {
-        if (
-          action.type === authThunks.initializeApp.rejected.type
-        ) {
+        if (action.type === authThunks.initializeApp.rejected.type) {
           return
         }
         state.error = action.payload.messages[0]

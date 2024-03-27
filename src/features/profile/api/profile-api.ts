@@ -7,10 +7,17 @@ export const profileAPI = {
     formData.append("image", file)
     return instance.put<BaseResponse<PhotoUpdateResponse>>(`/profile/photo`, formData)
   },
+  getStatus(userId: number) {
+    return instance.get(`/profile/status/${userId}`)
+  },
+  saveStatus(status: string) {
+    return instance.put(`/profile/status`, { status })
+  },
 }
 
 export type PhotoUpdateResponse = {
-	photos: any
-  small: string
-  large: string
+  photos: {
+    small: string
+    large: string
+  }
 }

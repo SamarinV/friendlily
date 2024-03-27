@@ -11,19 +11,19 @@ type InitialState = {
   userData: AuthUser & { smallPhoto: string }
   isLoggedIn: boolean
   captcha: string
-	isLoading: boolean
+  isLoading: boolean
 }
 
 const initialState: InitialState = {
   userData: {
-		id: 0,
-		login: '',
-		email: '',
-		smallPhoto: ""
-	},
+    id: 0,
+    login: "",
+    email: "",
+    smallPhoto: "",
+  },
   isLoggedIn: false,
   captcha: "",
-	isLoading: false
+  isLoading: false,
 }
 
 const slice = createSlice({
@@ -73,20 +73,20 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
   }
 )
 
-const initializeApp = createAppAsyncThunk<
-  { isLoggedIn: boolean; data: AuthUser & {smallPhoto: string} },
-  undefined
->(`${slice.name}/initializeApp`, async (_, { rejectWithValue, dispatch }) => {
-  const res = await authAPI.me().finally(() => {
-    dispatch(appActions.setAppInitialized({ isInitialized: true }))
-  })
-  if (res.data.resultCode === 0) {
-    const userData = await usersAPI.getUserProfile(res.data.data.id)
-    return { isLoggedIn: true, data: { ...res.data.data, smallPhoto: userData.data.photos.small } }
-  } else {
-    return rejectWithValue(res.data)
+const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean; data: AuthUser & { smallPhoto: string } }, undefined>(
+  `${slice.name}/initializeApp`,
+  async (_, { rejectWithValue, dispatch }) => {
+    const res = await authAPI.me().finally(() => {
+      dispatch(appActions.setAppInitialized({ isInitialized: true }))
+    })
+    if (res.data.resultCode === 0) {
+      const userData = await usersAPI.getUserProfile(res.data.data.id)
+      return { isLoggedIn: true, data: { ...res.data.data, smallPhoto: userData.data.photos.small } }
+    } else {
+      return rejectWithValue(res.data)
+    }
   }
-})
+)
 
 export const authReducer = slice.reducer
 export const authThunks = { login, logout, initializeApp }

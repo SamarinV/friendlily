@@ -10,12 +10,14 @@ import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { authThunks } from "features/auth/model/auth.slice"
 import { useEffect } from "react"
 import { profileThunks } from "features/profile/model/profile.slice"
+import BorderLoader from "../BorderLoader/BorderLoader"
 
 const Header = () => {
   const isAuth = useSelector<AppRootStateType>((state) => state.auth.isLoggedIn)
   const userPhotoSmall = useSelector<AppRootStateType>((state) => state.auth.userData.smallPhoto)
 	const dispatch = useAppDispatch()
 	const userId = useSelector<AppRootStateType, number>((state) => state.auth.userData.id)
+	const photoIsLoading = useSelector((store: AppRootStateType) => store.profile.photoIsLoading)
 
 
 	
@@ -54,12 +56,17 @@ const Header = () => {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
-            >
-              <Avatar
-                alt="Remy Sharp"
-                src={userPhotoSmall ? `${userPhotoSmall}` : `${DefaultAvatar}`}
-                sx={{ width: 56, height: 56 }}
-              />
+            ><div className={s.avatarWrapper}>
+
+              <BorderLoader loaderIsVisable={photoIsLoading}>
+                <Avatar
+                  alt="Remy Sharp"
+                  src={userPhotoSmall ? `${userPhotoSmall}` : `${DefaultAvatar}`}
+                  sx={{ width: 56, height: 56 }}
+                />
+              </BorderLoader>
+
+						</div>
             </Button>
             <Menu
               id="basic-menu"

@@ -1,38 +1,43 @@
 import EditIcon from "@mui/icons-material/Edit"
-import { Button, Fab, IconButton, Tooltip } from "@mui/material"
+import { CircularProgress, IconButton, Tooltip } from "@mui/material"
+import { styled } from "@mui/material/styles"
 import { AppRootStateType } from "app/store"
 import DefaultAvatar from "common/assets/defaultAvatar.png"
 import Block from "common/components/Block/Block"
-import ModalApp from "common/components/ModalApp/ModalApp"
 import Posts from "common/components/Posts/Posts"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { profileThunks } from "../model/profile.slice"
-import EditPhoto from "./EditPhoto"
-import CloudUploadIcon from "@mui/icons-material/CloudUpload"
 import s from "./Profile.module.css"
-import { styled } from "@mui/material/styles"
+import Status from "./Status"
+import LinearLoader from "common/components/LinearLoader/LinearLoader"
+import BorderLoader from "common/components/BorderLoader/BorderLoader"
+import ModalApp from "common/components/ModalApp/ModalApp"
+import { useState } from "react"
 
 const ProfilePage = () => {
   const user = useSelector((store: AppRootStateType) => store.profile.user)
+  const photoIsLoading = useSelector((store: AppRootStateType) => store.profile.photoIsLoading)
   const authUserId = useSelector((store: AppRootStateType) => store.auth.userData.id)
-  const isLoading = useSelector((store: AppRootStateType) => store.app.status)
+  const [isOpenModal, setIsOpenModal] = useState(false)
   const dispatch = useAppDispatch()
   const { id } = useParams()
 
   const isMyProfile = authUserId == Number(id) ? true : false
-
+  console.log("prpfile")
   useEffect(() => {
     dispatch(profileThunks.setProfile(Number(id)))
-  }, [id, dispatch])
+    dispatch(profileThunks.getStatus(Number(id)))
+  }, [id])
 
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      dispatch(profileThunks.savePhoto(e.target.files[0])).then(() => {
-        dispatch(profileThunks.setProfile(Number(user?.userId)))
-      })
+      dispatch(profileThunks.savePhoto(e.target.files[0]))
+      // .then(() => {
+      //   dispatch(profileThunks.setProfile(Number(user?.userId)))
+      // })
     }
   }
 
@@ -48,7 +53,7 @@ const ProfilePage = () => {
     width: 1,
   })
 
-  if (!user || isLoading === "loading") {
+  if (!user) {
     return <></>
   }
 
@@ -67,18 +72,27 @@ const ProfilePage = () => {
     )
   })
 
+  const openPhotoHandler = (photoUrl: string) => {
+    if (photoUrl) {
+      setIsOpenModal(true)
+    }
+  }
+
   return (
     <div className={s.wrapper}>
       <Block withImage={true}>
         <div className={s.profileWrapper}>
           <div className={s.userPhotoWrapper}>
-            <img
-              className={s.img}
-              src={user.photos.large ? `${user.photos.small}` : `${DefaultAvatar}`}
-              alt="Фото пользователя"
-            />
+            <BorderLoader loaderIsVisable={photoIsLoading}>
+              <img
+                className={`${s.img} ${s.imgIsloading}`}
+                src={user.photos.large ? `${user.photos.large}` : `${DefaultAvatar}`}
+                alt="Фото пользователя"
+                onClick={() => openPhotoHandler(user.photos.large)}
+              />
+            </BorderLoader>
 
-            {isMyProfile && (
+            {isMyProfile && !photoIsLoading && (
               <Tooltip title="Загрузить новое фото" placement="top">
                 <IconButton
                   sx={{
@@ -88,7 +102,7 @@ const ProfilePage = () => {
                     opacity: "0",
                     transition: "0.6s",
                     pading: "30px",
-										border: '1px solid blue'
+                    border: "1px solid blue",
                   }}
                   aria-label="edit"
                   color="primary"
@@ -103,6 +117,9 @@ const ProfilePage = () => {
 
           <div className={s.person}>
             <div className={s.fullName}>{user.fullName}</div>
+            <div>
+              <Status />
+            </div>
             <div>Ищу работу: {user.lookingForAJob ? "да" : "нет"}</div>
             <div>
               Интересуемая вакансия:{" "}
@@ -115,6 +132,8 @@ const ProfilePage = () => {
         </div>
       </Block>
       <Posts />
+
+      <ModalApp isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} photoUrl={user.photos.large} />
     </div>
   )
 }

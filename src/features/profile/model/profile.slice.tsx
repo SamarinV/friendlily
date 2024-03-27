@@ -17,16 +17,9 @@ const slice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder
-      .addCase(setProfile.fulfilled, (state, action) => {
-        state.user = action.payload
-      })
-      .addCase(savePhoto.fulfilled, (state, action) => {
-				if(state.user){
-					state.user.photos.large = action.payload.data.large
-					state.user.photos.small = action.payload.data.small
-				}
-      })
+    builder.addCase(setProfile.fulfilled, (state, action) => {
+      state.user = action.payload
+    })
   },
 })
 
@@ -34,11 +27,15 @@ const setProfile = createAppAsyncThunk<GetUserProfileResponseType, number>(
   `${slice.name}/setProfile`,
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await usersAPI.getUserProfile(userId)
-      return response.data
+      const res = await usersAPI.getUserProfile(userId)
+			console.log(res.data)
+      if (res.data.userId) {
+        return res.data
+      } else {
+        return rejectWithValue(res.data)
+      }
     } catch (error) {
-      console.error("Error fetching profile:", error)
-      rejectWithValue(null)
+      return rejectWithValue(null)
     }
   }
 )
@@ -47,7 +44,7 @@ const savePhoto = createAppAsyncThunk<BaseResponse<PhotoUpdateResponse>, File>(
   `${slice.name}/savePhoto`,
   async (file, { rejectWithValue }) => {
     try {
-      const res = await profileAPI.updatePhoto(file)
+      const res = await profileAPI.savePhoto(file)
       if (res.data.resultCode === 0) {
         return res.data
       } else {
@@ -60,7 +57,6 @@ const savePhoto = createAppAsyncThunk<BaseResponse<PhotoUpdateResponse>, File>(
     }
   }
 )
-
 
 export const profileThunks = { setProfile, savePhoto }
 export const profileReducer = slice.reducer

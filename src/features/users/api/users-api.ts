@@ -5,7 +5,7 @@ export const usersAPI = {
     return instance.get<UsersResponseType>(`users?count=20&page=${page}`)
   },
   getUserProfile(userId: number) {
-    return instance.get(`profile/${userId}`)
+    return instance.get<GetUserProfileResponseType>(`profile/${userId}`)
   },
   followUser(userId: number) {
     return instance.post<followUnFollowResponseType>(`/follow/${userId}`, {})

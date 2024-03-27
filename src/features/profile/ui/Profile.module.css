@@ -4,15 +4,37 @@
 .wrapper div:last-child {
 	margin-bottom: 0;
 }
+.profileWrapper {
+	display: flex;
+	
+}
 .userPhotoWrapper {
 	position: relative;
+}
+
+.iconButton {
+	/* position: absolute;
+	top: 200px;
+	right: 20px;
+	opacity: 0;
+	transition: 0.6s;
+	padding: 30px; */
+}
+
+.userPhotoWrapper:hover{
+	label {
+		background-color: rgba(0, 0, 0, 0.072);
+		opacity: 1;
+	}
+	label:hover {
+		background-color: rgba(4, 0, 255, 0.257);
+	}
 }
 .img {
 	width: 220px;
 	height: 220px;
 	object-fit:cover;
-	object-position: bottom;
-	border-radius: 5px;
+	border-radius: 50%;
 }
 
 

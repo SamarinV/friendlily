@@ -1,6 +1,5 @@
 .nav {
-	width: 15%;
-	min-width: 180px;
+	width: 80px;
 }
 .link {
 	text-decoration: none;
@@ -17,15 +16,12 @@
 .link div :last-child{
 	margin-bottom: 0;
 }
-.link:hover {
-	color: blue;
-}
 .linkActive {
 	color: rgb(48, 51, 147);
 }
 .logo {
-	width: 14px;
-	height: 14px;
+	width: 40px;
+	height: 40px;
 	margin-right: 5px;
 }
 .displayFlex {

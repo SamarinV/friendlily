@@ -8,15 +8,12 @@ import Profile from "features/profile/ui/Profile"
 import Users from "features/users/ui/Users"
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
-import { BrowserRouter, Route, Routes, useNavigate, useParams } from "react-router-dom"
+import { Route, Routes, useNavigate } from "react-router-dom"
 import "./App.css"
 import { AppRootStateType } from "./store"
-import { profileThunks } from "features/profile/model/profile.slice"
 
 function App() {
   const isLoading = useSelector<AppRootStateType, string>((state) => state.app.status)
-
-  const isAuth = useSelector<AppRootStateType>((state) => state.auth.isLoggedIn)
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -33,11 +30,13 @@ function App() {
 
         <div className="navbar-content">
           <Navbar />
-          <Routes>
-            <Route path="*" element={<Login />} />
-            <Route path={"/profile/:id"} element={<Profile />} />
-            <Route path={"/users"} element={<Users />} />
-          </Routes>
+          <div className="content">
+            <Routes>
+              <Route path="*" element={<Login />} />
+              <Route path={"/profile/:id"} element={<Profile />} />
+              <Route path={"/users"} element={<Users />} />
+            </Routes>
+          </div>
         </div>
       </div>
     </div>

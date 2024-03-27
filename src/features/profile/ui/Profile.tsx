@@ -1,5 +1,5 @@
 import EditIcon from "@mui/icons-material/Edit"
-import { Fab } from "@mui/material"
+import { Button, Fab, IconButton, Tooltip } from "@mui/material"
 import { AppRootStateType } from "app/store"
 import DefaultAvatar from "common/assets/defaultAvatar.png"
 import Block from "common/components/Block/Block"
@@ -11,19 +11,44 @@ import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { profileThunks } from "../model/profile.slice"
 import EditPhoto from "./EditPhoto"
+import CloudUploadIcon from "@mui/icons-material/CloudUpload"
 import s from "./Profile.module.css"
+import { styled } from "@mui/material/styles"
 
 const ProfilePage = () => {
   const user = useSelector((store: AppRootStateType) => store.profile.user)
-  const [isOpenModal, setIsOpenModal] = useState(false)
+  const authUserId = useSelector((store: AppRootStateType) => store.auth.userData.id)
+  const isLoading = useSelector((store: AppRootStateType) => store.app.status)
   const dispatch = useAppDispatch()
   const { id } = useParams()
 
-  useEffect(() => {
-			dispatch(profileThunks.setProfile(Number(id)))
-  }, [id])
+  const isMyProfile = authUserId == Number(id) ? true : false
 
-  if (!user) {
+  useEffect(() => {
+    dispatch(profileThunks.setProfile(Number(id)))
+  }, [id, dispatch])
+
+  const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      dispatch(profileThunks.savePhoto(e.target.files[0])).then(() => {
+        dispatch(profileThunks.setProfile(Number(user?.userId)))
+      })
+    }
+  }
+
+  const VisuallyHiddenInput = styled("input")({
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(50%)",
+    height: 1,
+    overflow: "hidden",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    whiteSpace: "nowrap",
+    width: 1,
+  })
+
+  if (!user || isLoading === "loading") {
     return <></>
   }
 
@@ -42,47 +67,54 @@ const ProfilePage = () => {
     )
   })
 
-  const openModalHandler = () => {
-    setIsOpenModal(true)
-  }
-
   return (
     <div className={s.wrapper}>
-      <Block>
-        <div className={s.userPhotoWrapper}>
-          <img
-            className={s.img}
-            src={user.photos.large ? `${user.photos.small}` : `${DefaultAvatar}`}
-            alt="Фото пользователя"
-          />
-          <Fab
-            onClick={openModalHandler}
-            sx={{ position: "absolute", bottom: "5px", right: "5px" }}
-            size="small"
-            color="secondary"
-            aria-label="edit"
-          >
-            <EditIcon />
-          </Fab>
-        </div>
+      <Block withImage={true}>
+        <div className={s.profileWrapper}>
+          <div className={s.userPhotoWrapper}>
+            <img
+              className={s.img}
+              src={user.photos.large ? `${user.photos.small}` : `${DefaultAvatar}`}
+              alt="Фото пользователя"
+            />
 
-        <div className={s.person}>
-          <div className={s.fullName}>{user.fullName}</div>
-          <div>Ищу работу: {user.lookingForAJob ? "да" : "нет"}</div>
-          <div>
-            Интересуемая вакансия:{" "}
-            {user.lookingForAJobDescription === "" ? `${user.lookingForAJobDescription}` : "не указано"}
+            {isMyProfile && (
+              <Tooltip title="Загрузить новое фото" placement="top">
+                <IconButton
+                  sx={{
+                    position: "absolute",
+                    top: "20px",
+                    right: "20px",
+                    opacity: "0",
+                    transition: "0.6s",
+                    pading: "30px",
+										border: '1px solid blue'
+                  }}
+                  aria-label="edit"
+                  color="primary"
+                  component="label"
+                >
+                  <EditIcon />
+                  <VisuallyHiddenInput type="file" accept="image/*" onChange={onImageChange} />
+                </IconButton>
+              </Tooltip>
+            )}
           </div>
 
-          <div className={s.contacts}>Контакты: </div>
-          {contactsWithValue.length ? contacts : <span>Контакты не указаны</span>}
+          <div className={s.person}>
+            <div className={s.fullName}>{user.fullName}</div>
+            <div>Ищу работу: {user.lookingForAJob ? "да" : "нет"}</div>
+            <div>
+              Интересуемая вакансия:{" "}
+              {user.lookingForAJobDescription === "" ? `${user.lookingForAJobDescription}` : "не указано"}
+            </div>
+
+            <div className={s.contacts}>Контакты: </div>
+            {contactsWithValue.length ? contacts : <span>Контакты не указаны</span>}
+          </div>
         </div>
       </Block>
       <Posts />
-
-      <ModalApp isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} modalHeaderText="Загрузка новой фотографии">
-        <EditPhoto />
-      </ModalApp>
     </div>
   )
 }

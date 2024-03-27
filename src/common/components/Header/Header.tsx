@@ -8,11 +8,18 @@ import { MouseEventHandler, useState } from "react"
 import DefaultAvatar from "common/assets/defaultAvatar.png"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { authThunks } from "features/auth/model/auth.slice"
+import { useEffect } from "react"
+import { profileThunks } from "features/profile/model/profile.slice"
 
 const Header = () => {
   const isAuth = useSelector<AppRootStateType>((state) => state.auth.isLoggedIn)
-  const userPhotoSmall = useSelector<AppRootStateType>((state) => state.profile.user?.photos.small)
+  const userPhotoSmall = useSelector<AppRootStateType>((state) => state.auth.userData.smallPhoto)
 	const dispatch = useAppDispatch()
+	const userId = useSelector<AppRootStateType, number>((state) => state.auth.userData.id)
+
+
+	
+	
 
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)

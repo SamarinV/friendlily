@@ -9,10 +9,13 @@ import s from "./EditPhoto.module.css"
 
 const EditPhoto = () => {
   const image = useSelector<AppRootStateType>((state) => state.profile.user?.photos.large)
-	const dispatch = useAppDispatch()
+  const userId = useSelector<AppRootStateType>((state) => state.profile.user?.userId)
+  const dispatch = useAppDispatch()
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-			dispatch(profileThunks.savePhoto(e.target.files[0]))
+      dispatch(profileThunks.savePhoto(e.target.files[0])).then(() => {
+        dispatch(profileThunks.setProfile(Number(userId)))
+      })
     }
   }
 
@@ -38,11 +41,19 @@ const EditPhoto = () => {
           формате JPG, GIF или PNG.
         </span>
       )}
-
-      <Button component="label" role={undefined} variant="contained" tabIndex={-1} startIcon={<CloudUploadIcon />}>
-        Выбрать файл
-        <VisuallyHiddenInput type="file" accept="image/*" onChange={onImageChange} />
-      </Button>
+      <div className={s.blockWithButtons}>
+        <Button
+          component="label"
+          role={undefined}
+          variant="contained"
+          tabIndex={-1}
+          startIcon={<CloudUploadIcon />}
+        >
+          Выбрать файл
+          <VisuallyHiddenInput type="file" accept="image/*" onChange={onImageChange} />
+        </Button>
+        <Button>Сохранить</Button>
+      </div>
     </>
   )
 }

@@ -1,8 +1,21 @@
-import s from "./Block.module.css";
-import React from "react";
+import s from "./Block.module.css"
+import React from "react"
 
-const Block: React.FC = ({ children }) => {
-  return <div className={s.block}>{children}</div>;
-};
+type Props = {
+  children: React.ReactNode
+  withImage?: boolean
+}
 
-export default Block;
+const Block = ({ children, withImage }: Props) => {
+  return (
+    <>
+      {withImage ? (
+        <div className={` ${s.block} ${s.blockWithImage}`}>{children}</div>
+      ) : (
+        <div className={s.block}>{children}</div>
+      )}
+    </>
+  )
+}
+
+export default Block

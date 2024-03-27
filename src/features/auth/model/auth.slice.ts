@@ -2,21 +2,28 @@ import { PayloadAction, createSlice, isFulfilled } from "@reduxjs/toolkit"
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
 import { AuthUser, LoginParams, authAPI } from "../api/auth-api"
 import { appActions } from "app/app.slice"
+import { profileAPI } from "features/profile/api/profile-api"
+import { GetUserProfileResponseType, usersAPI } from "features/users/api/users-api"
+import { UserType } from "common/types/types"
+import { profileThunks } from "features/profile/model/profile.slice"
 
 type InitialState = {
-  userData: AuthUser
-	isLoggedIn: boolean
-	captcha: string
+  userData: AuthUser & { smallPhoto: string }
+  isLoggedIn: boolean
+  captcha: string
+	isLoading: boolean
 }
 
 const initialState: InitialState = {
   userData: {
 		id: 0,
 		login: '',
-		email: ''
+		email: '',
+		smallPhoto: ""
 	},
   isLoggedIn: false,
   captcha: "",
+	isLoading: false
 }
 
 const slice = createSlice({
@@ -25,16 +32,19 @@ const slice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-		.addCase(initializeApp.fulfilled, (state, action)=>{
-			state.userData = action.payload.data
-		})
-		.addMatcher(
-      isFulfilled(authThunks.login, authThunks.logout, authThunks.initializeApp),
-      (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
-				console.log(action.payload)
+      .addCase(initializeApp.fulfilled, (state, action) => {
         state.isLoggedIn = action.payload.isLoggedIn
-      }
-    )
+        state.userData = action.payload.data
+      })
+      .addCase(profileThunks.savePhoto.fulfilled, (state, action) => {
+        state.userData.smallPhoto = action.payload.data.photos.small
+      })
+      .addMatcher(
+        isFulfilled(authThunks.login, authThunks.logout, authThunks.initializeApp),
+        (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
+          state.isLoggedIn = action.payload.isLoggedIn
+        }
+      )
   },
 })
 
@@ -63,19 +73,20 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
   }
 )
 
-const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean, data: AuthUser }, undefined>(
-  `${slice.name}/initializeApp`,
-  async (_, { rejectWithValue, dispatch }) => {
-    const res = await authAPI.me().finally(() => {
-      dispatch(appActions.setAppInitialized({ isInitialized: true }))
-    })
-    if (res.data.resultCode === 0) {
-      return { isLoggedIn: true, data: res.data.data }
-    } else {
-      return rejectWithValue(res.data)
-    }
+const initializeApp = createAppAsyncThunk<
+  { isLoggedIn: boolean; data: AuthUser & {smallPhoto: string} },
+  undefined
+>(`${slice.name}/initializeApp`, async (_, { rejectWithValue, dispatch }) => {
+  const res = await authAPI.me().finally(() => {
+    dispatch(appActions.setAppInitialized({ isInitialized: true }))
+  })
+  if (res.data.resultCode === 0) {
+    const userData = await usersAPI.getUserProfile(res.data.data.id)
+    return { isLoggedIn: true, data: { ...res.data.data, smallPhoto: userData.data.photos.small } }
+  } else {
+    return rejectWithValue(res.data)
   }
-)
+})
 
 export const authReducer = slice.reducer
 export const authThunks = { login, logout, initializeApp }

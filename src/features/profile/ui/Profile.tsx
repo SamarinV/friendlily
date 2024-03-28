@@ -16,6 +16,7 @@ import LinearLoader from "common/components/LinearLoader/LinearLoader"
 import BorderLoader from "common/components/BorderLoader/BorderLoader"
 import ModalApp from "common/components/ModalApp/ModalApp"
 import { useState } from "react"
+import UserContacts from "common/components/UserContacts/UserContacts"
 
 const ProfilePage = () => {
   const user = useSelector((store: AppRootStateType) => store.profile.user)
@@ -57,20 +58,22 @@ const ProfilePage = () => {
     return <></>
   }
 
-  const contactsWithValue = Object.entries(user.contacts).filter((el) => {
-    return el[1] !== null && el[1] !== ""
-  })
+  // const contactsWithValue = Object.entries(user.contacts).filter((el) => {
+  //   return el[1] !== null && el[1] !== ""
+  // })
 
-  const contacts = contactsWithValue.map((el, index) => {
-    return (
-      <div key={index}>
-        {el[0]}:{" "}
-        <a className={s.link} href={`${el[1]}`}>
-          {el[1]}
-        </a>
-      </div>
-    )
-  })
+  // const contacts = contactsWithValue.map((el, index) => {
+	// 	console.log(el)
+	// 	// <img src={fasebookIcon} alt="Фото пользователя" />
+  //   return (
+  //     <div key={index}>
+  //       {el[0]}:{" "}
+  //       <a className={s.link} href={`${el[1]}`}>
+  //         {el[1]}
+  //       </a>
+  //     </div>
+  //   )
+  // })
 
   const openPhotoHandler = (photoUrl: string) => {
     if (photoUrl) {
@@ -127,7 +130,9 @@ const ProfilePage = () => {
             </div>
 
             <div className={s.contacts}>Контакты: </div>
-            {contactsWithValue.length ? contacts : <span>Контакты не указаны</span>}
+						<UserContacts />
+            {/* {contactsWithValue.length ? contacts : <span>Контакты не указаны</span>} */}
+            
           </div>
         </div>
       </Block>

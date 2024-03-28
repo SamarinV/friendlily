@@ -1,63 +1,68 @@
 import { AppRootStateType } from "app/store"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
-import { useState } from "react"
+import { ErrorMessage, Field, Form, Formik } from "formik"
+import React, { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import { profileThunks } from "../model/profile.slice"
-import { ErrorMessage, Field, Form, Formik } from "formik"
-import { useEffect } from "react"
-import { useParams } from "react-router-dom"
-import React from "react"
+import s from "./Status.module.css"
 
 const Status = () => {
-  // const userStatus = useSelector((store: AppRootStateType) => store.profile.userStatus)
-  // const userId = useSelector((store: AppRootStateType) => store.profile.user?.userId)
-  // const [isStatusChange, setIsStatusChange] = useState(false)
-  // const dispatch = useAppDispatch()
+  const userStatus = useSelector((store: AppRootStateType) => store.profile.userStatus)
+  const userId = useSelector((store: AppRootStateType) => store.profile.user?.userId)
+  const [isStatusChange, setIsStatusChange] = useState(false)
+  const dispatch = useAppDispatch()
+  const formRef = useRef<HTMLFormElement>(null)
 
-  // const userStatusFormValidate = (values: any) => {
-  //   const errors = {}
-  //   return errors
-  // }
+  const userStatusFormValidate = (values: any) => {
+    const errors = {}
+    return errors
+  }
 
-  // const submitHandler = (
-  //   values: { status: string },
-  //   { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
-  // ) => {
-  //   dispatch(profileThunks.saveStatus(values.status))
-  //   setSubmitting(false)
-  //   setIsStatusChange(false)
-  // }
+  const submitHandler = (
+    values: { status: string },
+    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
+  ) => {
+    dispatch(profileThunks.saveStatus(values.status))
+    setSubmitting(false)
+    setIsStatusChange(false)
+  }
 
-  // const openEditStatusForm = () => {
-  //   setIsStatusChange(true)
-  // }
+  const openEditStatusForm = () => {
+    setIsStatusChange(true)
+  }
 
-  // useEffect(() => {
-  //   console.log("hfdfgcfv")
-  //   // dispatch(profileThunks.getStatus(Number(userId)))
-  // }, [userStatus])
+const handleClickOutside = (event: MouseEvent) => {
+  if (formRef.current && !formRef.current.contains(event.target as Node)) {
+    setIsStatusChange(false)
+  }
+}
 
-  // if (!userId) {
-  //   return <></>
-  // }
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
+  if (!userId) {
+    return <></>
+  }
 
   return (
     <div>
-      {/* {isStatusChange ? (
-        <Formik initialValues={{ status: "" }} validate={userStatusFormValidate} onSubmit={submitHandler}>
-          {({ isSubmitting }) => (
-            <Form>
-              <Field type="text" name="status" />
+      {isStatusChange ? (
+        <Formik initialValues={{ status: userStatus }} validate={userStatusFormValidate} onSubmit={submitHandler}>
+          {({ isSubmitting, handleBlur }) => (
+            <Form ref={formRef}>
+              <Field className={`${s.status} ${s.input}`} type="text" name="status" onBlur={handleBlur} />
               <ErrorMessage name="status" component="div" />
-              <button type="submit" disabled={isSubmitting}>
-                Submit
-              </button>
             </Form>
           )}
         </Formik>
       ) : (
-        <span onDoubleClick={openEditStatusForm}>{`${userStatus}`}</span>
-      )} */}
+        <div className={s.status} onDoubleClick={openEditStatusForm}>{`${userStatus}`}</div>
+      )}
     </div>
   )
 }

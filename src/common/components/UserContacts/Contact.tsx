@@ -9,23 +9,9 @@ type Props = {
 }
 
 const Contact = ({ contact, name, icon }: Props) => {
-  const [open, setOpen] = useState(false)
-
-  const handleTooltipClose = () => {
-    setOpen(false)
-  }
-
-  const handleTooltipOpen = () => {
-    setOpen(true)
-  }
-
   const openSocialNetworkHandler = (contact: string | null) => {
-    setTimeout(() => {
-      handleTooltipClose()
-    }, 700)
-
-    if (contact === null) {
-      handleTooltipOpen()
+    if (!contact) {
+      return
     } else {
       window.open(contact, "_blank")
     }
@@ -33,15 +19,7 @@ const Contact = ({ contact, name, icon }: Props) => {
 
   return (
     <Tooltip
-      PopperProps={{
-        disablePortal: true,
-      }}
-      onClose={handleTooltipClose}
-      open={open}
-      disableFocusListener
-      disableHoverListener
-      disableTouchListener
-      title={`Пользователь не указал ${name}`}
+      title={contact ? `Открыть ${contact}` : `Пользователь не указал ${name}`}
     >
       <button className={s.button} onClick={() => openSocialNetworkHandler(contact)}>
         <img className={s.img} src={icon} alt={`${name}`} />

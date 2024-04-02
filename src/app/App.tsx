@@ -30,12 +30,14 @@ function App() {
 
         <div className="navbar-content">
           <Navbar />
-          <div className="content">
-            <Routes>
-              <Route path="*" element={<Login />} />
-              <Route path={"/profile/:id"} element={<Profile />} />
-              <Route path={"/users"} element={<Users />} />
-            </Routes>
+          <div className="content-wrapper">
+            <div className="content">
+              <Routes>
+                <Route path="*" element={<Login />} />
+                <Route path={"/profile/:id"} element={<Profile />} />
+                <Route path={"/users"} element={<Users />} />
+              </Routes>
+            </div>
           </div>
         </div>
       </div>

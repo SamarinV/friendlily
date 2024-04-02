@@ -1,35 +1,37 @@
-import { Tooltip } from '@mui/material';
-import { useState } from 'react';
-import s from "./Contact.module.css";
+import { Tooltip } from "@mui/material"
+import { useState } from "react"
+import s from "./Contact.module.css"
 
 type Props = {
-	contact: string | null
-	name: string
-	icon: string
+  contact: string | null
+  name: string
+  icon: string
 }
 
-const Contact = ({contact, name, icon}: Props) => {
-	const [open, setOpen] = useState(false)
-	 const handleTooltipClose = () => {
-     setOpen(false)
-   }
+const Contact = ({ contact, name, icon }: Props) => {
+  const [open, setOpen] = useState(false)
 
-   const handleTooltipOpen = () => {
-     setOpen(true)
-   }
-  const openSocialNetworkHandler = (contact: string | null) => {
-		setTimeout(() => {
-      handleTooltipClose()
-    }, 700)
-    if (contact === null) {
-      handleTooltipOpen()
-    }
-		else {
-			alert('TODO')
-		}
+  const handleTooltipClose = () => {
+    setOpen(false)
   }
 
-	return (
+  const handleTooltipOpen = () => {
+    setOpen(true)
+  }
+
+  const openSocialNetworkHandler = (contact: string | null) => {
+    setTimeout(() => {
+      handleTooltipClose()
+    }, 700)
+
+    if (contact === null) {
+      handleTooltipOpen()
+    } else {
+      window.open(contact, "_blank")
+    }
+  }
+
+  return (
     <Tooltip
       PopperProps={{
         disablePortal: true,
@@ -47,5 +49,5 @@ const Contact = ({contact, name, icon}: Props) => {
     </Tooltip>
   )
 }
- 
-export default Contact;
+
+export default Contact

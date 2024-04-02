@@ -27,7 +27,7 @@ const ProfilePage = () => {
   const { id } = useParams()
 
   const isMyProfile = authUserId == Number(id) ? true : false
-  console.log("prpfile")
+	
   useEffect(() => {
     dispatch(profileThunks.setProfile(Number(id)))
     dispatch(profileThunks.getStatus(Number(id)))
@@ -36,9 +36,6 @@ const ProfilePage = () => {
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       dispatch(profileThunks.savePhoto(e.target.files[0]))
-      // .then(() => {
-      //   dispatch(profileThunks.setProfile(Number(user?.userId)))
-      // })
     }
   }
 
@@ -57,23 +54,6 @@ const ProfilePage = () => {
   if (!user) {
     return <></>
   }
-
-  // const contactsWithValue = Object.entries(user.contacts).filter((el) => {
-  //   return el[1] !== null && el[1] !== ""
-  // })
-
-  // const contacts = contactsWithValue.map((el, index) => {
-	// 	console.log(el)
-	// 	// <img src={fasebookIcon} alt="Фото пользователя" />
-  //   return (
-  //     <div key={index}>
-  //       {el[0]}:{" "}
-  //       <a className={s.link} href={`${el[1]}`}>
-  //         {el[1]}
-  //       </a>
-  //     </div>
-  //   )
-  // })
 
   const openPhotoHandler = (photoUrl: string) => {
     if (photoUrl) {
@@ -123,22 +103,25 @@ const ProfilePage = () => {
             <div>
               <Status />
             </div>
-            <div>Ищу работу: {user.lookingForAJob ? "да" : "нет"}</div>
-            <div>
-              Интересуемая вакансия:{" "}
-              {user.lookingForAJobDescription === "" ? `${user.lookingForAJobDescription}` : "не указано"}
+            <div className={s.aboutUser}>{user.lookingForAJob ? "Ищу работу" : "Работу не ищу"}</div>
+
+            <div className={s.aboutUser}>
+              Рассматриваю вакансии: <span className={s.aboutUserText}>{user.lookingForAJobDescription}</span>
+            </div>
+            <div className={s.aboutUser}>
+              Обо мне: <span className={s.aboutUserText}>{user.aboutMe}</span>
             </div>
 
             <div className={s.contacts}>Контакты: </div>
-						<UserContacts />
-            {/* {contactsWithValue.length ? contacts : <span>Контакты не указаны</span>} */}
-            
+            <UserContacts />
           </div>
         </div>
       </Block>
       <Posts />
 
-      <ModalApp isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} photoUrl={user.photos.large} />
+      <ModalApp isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}>
+        <img src={user.photos.large} alt="Фото пользователя" />
+      </ModalApp>
     </div>
   )
 }

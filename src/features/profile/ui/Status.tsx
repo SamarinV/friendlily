@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import { profileThunks } from "../model/profile.slice"
 import s from "./Status.module.css"
+import { Button } from "@mui/material"
 
 const Status = () => {
   const userStatus = useSelector((store: AppRootStateType) => store.profile.userStatus)
@@ -50,18 +51,22 @@ const handleClickOutside = (event: MouseEvent) => {
   }
 
   return (
-    <div>
+    <div className={s.wrapper} onDoubleClick={openEditStatusForm}>
+      <span>Статус:&nbsp;</span>
       {isStatusChange ? (
         <Formik initialValues={{ status: userStatus }} validate={userStatusFormValidate} onSubmit={submitHandler}>
           {({ isSubmitting, handleBlur }) => (
             <Form ref={formRef}>
               <Field className={`${s.status} ${s.input}`} type="text" name="status" onBlur={handleBlur} />
               <ErrorMessage name="status" component="div" />
+              <Button variant="text" type="submit">
+                Подтвердить
+              </Button>
             </Form>
           )}
         </Formik>
       ) : (
-        <div className={s.status} onDoubleClick={openEditStatusForm}>{`${userStatus}`}</div>
+        <span className={s.status}>{`${userStatus}`}</span>
       )}
     </div>
   )

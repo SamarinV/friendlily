@@ -1,3 +1,4 @@
+import { GetUserProfileResponseType } from 'features/users/api/users-api';
 import { instance } from "common/api/common.api"
 import { BaseResponse } from "common/types/types"
 
@@ -13,7 +14,12 @@ export const profileAPI = {
   saveStatus(status: string) {
     return instance.put(`/profile/status`, { status })
   },
+  saveChangesProfile(user: UserProfileRequest) {
+    return instance.put<BaseResponse<{}>>(`/profile`, user)
+  },
 }
+
+export type UserProfileRequest = Omit<GetUserProfileResponseType, "photos">
 
 export type PhotoUpdateResponse = {
   photos: {
@@ -21,3 +27,5 @@ export type PhotoUpdateResponse = {
     large: string
   }
 }
+
+

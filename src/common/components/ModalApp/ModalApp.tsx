@@ -5,10 +5,10 @@ import s from "./ModalApp.module.css"
 type Props = {
   isOpenModal: boolean
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>
-  photoUrl: string
+	children: React.ReactNode
 }
 
-const ModalApp = ({ isOpenModal, setIsOpenModal, photoUrl }: Props) => {
+const ModalApp = ({ isOpenModal, setIsOpenModal, children }: Props) => {
   const closeModalHandler = () => {
     setIsOpenModal(false)
   }
@@ -25,8 +25,8 @@ const ModalApp = ({ isOpenModal, setIsOpenModal, photoUrl }: Props) => {
             <CloseIcon />
           </Button>
         </div>
-
-        <img className={s.img} src={photoUrl} alt="Фото пользователя" />
+				{children}
+        
       </div>
     </Modal>
   )

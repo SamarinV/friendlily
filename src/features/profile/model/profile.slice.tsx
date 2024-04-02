@@ -1,20 +1,41 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { GetUserProfileResponseType, usersAPI } from "../../users/api/users-api"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { BaseResponse, RequestEditProfile } from "common/types/types"
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
-import { BaseResponse } from "common/types/types"
-import { PhotoUpdateResponse, profileAPI } from "../api/profile-api"
-import { isNullOrUndefined } from "util"
+import { GetUserProfileResponseType, usersAPI } from "../../users/api/users-api"
+import { PhotoUpdateResponse, UserProfileRequest, profileAPI } from "../api/profile-api"
+import { FormikValues } from "common/components/FormEditProfile/FormEditProfile"
+import { FormikValuesContacts } from "common/components/FormEditContacts/FormEditContacts"
 
 type InitialState = {
-  user: GetUserProfileResponseType | null
+  user: GetUserProfileResponseType
   userStatus: string
-	photoIsLoading: boolean
+  photoIsLoading: boolean
 }
 
 const initialState: InitialState = {
-  user: null,
+  user: {
+    userId: 0,
+    aboutMe: "",
+    lookingForAJob: false,
+    lookingForAJobDescription: "",
+    fullName: "",
+    contacts: {
+      github: "",
+      vk: "",
+      facebook: "",
+      instagram: "",
+      twitter: "",
+      website: "",
+      youtube: "",
+      mainLink: "",
+    },
+    photos: {
+      large: "",
+      small: "",
+    },
+  },
   userStatus: "default",
-	photoIsLoading: false
+  photoIsLoading: false,
 }
 
 const slice = createSlice({
@@ -22,7 +43,7 @@ const slice = createSlice({
   initialState,
   reducers: {
     loadingPhoto(state, action: PayloadAction<boolean>) {
-			console.log(action.payload)
+      console.log(action.payload)
       state.photoIsLoading = action.payload
     },
   },
@@ -42,6 +63,9 @@ const slice = createSlice({
           state.user.photos = action.payload.data.photos
         }
       })
+      .addCase(saveChangesProfile.fulfilled, (state, action) => {
+        console.log("action.payload: ", action.payload)
+      })
   },
 })
 
@@ -50,7 +74,6 @@ const setProfile = createAppAsyncThunk<GetUserProfileResponseType, number>(
   async (userId, { rejectWithValue }) => {
     try {
       const res = await usersAPI.getUserProfile(userId)
-      console.log(res.data)
       if (res.data.userId) {
         return res.data
       } else {
@@ -66,10 +89,10 @@ const savePhoto = createAppAsyncThunk<BaseResponse<PhotoUpdateResponse>, File>(
   `${slice.name}/savePhoto`,
   async (file, { rejectWithValue, dispatch }) => {
     try {
-			dispatch(slice.actions.loadingPhoto(true))
+      dispatch(slice.actions.loadingPhoto(true))
       const res = await profileAPI.savePhoto(file)
       if (res.data.resultCode === 0) {
-				dispatch(slice.actions.loadingPhoto(false))
+        dispatch(slice.actions.loadingPhoto(false))
         return res.data
       } else {
         return rejectWithValue(res.data)
@@ -114,5 +137,44 @@ const saveStatus = createAppAsyncThunk<string, string>(
   }
 )
 
-export const profileThunks = { setProfile, savePhoto, getStatus, saveStatus }
+
+
+const saveChangesProfile = createAppAsyncThunk<BaseResponse<{}> | RequestEditProfile, FormikValues | FormikValuesContacts>(
+  `${slice.name}/saveChangesProfile`,
+  async (newDataUser, { rejectWithValue, dispatch, getState }) => {
+		function isFormikValuesContacts(obj: any): obj is FormikValuesContacts {
+      return (
+        "facebook" in obj &&
+        "github" in obj &&
+        "instagram" in obj &&
+        "website" in obj &&
+        "vk" in obj &&
+        "twitter" in obj &&
+        "youtube" in obj &&
+        "mainLink" in obj
+      )
+    }
+    try {
+      const state = getState().profile.user
+			let user: UserProfileRequest
+			 if (isFormikValuesContacts(newDataUser)) { //changes user contacts
+         user = {...state, contacts: {...newDataUser} }
+       }
+			 else{
+				 user = { ...state, ...newDataUser }
+			 }
+      const res = await profileAPI.saveChangesProfile(user)
+      if (res.data.resultCode === 0) {
+        return user
+      } else {
+        return rejectWithValue(res.data)
+      }
+    } catch (error) {
+      console.error("Error fetching profile:", error)
+      return rejectWithValue(null)
+    }
+  }
+)
+
+export const profileThunks = { setProfile, savePhoto, getStatus, saveStatus, saveChangesProfile }
 export const profileReducer = slice.reducer

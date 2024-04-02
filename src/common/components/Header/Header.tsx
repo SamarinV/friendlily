@@ -1,44 +1,55 @@
-import { useSelector } from "react-redux"
-import s from "./Header.module.css"
+import { Avatar, Button, Menu, MenuItem, TextField } from "@mui/material"
 import { AppRootStateType } from "app/store"
-import LogoutIcon from "@mui/icons-material/Logout"
-import Fab from "@mui/material/Fab"
-import { Avatar, Button, Menu, MenuItem } from "@mui/material"
-import { MouseEventHandler, useState } from "react"
 import DefaultAvatar from "common/assets/defaultAvatar.png"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { authThunks } from "features/auth/model/auth.slice"
-import { useEffect } from "react"
-import { profileThunks } from "features/profile/model/profile.slice"
+import { useFormik } from "formik"
+import { useRef, useState } from "react"
+import { useSelector } from "react-redux"
 import BorderLoader from "../BorderLoader/BorderLoader"
+import ModalApp from "../ModalApp/ModalApp"
+import s from "./Header.module.css"
+import { UserProfileRequest } from "features/profile/api/profile-api"
+import { profileThunks } from "features/profile/model/profile.slice"
+import { useEffect } from "react"
+import FormEditProfile from "../FormEditProfile/FormEditProfile"
+import FormEditContacts from "../FormEditContacts/FormEditContacts"
 
 const Header = () => {
   const isAuth = useSelector<AppRootStateType>((state) => state.auth.isLoggedIn)
   const userPhotoSmall = useSelector<AppRootStateType>((state) => state.auth.userData.smallPhoto)
-	const dispatch = useAppDispatch()
-	const userId = useSelector<AppRootStateType, number>((state) => state.auth.userData.id)
-	const photoIsLoading = useSelector((store: AppRootStateType) => store.profile.photoIsLoading)
+  const dispatch = useAppDispatch()
+  const userId = useSelector<AppRootStateType, number>((state) => state.auth.userData.id)
+  const photoIsLoading = useSelector((store: AppRootStateType) => store.profile.photoIsLoading)
 
-
-	
-	
-
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [isModalProfile, setIsModalProfile] = useState<boolean>(false)
+	const [isModalContacts, setIsModalContacts] = useState<boolean>(false)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
-  const handleClick = (event: any) => {
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
+
   const handleClose = () => {
     setAnchorEl(null)
   }
 
-	const logoutHandler = () => {
-		setAnchorEl(null)
-		dispatch(authThunks.logout())
-	}
+  const logoutHandler = () => {
+    setAnchorEl(null)
+    dispatch(authThunks.logout())
+  }
 
+  const openModalEditProfile = () => {
+    handleClose()
+    setIsModalProfile(true)
+  }
 
-	
+	  const openModalEditContacts = () => {
+      handleClose()
+      setIsModalContacts(true)
+    }
+
   return (
     <div>
       <header className={s.header}>
@@ -56,17 +67,16 @@ const Header = () => {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
-            ><div className={s.avatarWrapper}>
-
-              <BorderLoader loaderIsVisable={photoIsLoading}>
-                <Avatar
-                  alt="Remy Sharp"
-                  src={userPhotoSmall ? `${userPhotoSmall}` : `${DefaultAvatar}`}
-                  sx={{ width: 56, height: 56 }}
-                />
-              </BorderLoader>
-
-						</div>
+            >
+              <div className={s.avatarWrapper}>
+                <BorderLoader loaderIsVisable={photoIsLoading}>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={userPhotoSmall ? `${userPhotoSmall}` : `${DefaultAvatar}`}
+                    sx={{ width: 56, height: 56 }}
+                  />
+                </BorderLoader>
+              </div>
             </Button>
             <Menu
               id="basic-menu"
@@ -77,13 +87,19 @@ const Header = () => {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-              <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+              <MenuItem onClick={openModalEditProfile}>Редактировать профиль</MenuItem>
+              <MenuItem onClick={openModalEditContacts}>Мои контакты</MenuItem>
+              <MenuItem onClick={logoutHandler}>Выйти</MenuItem>
             </Menu>
           </div>
         )}
       </header>
+      <ModalApp isOpenModal={isModalProfile} setIsOpenModal={setIsModalProfile}>
+        <FormEditProfile setIsOpenModal={setIsModalProfile} />
+      </ModalApp>
+      <ModalApp isOpenModal={isModalContacts} setIsOpenModal={setIsModalContacts}>
+        <FormEditContacts setIsOpenModal={setIsModalContacts} />
+      </ModalApp>
     </div>
   )
 }

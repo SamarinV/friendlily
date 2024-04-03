@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction, Dispatch } from "@reduxjs/toolkit"
 import { UserType, usersAPI } from "../api/users-api"
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
+import { BaseResponse } from "common/types/types"
 // import { setAppStatus } from "app/app.slice"
 
 type UsersState = {
@@ -44,6 +45,10 @@ const slice = createSlice({
           user.id === action.payload.followId ? { ...user, followed: false } : user
         )
       })
+      .addCase(getFriends.fulfilled, (state, action) => {
+        state.users = action.payload.users
+        state.loading = false
+      })
   },
 })
 
@@ -83,5 +88,24 @@ const unFollowUser = createAppAsyncThunk<{ followId: number }, number>(
   }
 )
 
+const getFriends = createAppAsyncThunk<{ users: UserType[] }>(
+  `${slice.name}/getFriends`,
+  async (_, { rejectWithValue, dispatch, getState }) => {
+    try {
+      const res = await usersAPI.getFriends()
+
+      if (res.error === null) {
+      console.log("После запроса res.data:  ", res.items)
+        return { users: res.items }
+      } else {
+        return rejectWithValue(res.data)
+      }
+    } catch (error) {
+      console.error("Error fetching profile:", error)
+      return rejectWithValue(null)
+    }
+  }
+)
+
 export const usersReducer = slice.reducer
-export const usersThunks = { fetchUsers, followUser, unFollowUser }
+export const usersThunks = { fetchUsers, followUser, unFollowUser, getFriends }

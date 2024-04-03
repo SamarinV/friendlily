@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { UserType } from "../api/users-api"
 import s from "./Users.module.css"
-import { Avatar, Button } from "@mui/material"
+import { Avatar, Button, ButtonGroup } from "@mui/material"
 import Block from "common/components/Block/Block"
 import { NavLink } from "react-router-dom"
 import { useSelector } from "react-redux"
@@ -33,31 +33,53 @@ const UsersPage = () => {
     dispatch(usersThunks.unFollowUser(id))
   }
 
+  const showFriendsHandler = () => {
+    dispatch(usersThunks.getFriends())
+  }
+
+  const showAllUsersHandler = () => {
+    dispatch(usersThunks.fetchUsers(page))
+  }
+
   return (
     <div className={s.usersList}>
+      <div className={s.buttonGroup}>
+        <ButtonGroup variant="text" aria-label="Basic button group">
+          <Button onClick={showFriendsHandler}>Мои друзья</Button>
+          <Button onClick={showAllUsersHandler}>Все пользователи</Button>
+        </ButtonGroup>
+      </div>
       {users &&
         users.map((u) => {
           return (
             <Block key={u.id}>
-              <NavLink to={`/profile/${u.id}`}>
-                <Avatar className={s.img} src={u.photos.small ? u.photos.small : ""} alt="Фото" />
-              </NavLink>
-              <div className={s.blockNameStatus}>
-                <span>{u.name}</span>
-                {u.status ? (
-                  <span className={s.status}>Статус: {u.status}</span>
-                ) : (
-                  <span className={s.status}>Статус не указан</span>
-                )}
+              <div className={s.userWrapper}>
+                <div className={s.user}>
+                  <NavLink to={`/profile/${u.id}`}>
+                    <Avatar
+                      sx={{ height: "60px", width: "60px" }}
+                      src={u.photos.small ? u.photos.small : ""}
+                      alt="Фото"
+                    />
+                  </NavLink>
+                  <div className={s.blockNameStatus}>
+                    <span>{u.name}</span>
+                    {u.status ? (
+                      <span className={s.status}>Статус: {u.status}</span>
+                    ) : (
+                      <span className={s.status}>Статус не указан</span>
+                    )}
+                  </div>
+                </div>
+                <Button
+                  onClick={() => {
+                    u.followed ? unFollowHandler(u.id) : followHandler(u.id)
+                  }}
+                  disabled={followInProgress.some((id) => id === u.id)}
+                >
+                  {u.followed ? "Отписаться" : "Подписаться"}
+                </Button>
               </div>
-              <Button
-                onClick={() => {
-                  u.followed ? unFollowHandler(u.id) : followHandler(u.id)
-                }}
-                disabled={followInProgress.some((id) => id === u.id)}
-              >
-                {u.followed ? "Отписаться" : "Подписаться"}
-              </Button>
             </Block>
           )
         })}

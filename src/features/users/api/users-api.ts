@@ -4,6 +4,9 @@ export const usersAPI = {
   getUsers(page: number) {
     return instance.get<UsersResponseType>(`users?count=20&page=${page}`)
   },
+  getFriends(currentPage = 1, pageSize = 20) {
+    return instance.get(`users?page=${currentPage}&count=${pageSize}&friend=true`).then((res) => res.data)
+  },
   getUserProfile(userId: number) {
     return instance.get<GetUserProfileResponseType>(`profile/${userId}`)
   },

@@ -2,15 +2,25 @@
 .usersList{
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+	width: 700px;
+	position: relative;
 }
-.user{
+.buttonGroup {
+	position: absolute;
+	top: -42px;
+}
+.userWrapper{
 	display: flex;
+	justify-content: space-between;
 }
-.blockNameStatus{
+.user {
+	display: flex;
+	height: 60px;
+}
+.blockNameStatus {
+	margin-left: 20px;
 	display: flex;
 	flex-direction: column;
-	margin-left: 20px;
 }
 .status {
 	font-size: 0.8em;

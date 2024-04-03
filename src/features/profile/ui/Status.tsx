@@ -9,8 +9,10 @@ import { Button } from "@mui/material"
 
 const Status = () => {
   const userStatus = useSelector((store: AppRootStateType) => store.profile.userStatus)
-  const userId = useSelector((store: AppRootStateType) => store.profile.user?.userId)
+  const userId = useSelector((store: AppRootStateType) => store.profile.user.userId)
+	const meId = useSelector((store: AppRootStateType) => store.auth.userData.id)
   const [isStatusChange, setIsStatusChange] = useState(false)
+	const isMe = userId === meId
   const dispatch = useAppDispatch()
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -46,14 +48,10 @@ const handleClickOutside = (event: MouseEvent) => {
     }
   }, [])
 
-  if (!userId) {
-    return <></>
-  }
-
   return (
-    <div className={s.wrapper} onDoubleClick={openEditStatusForm}>
+    <div className={`${s.wrapper} ${isMe ? s.cursorPointer : ""}`} onDoubleClick={openEditStatusForm}>
       <span>Статус:&nbsp;</span>
-      {isStatusChange ? (
+      {isStatusChange && isMe ? (
         <Formik initialValues={{ status: userStatus }} validate={userStatusFormValidate} onSubmit={submitHandler}>
           {({ isSubmitting, handleBlur }) => (
             <Form ref={formRef}>

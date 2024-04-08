@@ -3,8 +3,8 @@ import { BaseResponse, RequestEditProfile } from "common/types/types"
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
 import { GetUserProfileResponse, usersAPI } from "../../users/api/users-api"
 import { PhotoUpdateResponse, UserProfileRequest, dialogsApi, profileAPI } from "../api/profile-api"
-import { FormikValues } from "common/components/FormEditProfile/FormEditProfile"
-import { FormikValuesContacts } from "common/components/FormEditContacts/FormEditContacts"
+import { FormikValues } from "features/profile/ui/FormEditProfile/FormEditProfile"
+import { FormikValuesContacts } from "features/profile/ui/FormEditContacts/FormEditContacts"
 
 type InitialState = {
   user: GetUserProfileResponse

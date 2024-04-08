@@ -3,7 +3,7 @@ import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { ErrorMessage, Field, Form, Formik } from "formik"
 import React, { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
-import { profileThunks } from "../model/profile.slice"
+import { profileThunks } from "../../model/profile.slice"
 import s from "./Status.module.css"
 import { Button } from "@mui/material"
 

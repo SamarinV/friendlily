@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles"
 import { AppRootStateType } from "app/store"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { useSelector } from "react-redux"
-import { profileThunks } from "../model/profile.slice"
+import { profileThunks } from "../../model/profile.slice"
 import s from "./EditPhoto.module.css"
 
 const EditPhoto = () => {

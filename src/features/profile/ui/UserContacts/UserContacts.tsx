@@ -8,7 +8,7 @@ import websiteIcon from "common/assets/socialIcons/icon-web-site.png"
 import youtubeIcon from "common/assets/socialIcons/icon-youtube.png"
 import { useSelector } from "react-redux"
 import Contact from "./Contact"
-import ModalApp from "../ModalApp/ModalApp"
+import ModalApp from "../../../../common/components/ModalApp/ModalApp"
 import FormEditContacts from "../FormEditContacts/FormEditContacts"
 import { useState } from "react"
 import { Fab, IconButton, Tooltip } from "@mui/material"
@@ -22,9 +22,9 @@ const UserContacts = () => {
     return <></>
   }
 
-	  const openModalEditContacts = () => {
-      setIsOpenModalContacts(true)
-    }
+  const openModalEditContacts = () => {
+    setIsOpenModalContacts(true)
+  }
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <div style={{ display: "flex" }}>

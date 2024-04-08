@@ -1,12 +1,13 @@
 import UsersIcon from "@mui/icons-material/PeopleAlt"
 import ProfileIcon from "@mui/icons-material/Person2"
 import SettingIcon from "@mui/icons-material/Settings"
+import SearchIcon from "@mui/icons-material/Search"
 import { Button } from "@mui/material"
 import Tooltip from "@mui/material/Tooltip"
 import { AppRootStateType } from "app/store"
 import React from "react"
 import { useSelector } from "react-redux"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import s from "./Navbar.module.css"
 
 type Props = {
@@ -23,16 +24,18 @@ const style = {
 
 const NavLinkWithLogo = ({ to, logo, textInfo }: Props) => {
   return (
-    <NavLink className={s.link} to={to}>
-      {({ isActive }) => (
-        <Tooltip title={textInfo} placement="right">
-          <Button>
-            {logo}
-            <span className={isActive ? `${s.linkActive}` : ""}></span>
-          </Button>
-        </Tooltip>
-      )}
-    </NavLink>
+    <>
+      <NavLink className={s.link} to={to}>
+        {({ isActive }) => (
+          <Tooltip title={textInfo} placement="right">
+            <Button>
+              {logo}
+              <span className={isActive ? `${s.linkActive}` : ""}></span>
+            </Button>
+          </Tooltip>
+        )}
+      </NavLink>
+    </>
   )
 }
 
@@ -41,7 +44,12 @@ const Navbar = () => {
   return (
     <nav className={s.nav}>
       <NavLinkWithLogo to={`profile/${authUserId}`} logo={<ProfileIcon sx={style} />} textInfo="Профиль" />
-      <NavLinkWithLogo to="users" logo={<UsersIcon sx={style} />} textInfo="Пользователи" />
+      <NavLinkWithLogo to="/users?count=10&page=1&friend=true" logo={<UsersIcon sx={style} />} textInfo="Мои друзья" />
+      <NavLinkWithLogo
+        to="/users?count=10&page=1&friend=false"
+        logo={<SearchIcon sx={style} />}
+        textInfo="Поиск пользователей"
+      />
       <NavLinkWithLogo to="setting" logo={<SettingIcon sx={style} />} textInfo="Настройки" />
     </nav>
   )

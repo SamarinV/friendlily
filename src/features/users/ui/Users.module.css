@@ -1,29 +1,42 @@
 
-.usersList{
+.usersWrapper{
 	display: flex;
 	flex-direction: column;
-	width: 700px;
+	align-items: center;
 	position: relative;
+	width: 600px;
 }
-.buttonGroup {
+.titleAndFilter {
 	position: absolute;
 	top: -42px;
-}
-.userWrapper{
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
+	width: 100%;
+	span {
+		font-size: 20px;
+	}
+	.input {
+		margin: 0;
+		padding-top: 0;
+		background-color: transparent;
+		color: #C8C8C8;
+		border: none;
+		border-bottom: 2px solid rgb(84, 84, 255);
+		outline: none;
+	}
 }
-.user {
-	display: flex;
-	height: 60px;
-}
-.blockNameStatus {
-	margin-left: 20px;
-	display: flex;
-	flex-direction: column;
-}
-.status {
-	font-size: 0.8em;
-	color: grey;
-	margin-top: 10px;
+
+.pagination {
+	ul{
+		
+		li {
+			button {
+				color: #C8C8C8;
+			}
+			div {
+				color: #C8C8C8;
+			}
+		}
+	}
 }

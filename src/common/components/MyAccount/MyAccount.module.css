@@ -1,0 +1,13 @@
+.block {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 600px;
+}
+.title {
+	margin-bottom: 30px;
+	font-size: 24px;
+}
+.userData {
+	margin-bottom: 20px;
+}

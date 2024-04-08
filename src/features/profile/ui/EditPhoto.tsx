@@ -14,7 +14,7 @@ const EditPhoto = () => {
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       dispatch(profileThunks.savePhoto(e.target.files[0])).then(() => {
-        dispatch(profileThunks.setProfile(Number(userId)))
+        dispatch(profileThunks.fetchProfile(Number(userId)))
       })
     }
   }

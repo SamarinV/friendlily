@@ -1,9 +1,10 @@
 .block {
-	padding: 10px;
+	padding: 20px;
 	border-radius: 15px;
 	box-sizing: border-box;
 	margin-bottom: 20px;
 	background-color: #343a40;
+	width: 100%;
 }
 .blockWithImage {
 	background-image: url("https://pibig.info/uploads/posts/2022-08/thumbs/1659392988_1-pibig-info-p-krutoi-fon-dlya-prevyu-krasivo-1.jpg");

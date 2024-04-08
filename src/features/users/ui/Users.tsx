@@ -1,89 +1,89 @@
-import { useEffect, useState } from "react"
-import { UserType } from "../api/users-api"
-import s from "./Users.module.css"
-import { Avatar, Button, ButtonGroup } from "@mui/material"
-import Block from "common/components/Block/Block"
-import { NavLink } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { Pagination } from "@mui/material"
 import { AppRootStateType } from "app/store"
-import { usersThunks } from "../model/users.slice"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
+import { ErrorMessage, Field, Form, Formik } from "formik"
+import { useEffect, useRef } from "react"
+import { useSelector } from "react-redux"
+import { useSearchParams } from "react-router-dom"
+import { usersThunks } from "../model/users.slice"
+import s from "./Users.module.css"
+import UsersList from "./UsersList/UsersList"
 
 const UsersPage = () => {
-  const users = useSelector<AppRootStateType, UserType[]>((state) => state.users.users)
-  const followInProgress = useSelector<AppRootStateType, number[]>((state) => state.users.folloInProgress)
-  const [page, setPage] = useState(1)
+  const users = useSelector((state: AppRootStateType) => state.users.users)
+  const usersCount = useSelector((state: AppRootStateType) => state.users.totalCount)
   const dispatch = useAppDispatch()
+  const [searchParams, setSearchParams] = useSearchParams({
+    count: "10",
+    page: "1",
+    friend: "false",
+    term: "",
+  })
+  const page = searchParams.get("page")
+  const count = searchParams.get("count")
+  const friend = searchParams.get("friend")
+  const term = searchParams.get("term")
+  const formRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
-    dispatch(usersThunks.fetchUsers(page))
-  }, [])
+    if (page && count && friend) {
+      dispatch(usersThunks.fetchUsers({ count, page, friend, term }))
+    }
+  }, [searchParams])
 
-  const fetchUsersHandler = () => {
-    setPage(page + 1)
-    dispatch(usersThunks.fetchUsers(page + 1))
-    window.scrollTo(0, 0)
+  const changePageUserHandler = (newPage: number) => {
+    setSearchParams({ count: `${count}`, page: `${newPage}`, friend: `${friend}`, term: `${term}` })
+    window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
-  const followHandler = (id: number) => {
-    dispatch(usersThunks.followUser(id))
+  const findUserFormValidate = (values: { text: string }) => {
+    const errors = {}
+    return errors
   }
 
-  const unFollowHandler = (id: number) => {
-    dispatch(usersThunks.unFollowUser(id))
+  const submitHandler = (values: { text: string }) => {
+    setSearchParams({ count: `${count}`, page: `1`, friend: `${friend}`, term: values.text })
   }
 
-  const showFriendsHandler = () => {
-    dispatch(usersThunks.getFriends())
-  }
-
-  const showAllUsersHandler = () => {
-    dispatch(usersThunks.fetchUsers(page))
+  const inputOnBlurHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    submitHandler({ text: e.currentTarget.value })
   }
 
   return (
-    <div className={s.usersList}>
-      <div className={s.buttonGroup}>
-        <ButtonGroup variant="text" aria-label="Basic button group">
-          <Button onClick={showFriendsHandler}>Мои друзья</Button>
-          <Button onClick={showAllUsersHandler}>Все пользователи</Button>
-        </ButtonGroup>
+    <div className={s.usersWrapper}>
+      <div className={s.titleAndFilter}>
+        {friend === "false" ? <span>Пользователи</span> : <span>Мои друзья</span>}
+        <Formik initialValues={{ text: `${term}` }} validate={findUserFormValidate} onSubmit={submitHandler}>
+          {() => (
+            <Form ref={formRef}>
+              <Field
+                className={`${s.input}`}
+                type="text"
+                name="text"
+                onBlur={inputOnBlurHandler}
+                autoComplete="off"
+                placeholder="Поиск по имени"
+                maxLength={20}
+              />
+              <ErrorMessage name="text" component="div" />
+            </Form>
+          )}
+        </Formik>
       </div>
-      {users &&
-        users.map((u) => {
-          return (
-            <Block key={u.id}>
-              <div className={s.userWrapper}>
-                <div className={s.user}>
-                  <NavLink to={`/profile/${u.id}`}>
-                    <Avatar
-                      sx={{ height: "60px", width: "60px" }}
-                      src={u.photos.small ? u.photos.small : ""}
-                      alt="Фото"
-                    />
-                  </NavLink>
-                  <div className={s.blockNameStatus}>
-                    <span>{u.name}</span>
-                    {u.status ? (
-                      <span className={s.status}>Статус: {u.status}</span>
-                    ) : (
-                      <span className={s.status}>Статус не указан</span>
-                    )}
-                  </div>
-                </div>
-                <Button
-                  onClick={() => {
-                    u.followed ? unFollowHandler(u.id) : followHandler(u.id)
-                  }}
-                  disabled={followInProgress.some((id) => id === u.id)}
-                >
-                  {u.followed ? "Отписаться" : "Подписаться"}
-                </Button>
-              </div>
-            </Block>
-          )
-        })}
-      <Button onClick={fetchUsersHandler}>Загрузить ещё</Button>
+
+      <UsersList users={users} />
+
+      {usersCount > 10 && (
+        <Pagination
+          onChange={(event, page) => changePageUserHandler(page)}
+          count={Math.ceil(usersCount / Number(count))}
+          page={Number(page)}
+          defaultPage={Number(page)}
+          boundaryCount={2}
+          color="primary"
+          className={s.pagination}
+        />
+      )}
     </div>
   )
 }

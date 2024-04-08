@@ -1,13 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { BaseResponse, RequestEditProfile } from "common/types/types"
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
-import { GetUserProfileResponseType, usersAPI } from "../../users/api/users-api"
-import { PhotoUpdateResponse, UserProfileRequest, profileAPI } from "../api/profile-api"
+import { GetUserProfileResponse, usersAPI } from "../../users/api/users-api"
+import { PhotoUpdateResponse, UserProfileRequest, dialogsApi, profileAPI } from "../api/profile-api"
 import { FormikValues } from "common/components/FormEditProfile/FormEditProfile"
 import { FormikValuesContacts } from "common/components/FormEditContacts/FormEditContacts"
 
 type InitialState = {
-  user: GetUserProfileResponseType
+  user: GetUserProfileResponse
   userStatus: string
   photoIsLoading: boolean
 }
@@ -49,7 +49,7 @@ const slice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(setProfile.fulfilled, (state, action) => {
+      .addCase(fetchProfile.fulfilled, (state, action) => {
         state.user = action.payload
       })
       .addCase(getStatus.fulfilled, (state, action) => {
@@ -69,7 +69,7 @@ const slice = createSlice({
   },
 })
 
-const setProfile = createAppAsyncThunk<GetUserProfileResponseType, number>(
+const fetchProfile = createAppAsyncThunk<GetUserProfileResponse, number>(
   `${slice.name}/setProfile`,
   async (userId, { rejectWithValue }) => {
     try {
@@ -137,44 +137,42 @@ const saveStatus = createAppAsyncThunk<string, string>(
   }
 )
 
-
-
-const saveChangesProfile = createAppAsyncThunk<BaseResponse<{}> | RequestEditProfile, FormikValues | FormikValuesContacts>(
-  `${slice.name}/saveChangesProfile`,
-  async (newDataUser, { rejectWithValue, dispatch, getState }) => {
-		function isFormikValuesContacts(obj: any): obj is FormikValuesContacts {
-      return (
-        "facebook" in obj &&
-        "github" in obj &&
-        "instagram" in obj &&
-        "website" in obj &&
-        "vk" in obj &&
-        "twitter" in obj &&
-        "youtube" in obj &&
-        "mainLink" in obj
-      )
-    }
-    try {
-      const state = getState().profile.user
-			let user: UserProfileRequest
-			 if (isFormikValuesContacts(newDataUser)) { //changes user contacts
-         user = {...state, contacts: {...newDataUser} }
-       }
-			 else{
-				 user = { ...state, ...newDataUser }
-			 }
-      const res = await profileAPI.saveChangesProfile(user)
-      if (res.data.resultCode === 0) {
-        return user
-      } else {
-        return rejectWithValue(res.data)
-      }
-    } catch (error) {
-      console.error("Error fetching profile:", error)
-      return rejectWithValue(null)
-    }
+const saveChangesProfile = createAppAsyncThunk<
+  BaseResponse<{}> | RequestEditProfile,
+  FormikValues | FormikValuesContacts
+>(`${slice.name}/saveChangesProfile`, async (newDataUser, { rejectWithValue, dispatch, getState }) => {
+  function isFormikValuesContacts(obj: any): obj is FormikValuesContacts {
+    return (
+      "facebook" in obj &&
+      "github" in obj &&
+      "instagram" in obj &&
+      "website" in obj &&
+      "vk" in obj &&
+      "twitter" in obj &&
+      "youtube" in obj &&
+      "mainLink" in obj
+    )
   }
-)
+  try {
+    const state = getState().profile.user
+    let user: UserProfileRequest
+    if (isFormikValuesContacts(newDataUser)) {
+      //when changed user coontact
+      user = { ...state, contacts: { ...newDataUser } }
+    } else {
+      user = { ...state, ...newDataUser }
+    }
+    const res = await profileAPI.saveChangesProfile(user)
+    if (res.data.resultCode === 0) {
+      return user
+    } else {
+      return rejectWithValue(res.data)
+    }
+  } catch (error) {
+    console.error("Error fetching profile:", error)
+    return rejectWithValue(null)
+  }
+})
 
-export const profileThunks = { setProfile, savePhoto, getStatus, saveStatus, saveChangesProfile }
+export const profileThunks = { fetchProfile, savePhoto, getStatus, saveStatus, saveChangesProfile }
 export const profileReducer = slice.reducer

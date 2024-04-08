@@ -6,6 +6,8 @@ import { useFormik } from "formik"
 import { useSelector } from "react-redux"
 import * as yup from "yup"
 import s from "./FormEditProfile.module.css"
+import { useEffect } from "react"
+import { useState } from "react"
 
 export type FormikValues = {
   aboutMe: string
@@ -25,12 +27,18 @@ const validationSchema = yup.object().shape({
     .min(5, "Длина не менее 5 символов")
     .max(25, "Длина не более 25 символов"),
   lookingForAJob: yup.boolean(),
-  lookingForAJobDescription: yup.string().min(5, "Длина не менее 5 символов").max(50, "Длина не более 60 символов"),
+  lookingForAJobDescription: yup.string().min(5, "Длина не менее 5 символов").max(100, "Длина не более 100 символов"),
 })
 
 const FormEditProfile = ({ setIsOpenModal }: Props) => {
   const dispatch = useAppDispatch()
   const user = useSelector((store: AppRootStateType) => store.profile.user)
+  // const authUserId = useSelector((store: AppRootStateType) => store.auth.authUser.id)
+
+  useEffect(() => {
+    // dispatch(profileThunks.fetchProfile({userId: Number(authUserId), editMyProfile: true}))
+		console.log(12345)
+  }, [])
 
   const formik = useFormik({
     initialValues: {
@@ -47,6 +55,19 @@ const FormEditProfile = ({ setIsOpenModal }: Props) => {
   return (
     <div className={s.editProfileWrapper}>
       <form onSubmit={formik.handleSubmit} className={s.formEditProfile}>
+        <TextField
+          fullWidth
+          id="fullName"
+          name="fullName"
+          label="Мое имя"
+          value={formik.values.fullName}
+          onChange={formik.handleChange}
+          className={s.inputContainer}
+          size="small"
+          onBlur={formik.handleBlur}
+          error={formik.touched.fullName && Boolean(formik.errors.fullName)}
+          helperText={formik.touched.fullName && formik.errors.fullName}
+        />
         <TextField
           fullWidth
           id="aboutMe"

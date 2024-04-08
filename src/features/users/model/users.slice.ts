@@ -1,38 +1,31 @@
-import { createSlice, PayloadAction, Dispatch } from "@reduxjs/toolkit"
-import { UserType, usersAPI } from "../api/users-api"
+import { createSlice, PayloadAction, Dispatch, createAsyncThunk } from "@reduxjs/toolkit"
+import { User, UsersBaseResponse, usersAPI } from "../api/users-api"
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
-import { BaseResponse } from "common/types/types"
-// import { setAppStatus } from "app/app.slice"
 
 type UsersState = {
-  users: UserType[]
+  users: User[]
   folloInProgress: number[]
   loading: boolean
+  totalCount: number
 }
 
 const initialState: UsersState = {
   users: [],
   folloInProgress: [],
   loading: true,
+  totalCount: 0,
 }
 
 const slice = createSlice({
   name: "users",
   initialState,
-  reducers: {
-    // toggleFollowingProgress(state, action: PayloadAction<number>) {
-    //   const index = state.folloInProgress.findIndex((id) => id === action.payload)
-    //   if (index === -1) {
-    //     state.folloInProgress.push(action.payload)
-    //   } else {
-    //     state.folloInProgress.splice(index, 1)
-    //   }
-    // },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.users = action.payload.users
+        console.log(action.payload)
+        state.users = action.payload.items
+        state.totalCount = action.payload.totalCount
         state.loading = false
       })
       .addCase(followUser.fulfilled, (state, action) => {
@@ -45,24 +38,21 @@ const slice = createSlice({
           user.id === action.payload.followId ? { ...user, followed: false } : user
         )
       })
-      .addCase(getFriends.fulfilled, (state, action) => {
-        state.users = action.payload.users
-        state.loading = false
-      })
   },
 })
 
-const fetchUsers = createAppAsyncThunk<{ users: UserType[] }, number>(
-  `${slice.name}/fetchUsers`,
-  async (page, { rejectWithValue }) => {
-    const res = await usersAPI.getUsers(page)
-    if (res.data.error === null) {
-      return { users: res.data.items }
-    } else {
-      return rejectWithValue(res.data)
-    }
+const fetchUsers = createAppAsyncThunk<
+  UsersBaseResponse,
+  { page: string; count: string; friend: string; term: string | null }
+>(`${slice.name}/fetchUsers`, async (params, { rejectWithValue }) => {
+	console.log(params)
+  const res = await usersAPI.getUsers(params)
+  if (res.data.error === null) {
+    return res.data
+  } else {
+    return rejectWithValue(res.data)
   }
-)
+})
 
 const followUser = createAppAsyncThunk<{ followId: number }, number>(
   `${slice.name}/followUser`,
@@ -88,24 +78,5 @@ const unFollowUser = createAppAsyncThunk<{ followId: number }, number>(
   }
 )
 
-const getFriends = createAppAsyncThunk<{ users: UserType[] }>(
-  `${slice.name}/getFriends`,
-  async (_, { rejectWithValue, dispatch, getState }) => {
-    try {
-      const res = await usersAPI.getFriends()
-
-      if (res.error === null) {
-      console.log("После запроса res.data:  ", res.items)
-        return { users: res.items }
-      } else {
-        return rejectWithValue(res.data)
-      }
-    } catch (error) {
-      console.error("Error fetching profile:", error)
-      return rejectWithValue(null)
-    }
-  }
-)
-
 export const usersReducer = slice.reducer
-export const usersThunks = { fetchUsers, followUser, unFollowUser, getFriends }
+export const usersThunks = { fetchUsers, followUser, unFollowUser }

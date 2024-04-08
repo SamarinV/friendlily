@@ -1,54 +1,47 @@
-import { Avatar, Button, Menu, MenuItem, TextField } from "@mui/material"
+import { Avatar, Button, Divider, ListItemIcon, Menu, MenuItem } from "@mui/material"
 import { AppRootStateType } from "app/store"
 import DefaultAvatar from "common/assets/defaultAvatar.png"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { authThunks } from "features/auth/model/auth.slice"
-import { useFormik } from "formik"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { useSelector } from "react-redux"
 import BorderLoader from "../BorderLoader/BorderLoader"
-import ModalApp from "../ModalApp/ModalApp"
 import s from "./Header.module.css"
-import { UserProfileRequest } from "features/profile/api/profile-api"
-import { profileThunks } from "features/profile/model/profile.slice"
-import { useEffect } from "react"
-import FormEditProfile from "../FormEditProfile/FormEditProfile"
-import FormEditContacts from "../FormEditContacts/FormEditContacts"
+import Logout from "@mui/icons-material/Logout"
+import { NavLink, useLocation, useNavigate } from "react-router-dom"
 
 const Header = () => {
   const isAuth = useSelector<AppRootStateType>((state) => state.auth.isLoggedIn)
   const userPhotoSmall = useSelector<AppRootStateType>((state) => state.auth.userData.smallPhoto)
   const dispatch = useAppDispatch()
-  const userId = useSelector<AppRootStateType, number>((state) => state.auth.userData.id)
   const photoIsLoading = useSelector((store: AppRootStateType) => store.profile.photoIsLoading)
+  const navigate = useNavigate()
+  const location = useLocation()
 
-  const [isModalProfile, setIsModalProfile] = useState<boolean>(false)
-	const [isModalContacts, setIsModalContacts] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 
+  console.log("Текущий путь адресной строки:", location.pathname)
+	
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
 
+  const logoutHandler = () => {
+    setAnchorEl(null)
+    dispatch(authThunks.logout()).then(() => {
+      navigate("/login")
+    })
+
+  }
   const handleClose = () => {
     setAnchorEl(null)
   }
 
-  const logoutHandler = () => {
-    setAnchorEl(null)
-    dispatch(authThunks.logout())
-  }
-
-  const openModalEditProfile = () => {
+  const openProfileInfo = () => {
     handleClose()
-    setIsModalProfile(true)
+    navigate("/account")
   }
-
-	  const openModalEditContacts = () => {
-      handleClose()
-      setIsModalContacts(true)
-    }
 
   return (
     <div>
@@ -59,7 +52,7 @@ const Header = () => {
           </div>
           <span className={s.title}>Social Network</span>
         </div>
-        {isAuth && (
+        {isAuth ? (
           <div>
             <Button
               id="basic-button"
@@ -87,19 +80,20 @@ const Header = () => {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={openModalEditProfile}>Редактировать профиль</MenuItem>
-              <MenuItem onClick={openModalEditContacts}>Мои контакты</MenuItem>
-              <MenuItem onClick={logoutHandler}>Выйти</MenuItem>
+              <MenuItem onClick={openProfileInfo}>Мой аккаунт</MenuItem>
+              <Divider />
+              <MenuItem onClick={logoutHandler}>
+                <ListItemIcon>
+                  <Logout fontSize="small" />
+                </ListItemIcon>
+                Выход
+              </MenuItem>
             </Menu>
           </div>
-        )}
+        ) : location.pathname !== "/login" ? (
+          <Button onClick={() => navigate("/login")}>Войти</Button>
+        ) : null}
       </header>
-      <ModalApp isOpenModal={isModalProfile} setIsOpenModal={setIsModalProfile}>
-        <FormEditProfile setIsOpenModal={setIsModalProfile} />
-      </ModalApp>
-      <ModalApp isOpenModal={isModalContacts} setIsOpenModal={setIsModalContacts}>
-        <FormEditContacts setIsOpenModal={setIsModalContacts} />
-      </ModalApp>
     </div>
   )
 }

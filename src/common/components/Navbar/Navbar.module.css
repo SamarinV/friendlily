@@ -18,6 +18,9 @@
 }
 .linkActive {
 	color: rgb(48, 51, 147);
+	background-color: blanchedalmond;
+	border: 1px solid red;
+	height: 40px;
 }
 .logo {
 	width: 40px;

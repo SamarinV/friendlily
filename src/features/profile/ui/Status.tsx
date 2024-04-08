@@ -10,9 +10,9 @@ import { Button } from "@mui/material"
 const Status = () => {
   const userStatus = useSelector((store: AppRootStateType) => store.profile.userStatus)
   const userId = useSelector((store: AppRootStateType) => store.profile.user.userId)
-	const meId = useSelector((store: AppRootStateType) => store.auth.userData.id)
+  const authUserId = useSelector((store: AppRootStateType) => store.auth.userData.id)
   const [isStatusChange, setIsStatusChange] = useState(false)
-	const isMe = userId === meId
+  const isMe = userId === authUserId
   const dispatch = useAppDispatch()
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -34,12 +34,11 @@ const Status = () => {
     setIsStatusChange(true)
   }
 
-const handleClickOutside = (event: MouseEvent) => {
-  if (formRef.current && !formRef.current.contains(event.target as Node)) {
-    setIsStatusChange(false)
+  const handleClickOutside = (event: MouseEvent) => {
+    if (formRef.current && !formRef.current.contains(event.target as Node)) {
+      setIsStatusChange(false)
+    }
   }
-}
-
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside)
@@ -55,7 +54,13 @@ const handleClickOutside = (event: MouseEvent) => {
         <Formik initialValues={{ status: userStatus }} validate={userStatusFormValidate} onSubmit={submitHandler}>
           {({ isSubmitting, handleBlur }) => (
             <Form ref={formRef}>
-              <Field className={`${s.status} ${s.input}`} type="text" name="status" onBlur={handleBlur} />
+              <Field
+                className={`${s.status} ${s.input}`}
+                type="text"
+                name="status"
+                onBlur={handleBlur}
+                autoComplete="off"
+              />
               <ErrorMessage name="status" component="div" />
               <Button variant="text" type="submit">
                 Подтвердить

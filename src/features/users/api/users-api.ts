@@ -1,24 +1,23 @@
 import { instance } from "../../../common/api/common.api"
 
 export const usersAPI = {
-  getUsers(page: number) {
-    return instance.get<UsersResponseType>(`users?count=20&page=${page}`)
-  },
-  getFriends(currentPage = 1, pageSize = 20) {
-    return instance.get(`users?page=${currentPage}&count=${pageSize}&friend=true`).then((res) => res.data)
+  getUsers(params: { page: string; count: string; friend: string; term: string | null }) {
+    return instance.get<UsersBaseResponse>(
+      `users?count=${params.count}&page=${params.page}&friend=${params.friend}${params.term && params.term!=='' ? `&term=${params.term}` : ''}`
+    )
   },
   getUserProfile(userId: number) {
-    return instance.get<GetUserProfileResponseType>(`profile/${userId}`)
+    return instance.get<GetUserProfileResponse>(`profile/${userId}`)
   },
   followUser(userId: number) {
-    return instance.post<followUnFollowResponseType>(`/follow/${userId}`, {})
+    return instance.post<followUnFollowResponse>(`/follow/${userId}`, {})
   },
   unFollowUser(userId: number) {
-    return instance.delete<followUnFollowResponseType>(`/follow/${userId}`, {})
+    return instance.delete<followUnFollowResponse>(`/follow/${userId}`, {})
   },
 }
 
-export type UserType = {
+export type User = {
   followed: boolean
   id: number
   name: string
@@ -26,19 +25,19 @@ export type UserType = {
   status: string | null
   uniqueUrlName: string | null
 }
-export type UsersResponseType = {
+export type UsersBaseResponse = {
   error: string | null
-  items: UserType[]
+  items: User[]
   totalCount: number
 }
-type followUnFollowResponseType = {
+type followUnFollowResponse = {
   resultCode: number
   messages: string[]
   data: {}
 }
-export type GetUserProfileResponseType = {
+export type GetUserProfileResponse = {
   userId: number
-	aboutMe: string
+  aboutMe: string
   lookingForAJob: boolean
   lookingForAJobDescription: string
   fullName: string

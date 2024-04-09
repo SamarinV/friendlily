@@ -14,6 +14,7 @@ const Messages = () => {
   const messagesRef = useRef<HTMLDivElement>(null) // Создаем реф для доступа к контейнеру сообщений
   const messages = useSelector((state: AppRootStateType) => state.dialogs.messages)
   const dialogs = useSelector((state: AppRootStateType) => state.dialogs.dialogs)
+  const authUser = useSelector((state: AppRootStateType) => state.auth.userData)
   const isLoadingMessages = useSelector((state: AppRootStateType) => state.dialogs.isLoadingMessages)
   const dispatch = useAppDispatch()
   const { id } = useParams()
@@ -38,32 +39,38 @@ const Messages = () => {
     initialValues: {
       message: "",
     },
-    // validationSchema: {},
     onSubmit: (values) => {
       sendMessage(Number(id), values.message)
       formik.resetForm()
     },
   })
 
-  if (!id) {
-    return <>Выберите диалог</>
-  }
   return (
     <div className={s.wrapper}>
       <h2 className={s.title}>Сообщения</h2>
       <div className={s.messagesAndButton}>
         <div ref={messagesRef} className={s.messages}>
           {isLoadingMessages ? (
-            <div className={s.loaderContainer}>
+            <div className={s.showThisInCenter}>
               <CircularProgress size={100} />
             </div>
-          ) : (
-            messages &&
+          ) : messages.length ? (
             messages.map((m) => {
               return (
-                <div className={s.message} key={m.id}>
+                <div className={`${s.message} ${m.senderId === authUser.id ? s.myMessage : ""}`} key={m.id}>
                   <div className={s.messageUserInfo}>
-                    {dialog && dialog.photos.small ? <Avatar src={`${dialog.photos.small}`} /> : <Avatar />}
+                    {m.senderId === authUser.id ? (
+                      authUser.smallPhoto ? (
+                        <Avatar src={`${authUser.smallPhoto}`} />
+                      ) : (
+                        <Avatar />
+                      )
+                    ) : dialog && dialog.photos.small ? (
+                      <Avatar src={`${dialog.photos.small}`} />
+                    ) : (
+                      <Avatar />
+                    )}
+
                     <div className={s.userNameAndTime}>
                       <span>{m.senderName}</span>
                       <span className={s.time}>{m.addedAt}</span>
@@ -73,6 +80,8 @@ const Messages = () => {
                 </div>
               )
             })
+          ) : (
+            <h2 className={s.showThisInCenter}>Здесь пока нет сообщений</h2>
           )}
         </div>
         <form onSubmit={formik.handleSubmit} className={s.messageForm}>

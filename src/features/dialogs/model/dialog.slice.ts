@@ -70,7 +70,6 @@ const createNewChat = createAppAsyncThunk<any, number>(
   async (userId, { rejectWithValue, dispatch }) => {
     const res = await dialogsApi.createNewChat(userId)
     if (res.data.resultCode === 0) {
-      console.log(res)
       return {}
     } else {
       dispatch(appActions.setAppInitialized({ isInitialized: true }))

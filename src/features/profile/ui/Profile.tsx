@@ -1,5 +1,5 @@
 import EditIcon from "@mui/icons-material/Edit"
-import { IconButton, Tooltip } from "@mui/material"
+import { Button, ButtonGroup, IconButton, Tooltip } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import { AppRootStateType } from "app/store"
 import DefaultAvatar from "common/assets/defaultAvatar.png"
@@ -16,6 +16,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { profileThunks } from "../model/profile.slice"
 import s from "./Profile.module.css"
 import Status from "./Status/Status"
+import { dialogsThunks } from "features/dialogs/model/dialog.slice"
 
 const ProfilePage = () => {
   const user = useSelector((store: AppRootStateType) => store.profile.user)
@@ -69,6 +70,12 @@ const ProfilePage = () => {
     setIsModalProfile(true)
   }
 
+  const openDialogHandler = () => {
+    dispatch(dialogsThunks.createNewChat(Number(id))).then(() => {
+      navigate(`/dialogs/${id}`)
+    })
+  }
+
   // if (authUserId){
   // 	return <Navigate to />
   // }
@@ -105,6 +112,11 @@ const ProfilePage = () => {
                   <VisuallyHiddenInput type="file" accept="image/*" onChange={onImageChange} />
                 </IconButton>
               </Tooltip>
+            )}
+            {!isMyProfile && (
+              <Button onClick={openDialogHandler} sx={{ marginTop: "20px" }} fullWidth variant="contained">
+                Написать сообщение
+              </Button>
             )}
           </div>
 

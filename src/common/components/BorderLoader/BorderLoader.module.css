@@ -1,7 +1,7 @@
 .wrapper {
 	position: relative;
-	width: 220px;
-	height: 220px;
+	width: 13.75em;
+	height: 13.75em;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -27,7 +27,7 @@
 	top: 50%;
 	left: 50%;
 	border-radius: 50%;
-	border: 4px dotted blue;
+	border: 0.25em dotted blue;
 	z-index: 3;
 	animation: rotate 6s normal linear infinite;
 }

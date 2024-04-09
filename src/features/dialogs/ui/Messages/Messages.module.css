@@ -1,5 +1,5 @@
 .wrapper {
-	height: 500px;
+	height: 31.25em;
 }
 
 .messagesAndButton {
@@ -8,7 +8,7 @@
 	justify-content: end;
 	position: relative;
 	height: 100%;
-	max-height: calc(100% - 50px);
+	max-height: calc(100% - 3.1em);
 }
 .messages {
 	overflow-y: auto;
@@ -30,9 +30,9 @@
 .title {
 	display: flex;
 	align-items: center;
-	height: 30px;
+	height: 1.9em;
 	border-bottom: 1px solid #C8C8C8;
-	padding: 10px;
+	padding: 0.6em;
 }
 .message {
 	width: 60%;
@@ -42,7 +42,7 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: space-around;
-			margin-left: 10px;
+			margin-left: 0.6em;
 			.senderName {
 				cursor: pointer;
 			}
@@ -50,7 +50,7 @@
 				color: rgb(102, 102, 249);
 			}
 			.time {
-				font-size: 12px;
+				font-size: 0.75em;
 			}
 		}
 	}
@@ -59,10 +59,10 @@
 		width: 100%;
 		align-items: start;
 		color: black;
-		margin-bottom: 10px;
-		padding: 5px;
-		border-radius: 5px;
-		margin-top: 10px;
+		margin-bottom: 0.6em;
+		padding: 0.25em;
+		border-radius: 0.25em;
+		margin-top: 0.6em;
 	}
 }
 .myMessage {
@@ -78,13 +78,13 @@
 .messageForm {
 	display: flex;
 	background-color: white;
-	border-radius: 4px;
+	border-radius: 0.25em;
 	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.561);
-	margin-top: 5px;
+	margin-top: 0.25em;
 }
 
 .messages::-webkit-scrollbar {
-	width: 8px;
+	width: 0.5em;
 }
 
 .messages::-webkit-scrollbar-track {
@@ -93,7 +93,7 @@
 
 .messages::-webkit-scrollbar-thumb {
 	background-color: rgba(255, 255, 255, 0.4);
-	border-radius: 4px;
+	border-radius: 0.25em;
 }
 
 .messages::-webkit-scrollbar-thumb:hover {

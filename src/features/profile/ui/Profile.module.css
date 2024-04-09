@@ -11,8 +11,8 @@
 }
 .userPhotoWrapper {
 	position: relative;
-	width: 220px;
-	height: 220px;
+	width: 13.75em;
+	height: 13.75em;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -30,8 +30,8 @@
 	}
 }
 .img {
-	width: 220px;
-	height: 220px;
+	width: 13.75em;
+	height: 13.75em;
 	object-fit:cover;
 	border-radius: 50%;
 	position: relative;
@@ -40,18 +40,18 @@
 .person {
 	display: flex;
 	flex-direction: column;
-	margin-left: 20px;
+	margin-left: 1.25em;
 }
 .fullName {
 	font-size: 1.5em;
-	margin-bottom: 15px;
+	margin-bottom: 1em;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
 .aboutUser {
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-top: 0.6em;
+	margin-bottom: 0.6em;
 	line-height: 1em;
 	font-size: 1.3em;
 }
@@ -60,7 +60,7 @@
 }
 .contacts {
 	font-size: 1.2em;
-	margin: 10px 0 10px;
+	margin: 0.6em 0 0.6em;
 }
 .link {
 	color:blue;

@@ -5,10 +5,10 @@
 }
 .user {
 	display: flex;
-	height: 60px;
+	height: 3.75em;
 }
 .blockNameStatus {
-	margin-left: 20px;
+	margin-left: 1.25em;
 	display: flex;
 	flex-direction: column;
 }
@@ -16,15 +16,15 @@
 .status {
 	font-size: 0.8em;
 	color: grey;
-	margin-top: 10px;
+	margin-top: 0.6em;
 }
 .notFoundBlock {
 	display: flex;
 	flex-direction: column;
-	margin-top: 50px;
+	margin-top: 3em;
 	align-items: center;
 	span {
-		font-size: 24px;
-		margin-bottom: 20px;
+		font-size: 1.5em;
+		margin-bottom: 1.25em;
 	}
 }

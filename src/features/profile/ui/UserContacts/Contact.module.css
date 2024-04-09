@@ -1,13 +1,13 @@
 .button {
 	border: none;
 	border-radius: 50%;
-	width: 40px;
-	height: 40px;
+	width: 2.5em;
+	height: 2.5em;
 	border: none;
 	background: none;
 	outline: none;
 	padding: 0;
-	margin-right: 10px;
+	margin-right: 0.6em;
 }
 
 .button:last-child {

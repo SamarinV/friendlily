@@ -1,17 +1,17 @@
 .nav {
-	width: 80px;
+	width: 5em;
 }
 .link {
 	text-decoration: none;
-	border-radius: 5px;
+	border-radius: 0.25em;
 	cursor: pointer;
-	font-size: 20px;
+	font-size: 1.25em;
 	color: black;
-	margin-bottom: 50px;
+	margin-bottom: 3.1em;
 	
 }
 .link div {
-	margin-bottom: 15px;
+	margin-bottom: 1em;
 }
 .link div :last-child{
 	margin-bottom: 0;
@@ -19,9 +19,9 @@
 .linkActive {
 }
 .logo {
-	width: 40px;
-	height: 40px;
-	margin-right: 5px;
+	width: 2.5em;
+	height: 2.5em;
+	margin-right: 0.25em;
 }
 .displayFlex {
 	display: flex;

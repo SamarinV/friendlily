@@ -1,10 +1,10 @@
 .wrapper {
 	background-color: white;
-	border-radius: 5px;
-	padding: 20px;
+	border-radius: 0.25em;
+	padding: 1.25em;
 }
 .formLabel {
-	margin-bottom: 15px;
+	margin-bottom: 1em;
 }
 .link {
 	text-decoration: none;
@@ -13,7 +13,7 @@
 
 div {
 	.inputContainer {
-		margin-bottom: 15px;
+		margin-bottom: 1em;
 	}
 
 }

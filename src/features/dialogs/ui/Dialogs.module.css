@@ -1,18 +1,18 @@
 .wrapper {
-	width: 800px;
-	height: 500px;
+	width: 50em;
+	height: 31em;
 	display: grid;
-	grid-template-columns: 200px auto;
-	gap: 25px;
+	grid-template-columns: 12.5em auto;
+	gap: 1.5em;
 }
 .dialogs {
-	height: 500px;
+	height: 31em;
 	background-color: #1f2225;
-	border-radius: 5px;
+	border-radius: 0.25em;
 	box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.5);
 }
 .dialogsList {
-	max-height:calc(100% - 52px);
+	max-height:calc(100% - 3.25em);
 	overflow-y: auto;
 	overflow-x: hidden;
 	
@@ -20,12 +20,12 @@
 .dialog {
 	display: flex;
 	align-items: center;
-	padding: 10px;
-	height: 50px;
-	border-radius: 10px;
+	padding: 0.6em;
+	height: 3.1em;
+	border-radius: 0.6em;
 	.userName {
-		margin-left: 10px;
-		font-size: 20px;
+		margin-left: 0.6em;
+		font-size: 1.25em;
 	}
 }
 .dialog:hover {
@@ -36,16 +36,16 @@
 .title {
 	display: flex;
 	align-items: center;
-	height: 30px;
+	height: 1.9em;
 	border-bottom: 1px solid #C8C8C8;
-	padding: 10px;
+	padding: 0.6em;
 }
 .dialogActive {
 	background-color: rgba(40, 46, 210, 0.5);
 }
 
 .dialogsList::-webkit-scrollbar {
-	width: 8px;
+	width: 0.5em;
 }
 
 .dialogsList::-webkit-scrollbar-track {
@@ -54,7 +54,7 @@
 
 .dialogsList::-webkit-scrollbar-thumb {
 	background-color: rgba(255, 255, 255, 0.4);
-	border-radius: 4px;
+	border-radius: 0.25em;
 }
 
 .dialogsList::-webkit-scrollbar-thumb:hover {

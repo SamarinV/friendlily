@@ -1,12 +1,12 @@
 .wrapper {
 	position: relative;
 	background-color: rgba(255, 255, 255, 0.8);
-	backdrop-filter: blur(10px);
-	max-width: 550px;
+	backdrop-filter: blur(0.675em);
+	max-width: 35em;
 	border-radius: 5px;
 }
 .closeButton {
 	position: absolute;
-	top: -25px;
-	right: -25px;
+	top: -1.5em;
+	right: -1.5em;
 }

@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction, Dispatch, createAsyncThunk } from "@reduxjs/toolkit"
-import { User, UsersBaseResponse, usersAPI } from "../api/users-api"
+import { createSlice } from "@reduxjs/toolkit"
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
 import { authThunks } from "features/auth/model/auth.slice"
+import { User, UsersBaseResponse, usersAPI } from "../api/users-api"
 
 type UsersState = {
   users: User[]

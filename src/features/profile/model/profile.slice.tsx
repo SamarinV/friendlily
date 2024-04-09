@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { BaseResponse, RequestEditProfile } from "common/types/types"
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
+import { authThunks } from "features/auth/model/auth.slice"
+import { FormikValuesContacts } from "features/profile/ui/FormEditContacts/FormEditContacts"
+import { FormikValues } from "features/profile/ui/FormEditProfile/FormEditProfile"
 import { GetUserProfileResponse, usersAPI } from "../../users/api/users-api"
 import { PhotoUpdateResponse, UserProfileRequest, profileAPI } from "../api/profile-api"
-import { FormikValues } from "features/profile/ui/FormEditProfile/FormEditProfile"
-import { FormikValuesContacts } from "features/profile/ui/FormEditContacts/FormEditContacts"
-import { authThunks } from "features/auth/model/auth.slice"
 
 type InitialState = {
   user: GetUserProfileResponse

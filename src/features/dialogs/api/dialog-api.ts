@@ -9,11 +9,9 @@ export const dialogsApi = {
     return instance.put<BaseResponse<{}>>(`dialogs/${userId}`)
   },
   getMessages(userId: number, page = 1) {
-    // get messages, refresh your companion so that he was on top
     return instance.get<ResponseGetMessages>(`dialogs/${userId}/messages?page=${page}`)
   },
   sendMessage(userId: number, message: string) {
-    // send new message
     return instance.post<BaseResponse<ResponseSendMessage>>(`dialogs/${userId}/messages`, { body: `${message}` })
   },
 }

@@ -1,3 +1,4 @@
+import Logout from "@mui/icons-material/Logout"
 import { Avatar, Button, Divider, ListItemIcon, Menu, MenuItem } from "@mui/material"
 import { AppRootStateType } from "app/store"
 import DefaultAvatar from "common/assets/defaultAvatar.png"
@@ -5,10 +6,9 @@ import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { authThunks } from "features/auth/model/auth.slice"
 import { useState } from "react"
 import { useSelector } from "react-redux"
+import { useLocation, useNavigate } from "react-router-dom"
 import BorderLoader from "../BorderLoader/BorderLoader"
 import s from "./Header.module.css"
-import Logout from "@mui/icons-material/Logout"
-import { NavLink, useLocation, useNavigate } from "react-router-dom"
 
 const Header = () => {
   const isAuth = useSelector<AppRootStateType>((state) => state.auth.isLoggedIn)

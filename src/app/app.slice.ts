@@ -1,6 +1,5 @@
 import { createSlice, isFulfilled, isPending, isRejected, PayloadAction } from "@reduxjs/toolkit"
 import { authThunks } from "features/auth/model/auth.slice"
-import { profileAPI } from "features/profile/api/profile-api"
 import { profileThunks } from "features/profile/model/profile.slice"
 
 const initialState = {

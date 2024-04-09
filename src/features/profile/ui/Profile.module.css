@@ -37,14 +37,6 @@
 	position: relative;
 }
 
-
-.loader{
-	position: absolute;
-	border: 3px solid red;
-}
-
-
-
 .person {
 	display: flex;
 	flex-direction: column;

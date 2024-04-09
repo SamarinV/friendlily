@@ -1,11 +1,8 @@
-import { PayloadAction, createSlice, isFulfilled, isPending, isRejected } from "@reduxjs/toolkit"
+import { createSlice, isFulfilled, isPending, isRejected } from "@reduxjs/toolkit"
 import { appActions } from "app/app.slice"
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
-import { profileThunks } from "features/profile/model/profile.slice"
-import { usersAPI } from "features/users/api/users-api"
-import { Message, ResponseGetDialogs, ResponseGetMessages, dialogsApi } from "../api/dialog-api"
-import { BaseResponse } from "common/types/types"
 import { authThunks } from "features/auth/model/auth.slice"
+import { Message, ResponseGetDialogs, ResponseGetMessages, dialogsApi } from "../api/dialog-api"
 
 type InitialState = {
   dialogs: ResponseGetDialogs[]

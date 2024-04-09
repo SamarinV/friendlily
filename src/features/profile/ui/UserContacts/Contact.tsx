@@ -1,5 +1,4 @@
 import { Tooltip } from "@mui/material"
-import { useState } from "react"
 import s from "./Contact.module.css"
 
 type Props = {

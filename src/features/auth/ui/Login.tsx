@@ -1,15 +1,12 @@
-import { useSelector } from "react-redux"
-import { Navigate, useNavigate } from "react-router-dom"
+import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from "@mui/material"
 import { AppRootStateType } from "app/store"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { useFormik } from "formik"
-import { authThunks } from "../model/auth.slice"
-import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from "@mui/material"
-import { useEffect } from "react"
-import Block from "common/components/Block/Block"
-import s from "./Login.module.css"
+import { useSelector } from "react-redux"
+import { Navigate } from "react-router-dom"
 import * as yup from "yup"
-import { useState } from "react"
+import { authThunks } from "../model/auth.slice"
+import s from "./Login.module.css"
 
 const validationSchema = yup.object().shape({
   email: yup.string().email("Некорректный email").required("Введите Email"),

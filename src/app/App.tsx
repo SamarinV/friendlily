@@ -1,19 +1,19 @@
 import Header from "common/components/Header/Header"
 import LinearLoader from "common/components/LinearLoader/LinearLoader"
+import MyAccount from "common/components/MyAccount/MyAccount"
 import Navbar from "common/components/Navbar/Navbar"
 import Page404 from "common/components/Page404/Page404"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { authThunks } from "features/auth/model/auth.slice"
 import Login from "features/auth/ui/Login"
+import Dialogs from "features/dialogs/ui/Dialogs"
 import Profile from "features/profile/ui/Profile"
 import Users from "features/users/ui/Users"
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
-import { Navigate, Route, Routes } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import "./App.css"
 import { AppRootStateType } from "./store"
-import MyAccount from "common/components/MyAccount/MyAccount"
-import Dialogs from "features/dialogs/ui/Dialogs"
 
 function App() {
   const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)

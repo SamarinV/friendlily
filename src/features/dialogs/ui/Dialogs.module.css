@@ -46,22 +46,17 @@
 
 .dialogsList::-webkit-scrollbar {
 	width: 8px;
-	/* Ширина скроллбара */
 }
 
 .dialogsList::-webkit-scrollbar-track {
 	background-color: transparent;
-	/* Цвет фона трека */
 }
 
 .dialogsList::-webkit-scrollbar-thumb {
 	background-color: rgba(255, 255, 255, 0.4);
-	/* Цвет ползунка */
 	border-radius: 4px;
-	/* Закругление углов ползунка */
 }
 
 .dialogsList::-webkit-scrollbar-thumb:hover {
 	background-color: rgba(255, 255, 255, 0.7);
-	/* Изменение цвета при наведении */
 }

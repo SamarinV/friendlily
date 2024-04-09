@@ -1,14 +1,13 @@
 import UsersIcon from "@mui/icons-material/PeopleAlt"
 import ProfileIcon from "@mui/icons-material/Person2"
-import SettingIcon from "@mui/icons-material/Settings"
-import SearchIcon from "@mui/icons-material/Search"
 import MessagesIcon from "@mui/icons-material/QuestionAnswer"
+import SearchIcon from "@mui/icons-material/Search"
 import { Button } from "@mui/material"
 import Tooltip from "@mui/material/Tooltip"
 import { AppRootStateType } from "app/store"
 import React from "react"
 import { useSelector } from "react-redux"
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import s from "./Navbar.module.css"
 
 type Props = {

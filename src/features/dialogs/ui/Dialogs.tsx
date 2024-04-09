@@ -12,12 +12,13 @@ import Messages from "./Messages/Messages"
 const Dialogs = () => {
   const dispatch = useAppDispatch()
   const dialogs = useSelector((state: AppRootStateType) => state.dialogs.dialogs)
+  const appStatus = useSelector((store: AppRootStateType) => store.app.status)
   const { id } = useParams()
   const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(dialogsThunks.getDialogs())
-  }, [])
+  }, [id])
 
   const createNewChat = () => {
     dispatch(dialogsThunks.createNewChat(15978))

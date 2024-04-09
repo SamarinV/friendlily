@@ -1,27 +1,24 @@
-import { Form, Formik, useFormik } from "formik"
-import { Field } from "formik"
+import { Avatar, Button, CircularProgress, TextField } from "@mui/material"
+import { AppRootStateType } from "app/store"
+import { useAppDispatch } from "common/hooks/useAppDispatch"
+import { dialogsThunks } from "features/dialogs/model/dialog.slice"
+import { useFormik } from "formik"
 import { useEffect, useRef } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-import { useAppDispatch } from "common/hooks/useAppDispatch"
-import { dialogsThunks } from "features/dialogs/model/dialog.slice"
 import s from "./Messages.module.css"
-import { AppRootStateType } from "app/store"
-import { Avatar, Button, CircularProgress, TextField } from "@mui/material"
-import LinearLoader from "common/components/LinearLoader/LinearLoader"
-import { usersThunks } from "features/users/model/users.slice"
-import { profileThunks } from "features/profile/model/profile.slice"
 
 const Messages = () => {
   const messagesRef = useRef<HTMLDivElement>(null)
   const messages = useSelector((state: AppRootStateType) => state.dialogs.messages)
-  const dialogs = useSelector((state: AppRootStateType) => state.dialogs.dialogs)
   const authUser = useSelector((state: AppRootStateType) => state.auth.userData)
   const isLoadingMessages = useSelector((state: AppRootStateType) => state.dialogs.isLoadingMessages)
   const dispatch = useAppDispatch()
   const { id } = useParams()
+  const dialogs = useSelector((state: AppRootStateType) => state.dialogs.dialogs)
   const dialog = dialogs.find((d) => d.id === Number(id))
-	const navigate = useNavigate()
+  const navigate = useNavigate()
+
   useEffect(() => {
     if (id) {
       dispatch(dialogsThunks.getMessages({ userId: Number(id) }))
@@ -50,6 +47,14 @@ const Messages = () => {
       formik.resetForm()
     },
   })
+
+  if (!id) {
+    return (
+      <div className={s.wrapper}>
+        <h2 className={s.title}>Выберите диалог</h2>
+      </div>
+    )
+  }
 
   return (
     <div className={s.wrapper}>

@@ -19,6 +19,7 @@ function App() {
   const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
   const authUserId = useSelector((store: AppRootStateType) => store.auth.userData.id)
   const isInitialized = useSelector((store: AppRootStateType) => store.app.isInitialized)
+	const isLoading = useSelector((store: AppRootStateType) => store.app.status)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -29,7 +30,7 @@ function App() {
     <div className="App">
       <Header />
       <div className="navbar-content-wrapper">
-        {!isInitialized && <LinearLoader />}
+        {isLoading === "loading" && <LinearLoader />}
 
         <div className="navbar-content">
           {isLoggedIn ? <Navbar /> : <></>}

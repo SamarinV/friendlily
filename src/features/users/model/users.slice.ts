@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction, Dispatch, createAsyncThunk } from "@reduxjs/toolkit"
 import { User, UsersBaseResponse, usersAPI } from "../api/users-api"
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
+import { authThunks } from "features/auth/model/auth.slice"
 
 type UsersState = {
   users: User[]
@@ -36,6 +37,9 @@ const slice = createSlice({
         state.users = state.users.map((user) =>
           user.id === action.payload.followId ? { ...user, followed: false } : user
         )
+      })
+      .addCase(authThunks.logout.fulfilled, (state, action) => {
+        return initialState
       })
   },
 })

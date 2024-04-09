@@ -5,6 +5,7 @@ import { GetUserProfileResponse, usersAPI } from "../../users/api/users-api"
 import { PhotoUpdateResponse, UserProfileRequest, profileAPI } from "../api/profile-api"
 import { FormikValues } from "features/profile/ui/FormEditProfile/FormEditProfile"
 import { FormikValuesContacts } from "features/profile/ui/FormEditContacts/FormEditContacts"
+import { authThunks } from "features/auth/model/auth.slice"
 
 type InitialState = {
   user: GetUserProfileResponse
@@ -62,8 +63,11 @@ const slice = createSlice({
           state.user.photos = action.payload.data.photos
         }
       })
+      .addCase(authThunks.logout.fulfilled, (state, action) => {
+        return initialState
+      })
       .addCase(saveChangesProfile.fulfilled, (state, action) => {
-				state.user = {...state.user, ...action.payload}
+        state.user = { ...state.user, ...action.payload }
       })
   },
 })

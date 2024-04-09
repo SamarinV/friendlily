@@ -21,6 +21,7 @@ const ProfilePage = () => {
   const user = useSelector((store: AppRootStateType) => store.profile.user)
   const photoIsLoading = useSelector((store: AppRootStateType) => store.profile.photoIsLoading)
   const authUserId = useSelector((store: AppRootStateType) => store.auth.userData.id)
+  const appStatus = useSelector((store: AppRootStateType) => store.app.status)
   const [isOpenModal, setIsOpenModal] = useState(false)
   const dispatch = useAppDispatch()
   const { id } = useParams()
@@ -39,7 +40,7 @@ const ProfilePage = () => {
       dispatch(profileThunks.fetchProfile(Number(id)))
       dispatch(profileThunks.getStatus(Number(id)))
     }
-  }, [])
+  }, [id])
 
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -75,9 +76,9 @@ const ProfilePage = () => {
     })
   }
 
-  // if (authUserId){
-  // 	return <Navigate to />
-  // }
+  if (appStatus === "loading") {
+    return <></>
+  }
   return (
     <div className={s.wrapper}>
       <Block withImage={true}>

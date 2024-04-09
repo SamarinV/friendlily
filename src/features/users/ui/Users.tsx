@@ -12,6 +12,7 @@ import UsersList from "./UsersList/UsersList"
 const UsersPage = () => {
   const users = useSelector((state: AppRootStateType) => state.users.users)
   const usersCount = useSelector((state: AppRootStateType) => state.users.totalCount)
+  const appStatus = useSelector((store: AppRootStateType) => store.app.status)
   const dispatch = useAppDispatch()
   const [searchParams, setSearchParams] = useSearchParams({
     count: "10",
@@ -48,6 +49,10 @@ const UsersPage = () => {
   const inputOnBlurHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     submitHandler({ text: e.currentTarget.value })
   }
+
+	  if (appStatus === "loading") {
+      return <></>
+    }
 
   return (
     <div className={s.usersWrapper}>

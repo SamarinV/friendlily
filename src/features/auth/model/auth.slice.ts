@@ -40,6 +40,9 @@ const slice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.userData.id = action.payload.userId
       })
+      .addCase(logout.fulfilled, (state, action) => {
+        return initialState
+      })
       .addMatcher(
         isFulfilled(authThunks.login, authThunks.logout, authThunks.initializeApp),
         (state, action: PayloadAction<{ isLoggedIn: boolean; userId?: number }>) => {

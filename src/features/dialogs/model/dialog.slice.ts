@@ -5,6 +5,7 @@ import { profileThunks } from "features/profile/model/profile.slice"
 import { usersAPI } from "features/users/api/users-api"
 import { Message, ResponseGetDialogs, ResponseGetMessages, dialogsApi } from "../api/dialog-api"
 import { BaseResponse } from "common/types/types"
+import { authThunks } from "features/auth/model/auth.slice"
 
 type InitialState = {
   dialogs: ResponseGetDialogs[]
@@ -32,6 +33,9 @@ const slice = createSlice({
       })
       .addCase(sendMessage.fulfilled, (state, action) => {
         state.messages.push(action.payload)
+      })
+      .addCase(authThunks.logout.fulfilled, (state, action) => {
+        return initialState
       })
       .addMatcher(isPending, (state, action) => {
         if (action.type === dialogsThunks.getMessages.pending.type) {

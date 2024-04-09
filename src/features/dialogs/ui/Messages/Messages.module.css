@@ -43,7 +43,12 @@
 			flex-direction: column;
 			justify-content: space-around;
 			margin-left: 10px;
-
+			.senderName {
+				cursor: pointer;
+			}
+			.senderName:hover {
+				color: rgb(102, 102, 249);
+			}
 			.time {
 				font-size: 12px;
 			}

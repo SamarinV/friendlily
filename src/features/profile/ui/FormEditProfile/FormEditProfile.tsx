@@ -6,8 +6,6 @@ import { useFormik } from "formik"
 import { useSelector } from "react-redux"
 import * as yup from "yup"
 import s from "./FormEditProfile.module.css"
-import { useEffect } from "react"
-import { useState } from "react"
 
 export type FormikValues = {
   aboutMe: string
@@ -33,12 +31,6 @@ const validationSchema = yup.object().shape({
 const FormEditProfile = ({ setIsOpenModal }: Props) => {
   const dispatch = useAppDispatch()
   const user = useSelector((store: AppRootStateType) => store.profile.user)
-  // const authUserId = useSelector((store: AppRootStateType) => store.auth.authUser.id)
-
-  useEffect(() => {
-    // dispatch(profileThunks.fetchProfile({userId: Number(authUserId), editMyProfile: true}))
-		console.log(12345)
-  }, [])
 
   const formik = useFormik({
     initialValues: {

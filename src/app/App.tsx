@@ -39,7 +39,8 @@ function App() {
                 {isInitialized &&
                   (isLoggedIn ? (
                     <>
-                      <Route path={"/profile"} element={<Profile />} />
+                      <Route path={"/"} element={<Login />} />
+                      <Route path={"/profile"} element={<Login />} />
                       <Route path={"/profile/:id"} element={<Profile />} />
                       <Route path={"/users"} element={<Users />} />
                       <Route path="/login" element={<Login />} />

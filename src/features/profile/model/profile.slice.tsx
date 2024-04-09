@@ -43,7 +43,6 @@ const slice = createSlice({
   initialState,
   reducers: {
     loadingPhoto(state, action: PayloadAction<boolean>) {
-      console.log(action.payload)
       state.photoIsLoading = action.payload
     },
   },
@@ -64,7 +63,7 @@ const slice = createSlice({
         }
       })
       .addCase(saveChangesProfile.fulfilled, (state, action) => {
-        console.log("action.payload: ", action.payload)
+				state.user = {...state.user, ...action.payload}
       })
   },
 })

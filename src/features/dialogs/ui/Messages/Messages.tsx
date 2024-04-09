@@ -2,16 +2,18 @@ import { Form, Formik, useFormik } from "formik"
 import { Field } from "formik"
 import { useEffect, useRef } from "react"
 import { useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { dialogsThunks } from "features/dialogs/model/dialog.slice"
 import s from "./Messages.module.css"
 import { AppRootStateType } from "app/store"
 import { Avatar, Button, CircularProgress, TextField } from "@mui/material"
 import LinearLoader from "common/components/LinearLoader/LinearLoader"
+import { usersThunks } from "features/users/model/users.slice"
+import { profileThunks } from "features/profile/model/profile.slice"
 
 const Messages = () => {
-  const messagesRef = useRef<HTMLDivElement>(null) // Создаем реф для доступа к контейнеру сообщений
+  const messagesRef = useRef<HTMLDivElement>(null)
   const messages = useSelector((state: AppRootStateType) => state.dialogs.messages)
   const dialogs = useSelector((state: AppRootStateType) => state.dialogs.dialogs)
   const authUser = useSelector((state: AppRootStateType) => state.auth.userData)
@@ -19,6 +21,7 @@ const Messages = () => {
   const dispatch = useAppDispatch()
   const { id } = useParams()
   const dialog = dialogs.find((d) => d.id === Number(id))
+	const navigate = useNavigate()
   useEffect(() => {
     if (id) {
       dispatch(dialogsThunks.getMessages({ userId: Number(id) }))
@@ -33,6 +36,9 @@ const Messages = () => {
 
   const sendMessage = (userId: number, message: string) => {
     dispatch(dialogsThunks.sendMessage({ userId, message }))
+  }
+  const openProfileHandler = (userId: number) => {
+    navigate(`/profile/${userId}`)
   }
 
   const formik = useFormik({
@@ -72,7 +78,9 @@ const Messages = () => {
                     )}
 
                     <div className={s.userNameAndTime}>
-                      <span>{m.senderName}</span>
+                      <span onClick={() => openProfileHandler(m.senderId)} className={s.senderName}>
+                        {m.senderName}
+                      </span>
                       <span className={s.time}>{m.addedAt}</span>
                     </div>
                   </div>

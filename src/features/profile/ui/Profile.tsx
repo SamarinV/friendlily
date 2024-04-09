@@ -7,7 +7,6 @@ import Block from "common/components/Block/Block"
 import BorderLoader from "common/components/BorderLoader/BorderLoader"
 import FormEditProfile from "features/profile/ui/FormEditProfile/FormEditProfile"
 import ModalApp from "common/components/ModalApp/ModalApp"
-import Posts from "features/profile/ui/Posts/Posts"
 import UserContacts from "features/profile/ui/UserContacts/UserContacts"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import React, { useEffect, useState } from "react"
@@ -40,7 +39,7 @@ const ProfilePage = () => {
       dispatch(profileThunks.fetchProfile(Number(id)))
       dispatch(profileThunks.getStatus(Number(id)))
     }
-  }, [id])
+  }, [])
 
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -157,8 +156,6 @@ const ProfilePage = () => {
           </div>
         </div>
       </Block>
-
-      <Posts />
 
       <ModalApp isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}>
         <img src={user.photos.large} alt="Фото пользователя" />

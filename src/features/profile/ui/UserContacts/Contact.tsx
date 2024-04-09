@@ -13,7 +13,11 @@ const Contact = ({ contact, name, icon }: Props) => {
     if (!contact) {
       return
     } else {
-      window.open(contact, "_blank")
+      let url = contact
+      if (!url.startsWith("https://")) {
+        url = "https://" + url
+      }
+      window.open(url, "_blank")
     }
   }
 

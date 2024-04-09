@@ -13,6 +13,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import "./App.css"
 import { AppRootStateType } from "./store"
 import MyAccount from "common/components/MyAccount/MyAccount"
+import Dialogs from "features/dialogs/ui/Dialogs"
 
 function App() {
   const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
@@ -38,9 +39,12 @@ function App() {
                 {isInitialized &&
                   (isLoggedIn ? (
                     <>
+                      <Route path={"/profile"} element={<Profile />} />
                       <Route path={"/profile/:id"} element={<Profile />} />
                       <Route path={"/users"} element={<Users />} />
                       <Route path="/login" element={<Login />} />
+                      <Route path="/dialogs" element={<Dialogs />} />
+                      <Route path="/dialogs/:id" element={<Dialogs />} />
                       <Route path="/account" element={<MyAccount />} />
                       <Route path="/*" element={<Page404 />} />
                     </>
@@ -48,7 +52,6 @@ function App() {
                     <>
                       <Route path="/login" element={<Login />} />
                       <Route path={"/profile/:id"} element={<Profile />} />
-                      {/* <Route path="/*" element={<Navigate to="/login" />} /> */}
                     </>
                   ))}
               </Routes>

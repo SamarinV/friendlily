@@ -4,7 +4,7 @@ import Block from "../../../../common/components/Block/Block"
 import { useSelector } from "react-redux"
 import { PostType, StateType } from "common/types/types"
 import React from "react"
-import InputPost from "features/profile/InputPost/InputPost"
+import InputPost from "features/profile/ui/InputPost/InputPost"
 
 const Posts = () => {
   const posts = useSelector((store: StateType) => store.posts)

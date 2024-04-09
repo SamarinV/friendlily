@@ -35,9 +35,9 @@ const Login = () => {
     },
   })
 
-  // if (isLoggedIn && userId && userId !== 0) {
-  //   return <Navigate to={`/profile/${userId}`} />
-  // }
+  if (isLoggedIn && userId && userId !== 0) {
+    return <Navigate to={`/profile/${userId}`} />
+  }
 
   return (
     <div className={s.wrapper}>

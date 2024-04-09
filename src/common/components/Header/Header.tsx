@@ -20,8 +20,6 @@ const Header = () => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
-
-  console.log("Текущий путь адресной строки:", location.pathname)
 	
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)

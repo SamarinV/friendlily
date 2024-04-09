@@ -2,6 +2,7 @@ import UsersIcon from "@mui/icons-material/PeopleAlt"
 import ProfileIcon from "@mui/icons-material/Person2"
 import SettingIcon from "@mui/icons-material/Settings"
 import SearchIcon from "@mui/icons-material/Search"
+import MessagesIcon from "@mui/icons-material/QuestionAnswer"
 import { Button } from "@mui/material"
 import Tooltip from "@mui/material/Tooltip"
 import { AppRootStateType } from "app/store"
@@ -44,13 +45,13 @@ const Navbar = () => {
   return (
     <nav className={s.nav}>
       <NavLinkWithLogo to={`profile/${authUserId}`} logo={<ProfileIcon sx={style} />} textInfo="Профиль" />
+      <NavLinkWithLogo to="/dialogs" logo={<MessagesIcon sx={style} />} textInfo="Сообщения" />
       <NavLinkWithLogo to="/users?count=10&page=1&friend=true" logo={<UsersIcon sx={style} />} textInfo="Мои друзья" />
       <NavLinkWithLogo
         to="/users?count=10&page=1&friend=false"
         logo={<SearchIcon sx={style} />}
         textInfo="Поиск пользователей"
       />
-      <NavLinkWithLogo to="setting" logo={<SettingIcon sx={style} />} textInfo="Настройки" />
     </nav>
   )
 }

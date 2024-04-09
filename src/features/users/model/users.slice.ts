@@ -23,7 +23,6 @@ const slice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchUsers.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.users = action.payload.items
         state.totalCount = action.payload.totalCount
         state.loading = false
@@ -45,7 +44,7 @@ const fetchUsers = createAppAsyncThunk<
   UsersBaseResponse,
   { page: string; count: string; friend: string; term: string | null }
 >(`${slice.name}/fetchUsers`, async (params, { rejectWithValue }) => {
-	console.log(params)
+  console.log(params)
   const res = await usersAPI.getUsers(params)
   if (res.data.error === null) {
     return res.data

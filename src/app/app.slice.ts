@@ -27,7 +27,8 @@ const slice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addMatcher(isPending, (state, action) => {
+    builder
+		.addMatcher(isPending, (state, action) => {
       if (
         action.type === profileThunks.savePhoto.pending.type ||
         action.type === profileThunks.saveStatus.pending.type

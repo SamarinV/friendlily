@@ -28,21 +28,6 @@ export type PhotoUpdateResponse = {
   }
 }
 
-export const dialogsApi = {
-  getAllDialogs() {
-    return instance.get("dialogs").then((res) => res.data)
-  },
-  createNewChat(userId: number) {
-    return instance.put(`dialogs/${userId}`).then((res) => res.data)
-  },
-  getMessages(userId: number, page = 1) {
-    // get messages, refresh your companion so that he was on top
-    return instance.get(`dialogs/${userId}/messages?page=${page}`).then((res) => res.data)
-  },
-  sendMessage(userId: number, message: string) {
-    // send new message
-    return instance.post(`dialogs/${userId}/messages`, { body: `${message}` }).then((res) => res.data)
-  },
-}
+
 
 

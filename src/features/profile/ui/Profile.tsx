@@ -28,9 +28,11 @@ const ProfilePage = () => {
   const navigate = useNavigate()
   const isMyProfile = authUserId == Number(id) ? true : false
 
-  // useEffect(() => {
-  //   if (authUserId !== 0) navigate(`/profile/${authUserId}`)
-  // }, [authUserId])
+  useEffect(() => {
+    if (!id) {
+      navigate(`/profile/${authUserId}`)
+    }
+  }, [])
 
   useEffect(() => {
     if (id) {

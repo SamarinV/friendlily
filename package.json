@@ -1,8 +1,8 @@
 {
-  "name": "SocialNetwork",
+  "name": "social-network",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://SamarinV.github.io/Social Network",
+  "homepage": "https://SamarinV.github.io/social-network",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",

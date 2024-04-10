@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom"
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename="vchate">
+    <BrowserRouter basename="social-network">
       <App />
     </BrowserRouter>
   </Provider>,

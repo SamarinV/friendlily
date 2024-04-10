@@ -9,6 +9,9 @@ import { useSelector } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import BorderLoader from "../BorderLoader/BorderLoader"
 import s from "./Header.module.css"
+import { useMediaQuery } from "@mui/material"
+import MenuIcon from "@mui/icons-material/Menu"
+import Navbar from "../Navbar/Navbar"
 
 const Header = () => {
   const isAuth = useSelector<AppRootStateType>((state) => state.auth.isLoggedIn)
@@ -17,10 +20,12 @@ const Header = () => {
   const photoIsLoading = useSelector((store: AppRootStateType) => store.profile.photoIsLoading)
   const navigate = useNavigate()
   const location = useLocation()
+	const isSmallScreen = useMediaQuery("(max-width: 760px)")
+	const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState(false)
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
-	
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
@@ -30,7 +35,6 @@ const Header = () => {
     dispatch(authThunks.logout()).then(() => {
       navigate("/login")
     })
-
   }
   const handleClose = () => {
     setAnchorEl(null)
@@ -41,9 +45,25 @@ const Header = () => {
     navigate("/account")
   }
 
+	const openMenuHandler = () => {
+		setIsOpenBurgerMenu(!isOpenBurgerMenu)
+	}
+
   return (
     <div>
       <header className={s.header}>
+        {isSmallScreen && (
+          <>
+            <div className={s.burgerMenuIcon} onClick={openMenuHandler}>
+              <MenuIcon sx={{ width: "45px", height: "45px" }} />
+            </div>
+            <div className={`${s.menu} ${isOpenBurgerMenu ? s.openedMenu : ""}`}>
+              <Navbar openMenuHandler={openMenuHandler} />
+            </div>
+            {isOpenBurgerMenu && <div className={s.overlay} onClick={openMenuHandler}></div>}
+          </>
+        )}
+
         <div className={s.iconTitleWrapper}>
           <div className={s.icon}>
             <span>SN</span>

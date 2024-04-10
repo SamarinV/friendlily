@@ -3,6 +3,7 @@
 	max-width: 1200px;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 }
 .iconTitleWrapper {
 	display: flex;
@@ -37,6 +38,37 @@
 	display: inline-block;
 }
 
+/* burger menu */
+.burgerMenuIcon {
+
+}
+.menu {
+	position: fixed;
+	top: 0;
+	left: -300px;
+	bottom: 0;
+	width: 260px;
+	background-color: #343a40;
+	transition: left 0.3s ease;
+	z-index: 2;
+}
+
+.openedMenu {
+	left: 0;
+}
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	/* затемнение */
+	z-index: 1;
+	/* чтобы было поверх меню */
+}
+
 
 
 @media screen and (max-width: 1280px){
@@ -44,4 +76,10 @@
 			margin-left: 2.5em;
 			margin-right: 2.5em;
 		}
+}
+
+@media screen and (max-width: 760px) {
+	.burgerMenu {
+		display: block;
+	}
 }

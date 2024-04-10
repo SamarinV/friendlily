@@ -8,6 +8,7 @@
 	font-size: 1.25em;
 	color: black;
 	margin-bottom: 3.1em;
+	width: 100%;
 	
 }
 .link div {
@@ -16,8 +17,6 @@
 .link div :last-child{
 	margin-bottom: 0;
 }
-.linkActive {
-}
 .logo {
 	width: 2.5em;
 	height: 2.5em;
@@ -25,4 +24,25 @@
 }
 .displayFlex {
 	display: flex;
+}
+
+/* burger menu */
+.burgerLinkWrapper{
+	border-bottom: 1px solid #C8C8C8;
+	width: 100%;
+	button {
+		width:100%;
+		justify-content: start;
+	}
+}
+.menuLinkText {
+	color: #C8C8C8;
+	margin-left: 1.25em;
+	font-size: 1.2em;
+}
+
+@media screen and (max-width: 760px) {
+	.nav {
+		width: 100%;
+	}
 }

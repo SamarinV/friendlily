@@ -1,5 +1,4 @@
 .wrapper {
-	width: 50em;
 	height: 31em;
 	display: grid;
 	grid-template-columns: 12.5em auto;

@@ -14,6 +14,7 @@ import { useSelector } from "react-redux"
 import { Route, Routes } from "react-router-dom"
 import "./App.css"
 import { AppRootStateType } from "./store"
+import { useMediaQuery } from "@mui/material"
 
 function App() {
   const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
@@ -21,6 +22,7 @@ function App() {
   const isInitialized = useSelector((store: AppRootStateType) => store.app.isInitialized)
 	const isLoading = useSelector((store: AppRootStateType) => store.app.status)
   const dispatch = useAppDispatch()
+	const isSmallScreen = useMediaQuery("(max-width: 760px)")
 
   useEffect(() => {
     dispatch(authThunks.initializeApp())
@@ -33,7 +35,7 @@ function App() {
         {isLoading === "loading" && <LinearLoader />}
 
         <div className="navbar-content">
-          {isLoggedIn ? <Navbar /> : <></>}
+          {isLoggedIn && !isSmallScreen ? <Navbar /> : <></>}
           <div className="content-wrapper">
             <div className="content">
               <Routes>

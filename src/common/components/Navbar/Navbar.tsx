@@ -2,7 +2,7 @@ import UsersIcon from "@mui/icons-material/PeopleAlt"
 import ProfileIcon from "@mui/icons-material/Person2"
 import MessagesIcon from "@mui/icons-material/QuestionAnswer"
 import SearchIcon from "@mui/icons-material/Search"
-import { Button } from "@mui/material"
+import { Button, useMediaQuery } from "@mui/material"
 import Tooltip from "@mui/material/Tooltip"
 import { AppRootStateType } from "app/store"
 import React from "react"
@@ -14,6 +14,7 @@ type Props = {
   to: string
   logo: React.ReactNode
   textInfo: string
+  openMenuHandler?: () => void
 }
 
 const style = {
@@ -22,34 +23,71 @@ const style = {
   height: "50px",
 }
 
-const NavLinkWithLogo = ({ to, logo, textInfo }: Props) => {
+const NavLinkWithLogo = ({ to, logo, textInfo, openMenuHandler }: Props) => {
+  const isSmallScreen = useMediaQuery("(max-width: 760px)")
+  const closeBurgerMenu = () => {
+    if (openMenuHandler) {
+      openMenuHandler()
+    }
+  }
   return (
     <>
-      <NavLink className={s.link} to={to}>
-        {({ isActive }) => (
-          <Tooltip title={textInfo} placement="right">
+      {isSmallScreen ? (
+        <div className={s.burgerLinkWrapper}>
+          <NavLink onClick={closeBurgerMenu} className={s.link} to={to}>
             <Button>
               {logo}
-              <span className={isActive ? `${s.linkActive}` : ""}></span>
+              <span className={s.menuLinkText}>{textInfo}</span>
             </Button>
-          </Tooltip>
-        )}
-      </NavLink>
+          </NavLink>
+        </div>
+      ) : (
+        <NavLink className={s.link} to={to}>
+          {({ isActive }) => (
+            <Tooltip title={textInfo} placement="right">
+              <Button>
+                {logo}
+                <span className={isActive ? `${s.linkActive}` : ""}></span>
+              </Button>
+            </Tooltip>
+          )}
+        </NavLink>
+      )}
     </>
   )
 }
 
-const Navbar = () => {
+type NavbarProps = {
+  openMenuHandler?: () => void
+}
+
+const Navbar = ({ openMenuHandler }: NavbarProps) => {
   const authUserId = useSelector<AppRootStateType, number>((state) => state.auth.userData.id)
   return (
     <nav className={s.nav}>
-      <NavLinkWithLogo to={`profile/${authUserId}`} logo={<ProfileIcon sx={style} />} textInfo="Профиль" />
-      <NavLinkWithLogo to="/dialogs" logo={<MessagesIcon sx={style} />} textInfo="Сообщения" />
-      <NavLinkWithLogo to="/users?count=10&page=1&friend=true" logo={<UsersIcon sx={style} />} textInfo="Мои друзья" />
+      <NavLinkWithLogo
+        to={`profile/${authUserId}`}
+        logo={<ProfileIcon sx={style} />}
+        textInfo="Профиль"
+        openMenuHandler={openMenuHandler}
+      />
+      <NavLinkWithLogo
+        to="/dialogs"
+        logo={<MessagesIcon sx={style} />}
+        textInfo="Сообщения"
+        openMenuHandler={openMenuHandler}
+      />
+      <NavLinkWithLogo
+        to="/users?count=10&page=1&friend=true"
+        logo={<UsersIcon sx={style} />}
+        textInfo="Друзья"
+        openMenuHandler={openMenuHandler}
+      />
       <NavLinkWithLogo
         to="/users?count=10&page=1&friend=false"
         logo={<SearchIcon sx={style} />}
-        textInfo="Поиск пользователей"
+        textInfo="Пользователи"
+        openMenuHandler={openMenuHandler}
       />
     </nav>
   )

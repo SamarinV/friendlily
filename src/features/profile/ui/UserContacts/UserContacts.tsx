@@ -14,7 +14,11 @@ import ModalApp from "../../../../common/components/ModalApp/ModalApp"
 import FormEditContacts from "../FormEditContacts/FormEditContacts"
 import Contact from "./Contact"
 
-const UserContacts = () => {
+type Props = {
+  isMyProfile: boolean
+}
+
+const UserContacts = ({ isMyProfile }: Props) => {
   const userContacts = useSelector(selectorProfileUserContacts)
   const [isOpenModalContacts, setIsOpenModalContacts] = useState<boolean>(false)
 
@@ -36,21 +40,25 @@ const UserContacts = () => {
         <Contact contact={userContacts.website} name="website" icon={websiteIcon} />
         <Contact contact={userContacts.youtube} name="youtube" icon={youtubeIcon} />
       </div>
-      <Tooltip title="Редактировать контакты" placement="top">
-        <IconButton
-          onClick={openModalEditContacts}
-          sx={{ border: "1px solid grey", width: "33px", height: "33px", marginLeft: "10px" }}
-          aria-label="edit"
-          color="primary"
-          component="label"
-        >
-          <EditIcon />
-        </IconButton>
-      </Tooltip>
+      {isMyProfile && (
+        <>
+          <Tooltip title="Редактировать контакты" placement="top">
+            <IconButton
+              onClick={openModalEditContacts}
+              sx={{ border: "1px solid grey", width: "33px", height: "33px", marginLeft: "10px" }}
+              aria-label="edit"
+              color="primary"
+              component="label"
+            >
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
 
-      <ModalApp isOpenModal={isOpenModalContacts} setIsOpenModal={setIsOpenModalContacts}>
-        <FormEditContacts setIsOpenModal={setIsOpenModalContacts} />
-      </ModalApp>
+          <ModalApp isOpenModal={isOpenModalContacts} setIsOpenModal={setIsOpenModalContacts}>
+            <FormEditContacts setIsOpenModal={setIsOpenModalContacts} />
+          </ModalApp>
+        </>
+      )}
     </div>
   )
 }

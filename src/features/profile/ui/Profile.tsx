@@ -155,7 +155,7 @@ const ProfilePage = () => {
             </div>
 
             <div className={s.contacts}>Контакты: </div>
-            <UserContacts />
+            <UserContacts isMyProfile={isMyProfile} />
           </div>
         </div>
       </Block>

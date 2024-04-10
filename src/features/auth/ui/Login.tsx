@@ -1,4 +1,15 @@
-import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from "@mui/material"
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
+  Grid,
+  IconButton,
+  InputAdornment,
+  TextField,
+} from "@mui/material"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { useFormik } from "formik"
 import { useSelector } from "react-redux"
@@ -6,7 +17,10 @@ import { Navigate } from "react-router-dom"
 import * as yup from "yup"
 import { selectorAuthUserId, selectorIsLoggedIn } from "../model/auth.selectors"
 import { authThunks } from "../model/auth.slice"
+import Visibility from "@mui/icons-material/Visibility"
+import VisibilityOff from "@mui/icons-material/VisibilityOff"
 import s from "./Login.module.css"
+import { useState } from "react"
 
 const validationSchema = yup.object().shape({
   email: yup.string().email("Некорректный email").required("Введите Email"),
@@ -18,6 +32,7 @@ const Login = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn = useSelector(selectorIsLoggedIn)
   const userId = useSelector(selectorAuthUserId)
+  const [showPassword, setShowPassword] = useState(false)
 
   const formik = useFormik({
     initialValues: {
@@ -33,6 +48,14 @@ const Login = () => {
 
   if (isLoggedIn && userId && userId !== 0) {
     return <Navigate to={`/profile/${userId}`} />
+  }
+
+  const handleClickShowPassword = () => {
+    setShowPassword(true)
+  }
+
+  const handleMouseDownPassword = () => {
+    setShowPassword(false)
   }
 
   return (
@@ -78,10 +101,24 @@ const Login = () => {
                   onChange={formik.handleChange}
                   className={s.inputContainer}
                   size="medium"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   onBlur={formik.handleBlur}
                   error={formik.touched.password && Boolean(formik.errors.password)}
                   helperText={formik.touched.password && formik.errors.password}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
                 <FormControlLabel
                   label={"Запомнить меня"}

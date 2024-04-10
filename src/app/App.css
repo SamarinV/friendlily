@@ -161,7 +161,7 @@ table {
 	justify-content: center;
 }
 .content {
-	/* width: 44em; */
+	width: 44em;
 }
 
 @media screen and (max-width: 860px) {

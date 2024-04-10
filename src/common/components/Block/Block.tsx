@@ -1,5 +1,5 @@
-import s from "./Block.module.css"
 import React from "react"
+import s from "./Block.module.css"
 
 type Props = {
   children: React.ReactNode

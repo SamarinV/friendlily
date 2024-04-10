@@ -1,28 +1,27 @@
 import Logout from "@mui/icons-material/Logout"
-import { Avatar, Button, Divider, ListItemIcon, Menu, MenuItem } from "@mui/material"
-import { AppRootStateType } from "app/store"
+import MenuIcon from "@mui/icons-material/Menu"
+import { Avatar, Button, Divider, ListItemIcon, Menu, MenuItem, useMediaQuery } from "@mui/material"
 import DefaultAvatar from "common/assets/defaultAvatar.png"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
+import { selectorAuthUserPhotoSmall, selectorIsLoggedIn } from "features/auth/model/auth.selectors"
 import { authThunks } from "features/auth/model/auth.slice"
+import { selectorProfilePhotoLoading } from "features/profile/model/profile.selectors"
 import { useState } from "react"
 import { useSelector } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import BorderLoader from "../BorderLoader/BorderLoader"
-import s from "./Header.module.css"
-import { useMediaQuery } from "@mui/material"
-import MenuIcon from "@mui/icons-material/Menu"
 import Navbar from "../Navbar/Navbar"
+import s from "./Header.module.css"
 
 const Header = () => {
-  const isAuth = useSelector<AppRootStateType>((state) => state.auth.isLoggedIn)
-  const userPhotoSmall = useSelector<AppRootStateType>((state) => state.auth.userData.smallPhoto)
+  const userPhotoSmall = useSelector(selectorAuthUserPhotoSmall)
+  const isLoggedIn = useSelector(selectorIsLoggedIn)
+  const photoIsLoading = useSelector(selectorProfilePhotoLoading)
   const dispatch = useAppDispatch()
-  const photoIsLoading = useSelector((store: AppRootStateType) => store.profile.photoIsLoading)
   const navigate = useNavigate()
   const location = useLocation()
-	const isSmallScreen = useMediaQuery("(max-width: 760px)")
-	const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState(false)
-	const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
+  const isSmallScreen = useMediaQuery("(max-width: 760px)")
+  const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState(false)
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
@@ -46,9 +45,9 @@ const Header = () => {
     navigate("/account")
   }
 
-	const openMenuHandler = () => {
-		setIsOpenBurgerMenu(!isOpenBurgerMenu)
-	}
+  const openMenuHandler = () => {
+    setIsOpenBurgerMenu(!isOpenBurgerMenu)
+  }
 
   return (
     <div>
@@ -71,7 +70,7 @@ const Header = () => {
           </div>
           <span className={s.title}>Social Network</span>
         </div>
-        {isAuth ? (
+        {isLoggedIn ? (
           <div>
             <Button
               id="basic-button"
@@ -118,3 +117,6 @@ const Header = () => {
 }
 
 export default Header
+function selectorPhotoIsLoading(state: unknown): unknown {
+  throw new Error("Function not implemented.")
+}

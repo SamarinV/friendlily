@@ -1,27 +1,29 @@
 import EditIcon from "@mui/icons-material/Edit"
 import { Button, IconButton, Tooltip } from "@mui/material"
 import { styled } from "@mui/material/styles"
-import { AppRootStateType } from "app/store"
+import { selectorAppStatus } from "app/appSelectors"
 import DefaultAvatar from "common/assets/defaultAvatar.png"
 import Block from "common/components/Block/Block"
 import BorderLoader from "common/components/BorderLoader/BorderLoader"
 import ModalApp from "common/components/ModalApp/ModalApp"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
+import { selectorAuthUserId } from "features/auth/model/auth.selectors"
 import { dialogsThunks } from "features/dialogs/model/dialog.slice"
 import FormEditProfile from "features/profile/ui/FormEditProfile/FormEditProfile"
 import UserContacts from "features/profile/ui/UserContacts/UserContacts"
 import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
+import { selectorProfilePhotoLoading, selectorProfileUserData } from "../model/profile.selectors"
 import { profileThunks } from "../model/profile.slice"
 import s from "./Profile.module.css"
 import Status from "./Status/Status"
 
 const ProfilePage = () => {
-  const user = useSelector((store: AppRootStateType) => store.profile.user)
-  const photoIsLoading = useSelector((store: AppRootStateType) => store.profile.photoIsLoading)
-  const authUserId = useSelector((store: AppRootStateType) => store.auth.userData.id)
-  const appStatus = useSelector((store: AppRootStateType) => store.app.status)
+  const user = useSelector(selectorProfileUserData)
+  const photoIsLoading = useSelector(selectorProfilePhotoLoading)
+  const authUserId = useSelector(selectorAuthUserId)
+  const appStatus = useSelector(selectorAppStatus)
   const [isOpenModal, setIsOpenModal] = useState(false)
   const dispatch = useAppDispatch()
   const { id } = useParams()

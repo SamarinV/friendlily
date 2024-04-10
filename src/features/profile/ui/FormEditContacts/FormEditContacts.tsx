@@ -1,11 +1,11 @@
 import { Button, TextField } from "@mui/material"
-import { AppRootStateType } from "app/store"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
+import { selectorProfileUserData } from "features/profile/model/profile.selectors"
 import { profileThunks } from "features/profile/model/profile.slice"
 import { useFormik } from "formik"
 import { useSelector } from "react-redux"
-import s from "./FormEditContacts.module.css"
 import * as yup from "yup"
+import s from "./FormEditContacts.module.css"
 
 export type FormikValuesContacts = {
   facebook: string
@@ -58,7 +58,7 @@ const validationSchema = yup.object().shape({
 
 const FormEditContacts = ({ setIsOpenModal }: Props) => {
   const dispatch = useAppDispatch()
-  const user = useSelector((store: AppRootStateType) => store.profile.user)
+  const user = useSelector(selectorProfileUserData)
 
   const formik = useFormik({
     initialValues: {

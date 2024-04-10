@@ -1,18 +1,19 @@
-import { AppRootStateType } from "app/store"
+import { Button } from "@mui/material"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
+import { selectorAuthUserData } from "features/auth/model/auth.selectors"
+import { selectorProfileUserId, selectorProfileUserStatus } from "features/profile/model/profile.selectors"
 import { ErrorMessage, Field, Form, Formik } from "formik"
 import React, { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import { profileThunks } from "../../model/profile.slice"
 import s from "./Status.module.css"
-import { Button } from "@mui/material"
 
 const Status = () => {
-  const userStatus = useSelector((store: AppRootStateType) => store.profile.userStatus)
-  const userId = useSelector((store: AppRootStateType) => store.profile.user.userId)
-  const authUserId = useSelector((store: AppRootStateType) => store.auth.userData.id)
+  const userStatus = useSelector(selectorProfileUserStatus)
+  const userId = useSelector(selectorProfileUserId)
+  const authUserId = useSelector(selectorAuthUserData)
   const [isStatusChange, setIsStatusChange] = useState(false)
-  const isMe = userId === authUserId
+  const isMe = userId === authUserId.id
   const dispatch = useAppDispatch()
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -69,7 +70,7 @@ const Status = () => {
           )}
         </Formik>
       ) : (
-        <span className={s.status}>{`${userStatus}`}</span>
+        <span className={s.status}>{userStatus ? `${userStatus}` : "не указан"}</span>
       )}
     </div>
   )

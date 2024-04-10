@@ -1,8 +1,9 @@
 import { Avatar, Button } from "@mui/material"
-import { AppRootStateType } from "app/store"
 import Block from "common/components/Block/Block"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
+import { selectorAuthUserId } from "features/auth/model/auth.selectors"
 import { User } from "features/users/api/users-api"
+import { selectorUsersFollowInProgress } from "features/users/model/users.selectors"
 import { usersThunks } from "features/users/model/users.slice"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
@@ -13,8 +14,8 @@ type Props = {
 }
 
 const UsersList = ({ users }: Props) => {
-  const authUserId = useSelector((state: AppRootStateType) => state.auth.userData.id)
-  const followInProgress = useSelector((state: AppRootStateType) => state.users.folloInProgress)
+  const authUserId = useSelector(selectorAuthUserId)
+  const followInProgress = useSelector(selectorUsersFollowInProgress)
   const dispatch = useAppDispatch()
 
   const followHandler = (id: number) => {
@@ -25,14 +26,14 @@ const UsersList = ({ users }: Props) => {
     dispatch(usersThunks.unFollowUser(id))
   }
 
-	if(users.length === 0) {
-		return (
+  if (users.length === 0) {
+    return (
       <div className={s.notFoundBlock}>
         <span className={s.notFoundText}>Пользователи не найдены</span>
         <span className={s.notFoundText}>Попробуйте изменить параметры поиска</span>
       </div>
     )
-	}
+  }
   return (
     <>
       {users &&

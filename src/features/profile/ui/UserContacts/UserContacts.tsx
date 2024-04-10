@@ -1,6 +1,5 @@
 import EditIcon from "@mui/icons-material/Edit"
 import { IconButton, Tooltip } from "@mui/material"
-import { AppRootStateType } from "app/store"
 import facebookIcon from "common/assets/socialIcons/icon-facebook.png"
 import githubIcon from "common/assets/socialIcons/icon-github.png"
 import instagramIcon from "common/assets/socialIcons/icon-instagram.png"
@@ -8,6 +7,7 @@ import twitterIcon from "common/assets/socialIcons/icon-twitter.png"
 import vkIcon from "common/assets/socialIcons/icon-vk.png"
 import websiteIcon from "common/assets/socialIcons/icon-web-site.png"
 import youtubeIcon from "common/assets/socialIcons/icon-youtube.png"
+import { selectorProfileUserContacts } from "features/profile/model/profile.selectors"
 import { useState } from "react"
 import { useSelector } from "react-redux"
 import ModalApp from "../../../../common/components/ModalApp/ModalApp"
@@ -15,7 +15,7 @@ import FormEditContacts from "../FormEditContacts/FormEditContacts"
 import Contact from "./Contact"
 
 const UserContacts = () => {
-  const userContacts = useSelector((store: AppRootStateType) => store.profile.user?.contacts)
+  const userContacts = useSelector(selectorProfileUserContacts)
   const [isOpenModalContacts, setIsOpenModalContacts] = useState<boolean>(false)
 
   if (!userContacts) {

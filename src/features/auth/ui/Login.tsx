@@ -1,10 +1,10 @@
 import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from "@mui/material"
-import { AppRootStateType } from "app/store"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { useFormik } from "formik"
 import { useSelector } from "react-redux"
 import { Navigate } from "react-router-dom"
 import * as yup from "yup"
+import { selectorAuthUserId, selectorIsLoggedIn } from "../model/auth.selectors"
 import { authThunks } from "../model/auth.slice"
 import s from "./Login.module.css"
 
@@ -16,9 +16,8 @@ const validationSchema = yup.object().shape({
 
 const Login = () => {
   const dispatch = useAppDispatch()
-  const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
-
-  const userId = useSelector<AppRootStateType, number>((state) => state.auth.userData.id)
+  const isLoggedIn = useSelector(selectorIsLoggedIn)
+  const userId = useSelector(selectorAuthUserId)
 
   const formik = useFormik({
     initialValues: {

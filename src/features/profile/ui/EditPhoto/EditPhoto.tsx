@@ -1,16 +1,17 @@
 import CloudUploadIcon from "@mui/icons-material/CloudUpload"
 import { Button } from "@mui/material"
 import { styled } from "@mui/material/styles"
-import { AppRootStateType } from "app/store"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
+import { selectorProfilePhotoLarge, selectorProfileUserId } from "features/profile/model/profile.selectors"
 import { useSelector } from "react-redux"
 import { profileThunks } from "../../model/profile.slice"
 import s from "./EditPhoto.module.css"
 
 const EditPhoto = () => {
-  const image = useSelector<AppRootStateType>((state) => state.profile.user?.photos.large)
-  const userId = useSelector<AppRootStateType>((state) => state.profile.user?.userId)
+  const image = useSelector(selectorProfilePhotoLarge)
+  const userId = useSelector(selectorProfileUserId)
   const dispatch = useAppDispatch()
+
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       dispatch(profileThunks.savePhoto(e.target.files[0])).then(() => {
@@ -42,13 +43,7 @@ const EditPhoto = () => {
         </span>
       )}
       <div className={s.blockWithButtons}>
-        <Button
-          component="label"
-          role={undefined}
-          variant="contained"
-          tabIndex={-1}
-          startIcon={<CloudUploadIcon />}
-        >
+        <Button component="label" role={undefined} variant="contained" tabIndex={-1} startIcon={<CloudUploadIcon />}>
           Выбрать файл
           <VisuallyHiddenInput type="file" accept="image/*" onChange={onImageChange} />
         </Button>

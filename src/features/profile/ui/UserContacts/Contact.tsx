@@ -21,9 +21,7 @@ const Contact = ({ contact, name, icon }: Props) => {
   }
 
   return (
-    <Tooltip
-      title={contact ? `Открыть ${contact}` : `Пользователь не указал ${name}`}
-    >
+    <Tooltip title={contact ? `Открыть ${contact}` : `Пользователь не указал ${name}`}>
       <button className={s.button} onClick={() => openSocialNetworkHandler(contact)}>
         <img className={s.img} src={icon} alt={`${name}`} />
       </button>

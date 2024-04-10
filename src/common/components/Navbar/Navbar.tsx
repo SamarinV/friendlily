@@ -4,7 +4,7 @@ import MessagesIcon from "@mui/icons-material/QuestionAnswer"
 import SearchIcon from "@mui/icons-material/Search"
 import { Button, useMediaQuery } from "@mui/material"
 import Tooltip from "@mui/material/Tooltip"
-import { AppRootStateType } from "app/store"
+import { selectorAuthUserId } from "features/auth/model/auth.selectors"
 import React from "react"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
@@ -62,7 +62,7 @@ type NavbarProps = {
 }
 
 const Navbar = ({ openMenuHandler }: NavbarProps) => {
-  const authUserId = useSelector<AppRootStateType, number>((state) => state.auth.userData.id)
+  const authUserId = useSelector(selectorAuthUserId)
   return (
     <nav className={s.nav}>
       <NavLinkWithLogo

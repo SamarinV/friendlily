@@ -1,7 +1,8 @@
 import { Avatar, Button, CircularProgress, TextField } from "@mui/material"
-import { AppRootStateType } from "app/store"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
+import { selectorAuthUserData } from "features/auth/model/auth.selectors"
 import { dialogsThunks } from "features/dialogs/model/dialog.slice"
+import { selectorDialogs, selectorMessages, selectorMessagesIsLoading } from "features/dialogs/model/dialogs.selectors"
 import { useFormik } from "formik"
 import { useEffect, useRef } from "react"
 import { useSelector } from "react-redux"
@@ -10,12 +11,12 @@ import s from "./Messages.module.css"
 
 const Messages = () => {
   const messagesRef = useRef<HTMLDivElement>(null)
-  const messages = useSelector((state: AppRootStateType) => state.dialogs.messages)
-  const authUser = useSelector((state: AppRootStateType) => state.auth.userData)
-  const isLoadingMessages = useSelector((state: AppRootStateType) => state.dialogs.isLoadingMessages)
+  const messages = useSelector(selectorMessages)
+  const authUser = useSelector(selectorAuthUserData)
+  const isLoadingMessages = useSelector(selectorMessagesIsLoading)
+  const dialogs = useSelector(selectorDialogs)
   const dispatch = useAppDispatch()
   const { id } = useParams()
-  const dialogs = useSelector((state: AppRootStateType) => state.dialogs.dialogs)
   const dialog = dialogs.find((d) => d.id === Number(id))
   const navigate = useNavigate()
 

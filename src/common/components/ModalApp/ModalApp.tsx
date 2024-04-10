@@ -5,7 +5,7 @@ import s from "./ModalApp.module.css"
 type Props = {
   isOpenModal: boolean
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>
-	children: React.ReactNode
+  children: React.ReactNode
 }
 
 const ModalApp = ({ isOpenModal, setIsOpenModal, children }: Props) => {
@@ -25,8 +25,7 @@ const ModalApp = ({ isOpenModal, setIsOpenModal, children }: Props) => {
             <CloseIcon />
           </Button>
         </div>
-				{children}
-        
+        {children}
       </div>
     </Modal>
   )

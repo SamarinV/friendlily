@@ -1,11 +1,11 @@
-import { AppRootStateType } from "app/store"
 import { useSelector } from "react-redux"
 import Block from "../Block/Block"
 
+import { selectorAuthUserData } from "features/auth/model/auth.selectors"
 import s from "./MyAccount.module.css"
 
 const MyAccount = () => {
-  const user = useSelector((state: AppRootStateType) => state.auth.userData)
+  const user = useSelector(selectorAuthUserData)
   return (
     <Block>
       <div className={s.block}>

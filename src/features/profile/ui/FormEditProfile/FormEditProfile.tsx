@@ -1,6 +1,6 @@
 import { Button, MenuItem, TextField } from "@mui/material"
-import { AppRootStateType } from "app/store"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
+import { selectorProfileUserData } from "features/profile/model/profile.selectors"
 import { profileThunks } from "features/profile/model/profile.slice"
 import { useFormik } from "formik"
 import { useSelector } from "react-redux"
@@ -30,7 +30,7 @@ const validationSchema = yup.object().shape({
 
 const FormEditProfile = ({ setIsOpenModal }: Props) => {
   const dispatch = useAppDispatch()
-  const user = useSelector((store: AppRootStateType) => store.profile.user)
+  const user = useSelector(selectorProfileUserData)
 
   const formik = useFormik({
     initialValues: {

@@ -1,9 +1,12 @@
+import { useMediaQuery } from "@mui/material"
+import { ErrorSnackbar } from "common/components/ErrorSnackbar/ErrorSnackbar"
 import Header from "common/components/Header/Header"
 import LinearLoader from "common/components/LinearLoader/LinearLoader"
 import MyAccount from "common/components/MyAccount/MyAccount"
 import Navbar from "common/components/Navbar/Navbar"
 import Page404 from "common/components/Page404/Page404"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
+import { selectorAuthUserId, selectorIsLoggedIn } from "features/auth/model/auth.selectors"
 import { authThunks } from "features/auth/model/auth.slice"
 import Login from "features/auth/ui/Login"
 import Dialogs from "features/dialogs/ui/Dialogs"
@@ -13,15 +16,13 @@ import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { Route, Routes } from "react-router-dom"
 import "./App.css"
-import { AppRootStateType } from "./store"
-import { useMediaQuery } from "@mui/material"
-import { ErrorSnackbar } from "common/components/ErrorSnackbar/ErrorSnackbar"
+import { selectorAppIsInitialized, selectorAppIsLoading } from "./appSelectors"
 
 function App() {
-  const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
-  const authUserId = useSelector((store: AppRootStateType) => store.auth.userData.id)
-  const isInitialized = useSelector((store: AppRootStateType) => store.app.isInitialized)
-  const isLoading = useSelector((store: AppRootStateType) => store.app.status)
+  const isLoggedIn = useSelector(selectorIsLoggedIn)
+  const authUserId = useSelector(selectorAuthUserId)
+  const isInitialized = useSelector(selectorAppIsInitialized)
+  const isLoading = useSelector(selectorAppIsLoading)
   const dispatch = useAppDispatch()
   const isSmallScreen = useMediaQuery("(max-width: 760px)")
 

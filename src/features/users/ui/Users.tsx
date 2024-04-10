@@ -1,18 +1,19 @@
 import { Pagination } from "@mui/material"
-import { AppRootStateType } from "app/store"
+import { selectorAppStatus } from "app/appSelectors"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { ErrorMessage, Field, Form, Formik } from "formik"
 import { useEffect, useRef } from "react"
 import { useSelector } from "react-redux"
 import { useSearchParams } from "react-router-dom"
+import { selectorUsers, selectorUsersCount } from "../model/users.selectors"
 import { usersThunks } from "../model/users.slice"
 import s from "./Users.module.css"
 import UsersList from "./UsersList/UsersList"
 
 const UsersPage = () => {
-  const users = useSelector((state: AppRootStateType) => state.users.users)
-  const usersCount = useSelector((state: AppRootStateType) => state.users.totalCount)
-  const appStatus = useSelector((store: AppRootStateType) => store.app.status)
+  const users = useSelector(selectorUsers)
+  const usersCount = useSelector(selectorUsersCount)
+  const appStatus = useSelector(selectorAppStatus)
   const dispatch = useAppDispatch()
   const [searchParams, setSearchParams] = useSearchParams({
     count: "10",
@@ -50,9 +51,9 @@ const UsersPage = () => {
     submitHandler({ text: e.currentTarget.value })
   }
 
-	  if (appStatus === "loading") {
-      return <></>
-    }
+  if (appStatus === "loading") {
+    return <></>
+  }
 
   return (
     <div className={s.usersWrapper}>

@@ -59,7 +59,7 @@ const UsersPage = () => {
     <div className={s.usersWrapper}>
       <div className={s.titleAndFilter}>
         {friend === "false" ? <span>Пользователи</span> : <span>Мои друзья</span>}
-        <Formik initialValues={{ text: `${term}` }} validate={findUserFormValidate} onSubmit={submitHandler}>
+        <Formik initialValues={{ text: `${term !==null ? term : ""}` }} validate={findUserFormValidate} onSubmit={submitHandler}>
           {() => (
             <Form ref={formRef}>
               <Field

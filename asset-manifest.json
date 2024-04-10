@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/vchate/static/css/main.6e67bdce.css",
-    "main.js": "/vchate/static/js/main.57290b8a.js",
-    "static/media/icon-instagram.png": "/vchate/static/media/icon-instagram.79535458a8a6d88f81d4.png",
-    "static/media/icon-web-site.png": "/vchate/static/media/icon-web-site.69df5e4fba1a2c5dc853.png",
-    "static/media/defaultAvatar.png": "/vchate/static/media/defaultAvatar.921dff757ad07190be75.png",
-    "static/media/icon-github.png": "/vchate/static/media/icon-github.553c66159c5672f25df6.png",
-    "static/media/icon-vk.png": "/vchate/static/media/icon-vk.46a727c40540261a6ad3.png",
-    "static/media/icon-youtube.png": "/vchate/static/media/icon-youtube.ee9f21489b0269aede6f.png",
-    "static/media/icon-facebook.png": "/vchate/static/media/icon-facebook.49e67d43221b6bb1aa86.png",
-    "static/media/icon-twitter.png": "/vchate/static/media/icon-twitter.f87fab6e76b591c59da9.png",
-    "index.html": "/vchate/index.html",
-    "main.6e67bdce.css.map": "/vchate/static/css/main.6e67bdce.css.map",
-    "main.57290b8a.js.map": "/vchate/static/js/main.57290b8a.js.map"
+    "main.css": "/Social%20Network/static/css/main.6e67bdce.css",
+    "main.js": "/Social%20Network/static/js/main.b2b2c692.js",
+    "static/media/icon-instagram.png": "/Social%20Network/static/media/icon-instagram.79535458a8a6d88f81d4.png",
+    "static/media/icon-web-site.png": "/Social%20Network/static/media/icon-web-site.69df5e4fba1a2c5dc853.png",
+    "static/media/defaultAvatar.png": "/Social%20Network/static/media/defaultAvatar.921dff757ad07190be75.png",
+    "static/media/icon-github.png": "/Social%20Network/static/media/icon-github.553c66159c5672f25df6.png",
+    "static/media/icon-vk.png": "/Social%20Network/static/media/icon-vk.46a727c40540261a6ad3.png",
+    "static/media/icon-youtube.png": "/Social%20Network/static/media/icon-youtube.ee9f21489b0269aede6f.png",
+    "static/media/icon-facebook.png": "/Social%20Network/static/media/icon-facebook.49e67d43221b6bb1aa86.png",
+    "static/media/icon-twitter.png": "/Social%20Network/static/media/icon-twitter.f87fab6e76b591c59da9.png",
+    "index.html": "/Social%20Network/index.html",
+    "main.6e67bdce.css.map": "/Social%20Network/static/css/main.6e67bdce.css.map",
+    "main.b2b2c692.js.map": "/Social%20Network/static/js/main.b2b2c692.js.map"
   },
   "entrypoints": [
     "static/css/main.6e67bdce.css",
-    "static/js/main.57290b8a.js"
+    "static/js/main.b2b2c692.js"
   ]
 }

@@ -1,8 +1,8 @@
 {
-  "name": "vchate",
+  "name": "SocialNetwork",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://SamarinV.github.io/vchate",
+  "homepage": "https://SamarinV.github.io/Social Network",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",

@@ -46,14 +46,14 @@ function App() {
                   (isLoggedIn ? (
                     <>
                       <Route path={"/"} element={<Login />} />
-                      <Route path={"/profile"} element={<Login />} />
-                      <Route path={"/profile/:id"} element={<Profile />} />
-                      <Route path={"/users"} element={<Users />} />
-                      <Route path="/login" element={<Login />} />
-                      <Route path="/dialogs" element={<Dialogs />} />
-                      <Route path="/dialogs/:id" element={<Dialogs />} />
-                      <Route path="/account" element={<MyAccount />} />
-                      <Route path="/*" element={<Page404 />} />
+                      <Route path={"profile"} element={<Login />} />
+                      <Route path={"profile/:id"} element={<Profile />} />
+                      <Route path={"users"} element={<Users />} />
+                      <Route path="login" element={<Login />} />
+                      <Route path="dialogs" element={<Dialogs />} />
+                      <Route path="dialogs/:id" element={<Dialogs />} />
+                      <Route path="account" element={<MyAccount />} />
+                      <Route path="*" element={<Page404 />} />
                     </>
                   ) : (
                     <>

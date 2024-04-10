@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/vchate/static/css/main.130bc112.css",
-    "main.js": "/vchate/static/js/main.53b3e5c8.js",
-    "static/media/user.png": "/vchate/static/media/user.921dff757ad07190be75.png",
-    "static/media/setting.svg": "/vchate/static/media/setting.a6369aa69dbeae65f24a7897b9f9a652.svg",
-    "static/media/profile.svg": "/vchate/static/media/profile.61299a0b6cc50a7bde915a8aaf932d53.svg",
-    "static/media/chatWithoutUser.svg": "/vchate/static/media/chatWithoutUser.7598e8ab8d51b4fcbfc1992aba895f9c.svg",
-    "static/media/news.svg": "/vchate/static/media/news.45723f4f99b9f58fabbc9f19886e0845.svg",
+    "main.css": "/vchate/static/css/main.6e67bdce.css",
+    "main.js": "/vchate/static/js/main.57290b8a.js",
+    "static/media/icon-instagram.png": "/vchate/static/media/icon-instagram.79535458a8a6d88f81d4.png",
+    "static/media/icon-web-site.png": "/vchate/static/media/icon-web-site.69df5e4fba1a2c5dc853.png",
+    "static/media/defaultAvatar.png": "/vchate/static/media/defaultAvatar.921dff757ad07190be75.png",
+    "static/media/icon-github.png": "/vchate/static/media/icon-github.553c66159c5672f25df6.png",
+    "static/media/icon-vk.png": "/vchate/static/media/icon-vk.46a727c40540261a6ad3.png",
+    "static/media/icon-youtube.png": "/vchate/static/media/icon-youtube.ee9f21489b0269aede6f.png",
+    "static/media/icon-facebook.png": "/vchate/static/media/icon-facebook.49e67d43221b6bb1aa86.png",
+    "static/media/icon-twitter.png": "/vchate/static/media/icon-twitter.f87fab6e76b591c59da9.png",
     "index.html": "/vchate/index.html",
-    "static/media/message.svg": "/vchate/static/media/message.b319afe146fe50f6f910d5a9bedc9409.svg",
-    "static/media/music.svg": "/vchate/static/media/music.9f90d93a1db6c06577b8039cff52f4ba.svg",
-    "main.130bc112.css.map": "/vchate/static/css/main.130bc112.css.map",
-    "main.53b3e5c8.js.map": "/vchate/static/js/main.53b3e5c8.js.map"
+    "main.6e67bdce.css.map": "/vchate/static/css/main.6e67bdce.css.map",
+    "main.57290b8a.js.map": "/vchate/static/js/main.57290b8a.js.map"
   },
   "entrypoints": [
-    "static/css/main.130bc112.css",
-    "static/js/main.53b3e5c8.js"
+    "static/css/main.6e67bdce.css",
+    "static/js/main.57290b8a.js"
   ]
 }

@@ -4,13 +4,13 @@ import "./index.css"
 import { Provider } from "react-redux"
 import { store } from "./app/store"
 import App from "./app/App"
-import { BrowserRouter } from "react-router-dom"
+import { HashRouter } from "react-router-dom"
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename="/">
+    <HashRouter>
       <App />
-    </BrowserRouter>
+    </HashRouter>
   </Provider>,
   document.getElementById("root")
 )

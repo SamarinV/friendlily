@@ -39,7 +39,7 @@ const UserContacts = () => {
       <Tooltip title="Редактировать контакты" placement="top">
         <IconButton
           onClick={openModalEditContacts}
-          sx={{ border: "1px solid grey" }}
+          sx={{ border: "1px solid grey", width: "33px", height: "33px", marginLeft: "10px" }}
           aria-label="edit"
           color="primary"
           component="label"

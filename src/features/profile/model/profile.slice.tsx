@@ -75,15 +75,11 @@ const slice = createSlice({
 const fetchProfile = createAppAsyncThunk<GetUserProfileResponse, number>(
   `${slice.name}/setProfile`,
   async (userId, { rejectWithValue }) => {
-    try {
-      const res = await usersAPI.getUserProfile(userId)
-      if (res.data.userId) {
-        return res.data
-      } else {
-        return rejectWithValue(res.data)
-      }
-    } catch (error) {
-      return rejectWithValue(null)
+    const res = await usersAPI.getUserProfile(userId)
+    if (res.data.userId) {
+      return res.data
+    } else {
+      return rejectWithValue(res.data)
     }
   }
 )
@@ -91,18 +87,13 @@ const fetchProfile = createAppAsyncThunk<GetUserProfileResponse, number>(
 const savePhoto = createAppAsyncThunk<BaseResponse<PhotoUpdateResponse>, File>(
   `${slice.name}/savePhoto`,
   async (file, { rejectWithValue, dispatch }) => {
-    try {
-      dispatch(slice.actions.loadingPhoto(true))
-      const res = await profileAPI.savePhoto(file)
-      if (res.data.resultCode === 0) {
-        dispatch(slice.actions.loadingPhoto(false))
-        return res.data
-      } else {
-        return rejectWithValue(res.data)
-      }
-    } catch (error) {
-      console.error("Error fetching profile:", error)
-      return rejectWithValue(null)
+    dispatch(slice.actions.loadingPhoto(true))
+    const res = await profileAPI.savePhoto(file)
+    if (res.data.resultCode === 0) {
+      dispatch(slice.actions.loadingPhoto(false))
+      return res.data
+    } else {
+      return rejectWithValue(res.data)
     }
   }
 )
@@ -110,15 +101,11 @@ const savePhoto = createAppAsyncThunk<BaseResponse<PhotoUpdateResponse>, File>(
 const getStatus = createAppAsyncThunk<string, number>(
   `${slice.name}/getStatus`,
   async (userId, { rejectWithValue }) => {
-    try {
-      const res = await profileAPI.getStatus(userId)
-      if (res.status === 200) {
-        return res.data
-      } else {
-        return rejectWithValue(res.data)
-      }
-    } catch (error) {
-      return rejectWithValue(null)
+    const res = await profileAPI.getStatus(userId)
+    if (res.status === 200) {
+      return res.data
+    } else {
+      return rejectWithValue(res.data)
     }
   }
 )
@@ -126,16 +113,11 @@ const getStatus = createAppAsyncThunk<string, number>(
 const saveStatus = createAppAsyncThunk<string, string>(
   `${slice.name}/saveStatus`,
   async (status, { rejectWithValue }) => {
-    try {
-      const res = await profileAPI.saveStatus(status)
-      if (res.data.resultCode === 0) {
-        return status
-      } else {
-        return rejectWithValue(res.data)
-      }
-    } catch (error) {
-      console.error("Error fetching profile:", error)
-      return rejectWithValue(null)
+    const res = await profileAPI.saveStatus(status)
+    if (res.data.resultCode === 0) {
+      return status
+    } else {
+      return rejectWithValue(res.data)
     }
   }
 )
@@ -156,24 +138,19 @@ const saveChangesProfile = createAppAsyncThunk<
       "mainLink" in obj
     )
   }
-  try {
-    const state = getState().profile.user
-    let user: UserProfileRequest
-    if (isFormikValuesContacts(newDataUser)) {
-      //when changed user coontact
-      user = { ...state, contacts: { ...newDataUser } }
-    } else {
-      user = { ...state, ...newDataUser }
-    }
-    const res = await profileAPI.saveChangesProfile(user)
-    if (res.data.resultCode === 0) {
-      return user
-    } else {
-      return rejectWithValue(res.data)
-    }
-  } catch (error) {
-    console.error("Error fetching profile:", error)
-    return rejectWithValue(null)
+  const state = getState().profile.user
+  let user: UserProfileRequest
+  if (isFormikValuesContacts(newDataUser)) {
+    //when changed user coontact
+    user = { ...state, contacts: { ...newDataUser } }
+  } else {
+    user = { ...state, ...newDataUser }
+  }
+  const res = await profileAPI.saveChangesProfile(user)
+  if (res.data.resultCode === 0) {
+    return user
+  } else {
+    return rejectWithValue(res.data)
   }
 })
 

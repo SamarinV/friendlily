@@ -84,7 +84,6 @@ const sendMessage = createAppAsyncThunk<any, { userId: number; message: string }
   async ({ userId, message }, { rejectWithValue, dispatch }) => {
     const res = await dialogsApi.sendMessage(userId, message)
     if (res.data.resultCode === 0) {
-      console.log(res.data)
       return res.data.data.message
     } else {
       return rejectWithValue(res.data)

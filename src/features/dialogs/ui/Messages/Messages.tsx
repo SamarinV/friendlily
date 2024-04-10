@@ -105,9 +105,10 @@ const Messages = () => {
             variant="filled"
             size="small"
             value={formik.values.message}
-            placeholder="Напишите сообщение"
+            label="Напишите сообщение"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            autoComplete="off"
           />
           <Button color="primary" variant="contained" type="submit">
             Отправить

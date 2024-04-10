@@ -15,14 +15,15 @@ import { Route, Routes } from "react-router-dom"
 import "./App.css"
 import { AppRootStateType } from "./store"
 import { useMediaQuery } from "@mui/material"
+import { ErrorSnackbar } from "common/components/ErrorSnackbar/ErrorSnackbar"
 
 function App() {
   const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
   const authUserId = useSelector((store: AppRootStateType) => store.auth.userData.id)
   const isInitialized = useSelector((store: AppRootStateType) => store.app.isInitialized)
-	const isLoading = useSelector((store: AppRootStateType) => store.app.status)
+  const isLoading = useSelector((store: AppRootStateType) => store.app.status)
   const dispatch = useAppDispatch()
-	const isSmallScreen = useMediaQuery("(max-width: 760px)")
+  const isSmallScreen = useMediaQuery("(max-width: 760px)")
 
   useEffect(() => {
     dispatch(authThunks.initializeApp())
@@ -30,6 +31,7 @@ function App() {
 
   return (
     <div className="App">
+      <ErrorSnackbar />
       <Header />
       <div className="navbar-content-wrapper">
         {isLoading === "loading" && <LinearLoader />}

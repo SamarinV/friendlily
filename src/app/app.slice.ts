@@ -27,30 +27,34 @@ const slice = createSlice({
   },
   extraReducers(builder) {
     builder
-		.addMatcher(isPending, (state, action) => {
-      if (
-        action.type === profileThunks.savePhoto.pending.type ||
-        action.type === profileThunks.saveStatus.pending.type
-      ) {
-        return
-      } else {
-        state.status = "loading"
-      }
-    })
-    builder.addMatcher(isFulfilled, (state, action) => {
-      state.status = "succeeded"
-    })
-    builder.addMatcher(isRejected, (state, action: any) => {
-      state.status = "failed"
-      if (action.payload) {
-        if (action.type === authThunks.initializeApp.rejected.type) {
+      .addMatcher(isPending, (state, action) => {
+        if (
+          action.type === profileThunks.savePhoto.pending.type ||
+          action.type === profileThunks.saveStatus.pending.type
+        ) {
           return
+        } else {
+          state.status = "loading"
         }
-        state.error = action.payload.messages[0]
-      } else {
-        state.error = action.error.message ? action.error.message : "Some error occured"
-      }
-    })
+      })
+      .addMatcher(isFulfilled, (state, action) => {
+        state.status = "succeeded"
+      })
+      .addMatcher(isRejected, (state, action: any) => {
+        state.status = "failed"
+        if (action.payload) {
+          if (action.type === authThunks.initializeApp.rejected.type) {
+            return
+          }
+          state.error = action.payload.messages[0]
+        } else {
+          if (action.error.message === "Request failed with status code 401") {
+            state.error = "User is not authorized"
+          } else {
+            state.error = action.error.message ? action.error.message : "Some error occured"
+          }
+        }
+      })
   },
 })
 

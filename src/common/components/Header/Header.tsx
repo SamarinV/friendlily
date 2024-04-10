@@ -22,6 +22,7 @@ const Header = () => {
   const location = useLocation()
 	const isSmallScreen = useMediaQuery("(max-width: 760px)")
 	const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState(false)
+	const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
@@ -52,7 +53,7 @@ const Header = () => {
   return (
     <div>
       <header className={s.header}>
-        {isSmallScreen && (
+        {isSmallScreen && isLoggedIn && (
           <>
             <div className={s.burgerMenuIcon} onClick={openMenuHandler}>
               <MenuIcon sx={{ width: "45px", height: "45px" }} />

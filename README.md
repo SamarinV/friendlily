@@ -1,1 +1,1 @@
-gh-page: https://samarinv.github.io/vchate
+gh-page: https://samarinv.github.io/social-network/

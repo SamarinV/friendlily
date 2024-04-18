@@ -1,25 +1,3 @@
-.userWrapper {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-}
-.user {
-	display: flex;
-	height: 3.75em;
-}
-.blockNameStatus {
-	margin-left: 1.25em;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	height: 100%;
-}
-
-.status {
-	font-size: 0.8em;
-	color: grey;
-	margin-top: 0.6em;
-}
 .notFoundBlock {
 	display: flex;
 	flex-direction: column;
@@ -28,10 +6,5 @@
 	span {
 		font-size: 1.5em;
 		margin-bottom: 1.25em;
-	}
-}
-@media screen and (max-width: 760px) {
-	.userWrapper {
-		height: 60px;
 	}
 }

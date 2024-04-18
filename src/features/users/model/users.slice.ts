@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
 import { authThunks } from "features/auth/model/auth.slice"
-import { User, UsersBaseResponse, usersAPI } from "../api/users-api"
+import { UserResponse, UsersBaseResponse, usersAPI } from "../api/users-api"
 
 export type UsersState = {
-  users: User[]
+  users: UserResponse[]
   folloInProgress: number[]
   loading: boolean
   totalCount: number

@@ -19,7 +19,7 @@ export const usersAPI = {
   },
 }
 
-export type User = {
+export type UserResponse = {
   followed: boolean
   id: number
   name: string
@@ -29,7 +29,7 @@ export type User = {
 }
 export type UsersBaseResponse = {
   error: string | null
-  items: User[]
+  items: UserResponse[]
   totalCount: number
 }
 type followUnFollowResponse = {

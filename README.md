@@ -1,1 +1,4 @@
-gh-page: https://samarinv.github.io/vchate
+В этом приложении я создал Социальную сеть. В проекте использую JS, TS, CSS module, Muterial UI. Все данные берутся с API It-incubator и храняться в хранилище Redux toolkit.
+В приложении есть страница авторизации пользователя, страница профиля пользователя с возможностью изменять данные профиля, страница диалогов.
+
+gh-page: https://samarinv.github.io/social-network/

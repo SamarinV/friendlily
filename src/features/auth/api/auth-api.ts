@@ -1,4 +1,4 @@
-import { instance } from "common/api/common.api"
+import { instance } from "../../../common/api/common.api"
 import { BaseResponse } from "common/types/types"
 
 export const authAPI = {
@@ -6,7 +6,7 @@ export const authAPI = {
     return instance.get<BaseResponse<AuthUser>>(`/auth/me`)
   },
   login(arg: LoginParams) {
-    return instance.post<BaseResponse<{userId: number}>>(`/auth/login`, arg)
+    return instance.post<BaseResponse<{ userId: number }>>(`/auth/login`, arg)
   },
   logout() {
     return instance.delete<BaseResponse<AuthUser>>(`/auth/login`)

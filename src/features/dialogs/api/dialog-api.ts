@@ -46,7 +46,7 @@ export type ResponseGetDialogs = {
   }
 }
 
-type ResponseSendMessage = {
+export type ResponseSendMessage = {
   message: {
     id: string
     body: string
@@ -54,7 +54,7 @@ type ResponseSendMessage = {
     addedAt: string
     senderId: number
     senderName: string
-    recipientId: 15978
+    recipientId: number
     recipientName: string
     viewed: boolean
     deletedBySender: boolean

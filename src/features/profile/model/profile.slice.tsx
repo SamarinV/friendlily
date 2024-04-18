@@ -7,13 +7,13 @@ import { FormikValues } from "features/profile/ui/FormEditProfile/FormEditProfil
 import { GetUserProfileResponse, usersAPI } from "../../users/api/users-api"
 import { PhotoUpdateResponse, UserProfileRequest, profileAPI } from "../api/profile-api"
 
-type InitialState = {
+export type ProfileState = {
   user: GetUserProfileResponse
   userStatus: string
   photoIsLoading: boolean
 }
 
-const initialState: InitialState = {
+const initialState: ProfileState = {
   user: {
     userId: 0,
     aboutMe: "",
@@ -59,9 +59,7 @@ const slice = createSlice({
         state.userStatus = action.payload
       })
       .addCase(savePhoto.fulfilled, (state, action) => {
-        if (state.user) {
-          state.user.photos = action.payload.data.photos
-        }
+          state.user.photos = action.payload.photos
       })
       .addCase(authThunks.logout.fulfilled, (state, action) => {
         return initialState
@@ -84,14 +82,14 @@ const fetchProfile = createAppAsyncThunk<GetUserProfileResponse, number>(
   }
 )
 
-const savePhoto = createAppAsyncThunk<BaseResponse<PhotoUpdateResponse>, File>(
+const savePhoto = createAppAsyncThunk<PhotoUpdateResponse, File>(
   `${slice.name}/savePhoto`,
   async (file, { rejectWithValue, dispatch }) => {
     dispatch(slice.actions.loadingPhoto(true))
     const res = await profileAPI.savePhoto(file)
     if (res.data.resultCode === 0) {
       dispatch(slice.actions.loadingPhoto(false))
-      return res.data
+      return res.data.data
     } else {
       return rejectWithValue(res.data)
     }

@@ -3,7 +3,7 @@ import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
 import { authThunks } from "features/auth/model/auth.slice"
 import { User, UsersBaseResponse, usersAPI } from "../api/users-api"
 
-type UsersState = {
+export type UsersState = {
   users: User[]
   folloInProgress: number[]
   loading: boolean

@@ -14,7 +14,7 @@ import Profile from "features/profile/ui/Profile"
 import Users from "features/users/ui/Users"
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import "./App.css"
 import { selectorAppIsInitialized, selectorAppIsLoading } from "./appSelectors"
 
@@ -45,7 +45,7 @@ function App() {
                 {isInitialized &&
                   (isLoggedIn ? (
                     <>
-                      <Route path={"/"} element={<Login />} />
+                      <Route path={"#/"} element={<Login />} />
                       <Route path={"profile"} element={<Login />} />
                       <Route path={"profile/:id"} element={<Profile />} />
                       <Route path={"users"} element={<Users />} />
@@ -57,9 +57,9 @@ function App() {
                     </>
                   ) : (
                     <>
-                      <Route path="/" element={<Login />} />
-                      <Route path="/login" element={<Login />} />
-                      <Route path={"/profile/:id"} element={<Profile />} />
+                      <Route path="login" element={<Login />} />
+                      <Route path={"profile/:id"} element={<Profile />} />
+                      <Route path="*" element={<Navigate to={"login"} />} />
                     </>
                   ))}
               </Routes>

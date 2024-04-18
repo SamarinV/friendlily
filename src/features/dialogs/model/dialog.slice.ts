@@ -4,13 +4,13 @@ import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
 import { authThunks } from "features/auth/model/auth.slice"
 import { Message, ResponseGetDialogs, ResponseGetMessages, dialogsApi } from "../api/dialog-api"
 
-type InitialState = {
+ export type DialogsState = {
   dialogs: ResponseGetDialogs[]
   messages: Message[]
   isLoadingMessages: boolean
 }
 
-const initialState: InitialState = {
+const initialState: DialogsState = {
   dialogs: [],
   messages: [],
   isLoadingMessages: false,

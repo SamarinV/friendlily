@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createSlice, isRejected } from "@reduxjs/toolkit"
 import { BaseResponse, RequestEditProfile } from "common/types/types"
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
 import { authThunks } from "features/auth/model/auth.slice"
@@ -59,13 +59,18 @@ const slice = createSlice({
         state.userStatus = action.payload
       })
       .addCase(savePhoto.fulfilled, (state, action) => {
-          state.user.photos = action.payload.photos
+        state.user.photos = action.payload.photos
       })
       .addCase(authThunks.logout.fulfilled, (state, action) => {
         return initialState
       })
       .addCase(saveChangesProfile.fulfilled, (state, action) => {
         state.user = { ...state.user, ...action.payload }
+      })
+      .addMatcher(isRejected, (state, action: any) => {
+        if (action.type === profileThunks.savePhoto.rejected.type) {
+          state.photoIsLoading = false
+        }
       })
   },
 })

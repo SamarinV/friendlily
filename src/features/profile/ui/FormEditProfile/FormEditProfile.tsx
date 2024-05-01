@@ -18,14 +18,14 @@ type Props = {
 }
 
 const validationSchema = yup.object().shape({
-  aboutMe: yup.string().min(5, "Длина не менее 5 символов").max(50, "Длина не более 50 символов"),
-  fullName: yup
+  aboutMe: yup.string().required("Обязательное поле").max(50, "Длина не более 50 символов"),
+  fullName: yup.string().required("Обязательное поле").max(25, "Длина не более 25 символов"),
+  lookingForAJob: yup.boolean(),
+  lookingForAJobDescription: yup
     .string()
     .required("Обязательное поле")
-    .min(5, "Длина не менее 5 символов")
-    .max(25, "Длина не более 25 символов"),
-  lookingForAJob: yup.boolean(),
-  lookingForAJobDescription: yup.string().min(5, "Длина не менее 5 символов").max(100, "Длина не более 100 символов"),
+    .max(100, "Длина не более 100 символов")
+    .nullable(),
 })
 
 const FormEditProfile = ({ setIsOpenModal }: Props) => {
@@ -41,7 +41,12 @@ const FormEditProfile = ({ setIsOpenModal }: Props) => {
     },
     validationSchema: validationSchema,
     onSubmit: (values: FormikValues) => {
-      dispatch(profileThunks.saveChangesProfile(values)).then(() => setIsOpenModal(false))
+      const cleanedValues = {
+        ...values,
+        aboutMe: values.aboutMe || "",
+        lookingForAJobDescription: values.lookingForAJobDescription || "",
+      }
+      dispatch(profileThunks.saveChangesProfile(cleanedValues)).then(() => setIsOpenModal(false))
     },
   })
   return (
@@ -65,7 +70,7 @@ const FormEditProfile = ({ setIsOpenModal }: Props) => {
           id="aboutMe"
           name="aboutMe"
           label="Обо мне"
-          value={formik.values.aboutMe}
+          value={formik.values.aboutMe || ""}
           onChange={formik.handleChange}
           className={s.inputContainer}
           size="small"

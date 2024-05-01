@@ -36,7 +36,7 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
+      email: "samrvan123@yandex.ru",
       password: "",
       rememberMe: false,
     },
@@ -73,8 +73,8 @@ const Login = () => {
                     </a>
                   </p>
                   <p className={s.text}>или воспользуйтесь тестовым аккаунтом:</p>
-                  <p className={s.text}> Email: free@samuraijs.com</p>
-                  <p className={s.text}>Password: free</p>
+                  <p className={s.text}> Email: samrvan123@yandex.ru</p>
+                  <p className={s.text}>Password: samrvan123</p>
                 </div>
               </FormLabel>
               <FormGroup>

@@ -19,7 +19,7 @@ import { selectorAuthUserId, selectorIsLoggedIn } from "../model/auth.selectors"
 import { authThunks } from "../model/auth.slice"
 import Visibility from "@mui/icons-material/Visibility"
 import VisibilityOff from "@mui/icons-material/VisibilityOff"
-import s from "./Login.module.css"
+import s from "./Login.module.scss"
 import { useState } from "react"
 
 const validationSchema = yup.object().shape({

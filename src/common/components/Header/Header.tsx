@@ -11,7 +11,7 @@ import { useSelector } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import BorderLoader from "../BorderLoader/BorderLoader"
 import Navbar from "../Navbar/Navbar"
-import s from "./Header.module.css"
+import s from "./Header.module.scss"
 
 const Header = () => {
   const userPhotoSmall = useSelector(selectorAuthUserPhotoSmall)

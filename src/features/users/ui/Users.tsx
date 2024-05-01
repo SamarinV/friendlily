@@ -7,8 +7,9 @@ import { useSelector } from "react-redux"
 import { useSearchParams } from "react-router-dom"
 import { selectorUsers, selectorUsersCount } from "../model/users.selectors"
 import { usersThunks } from "../model/users.slice"
-import s from "./Users.module.css"
+import s from "./Users.module.scss"
 import UsersList from "./UsersList/UsersList"
+import { Tabs } from "common/components/tabs"
 
 const UsersPage = () => {
   const users = useSelector(selectorUsers)
@@ -57,9 +58,13 @@ const UsersPage = () => {
 
   return (
     <div className={s.usersWrapper}>
-      <div className={s.titleAndFilter}>
-        {friend === "false" ? <span>Пользователи</span> : <span>Мои друзья</span>}
-        <Formik initialValues={{ text: `${term !==null ? term : ""}` }} validate={findUserFormValidate} onSubmit={submitHandler}>
+      <div className={s.filter}>
+        <Tabs friend={friend} />
+        <Formik
+          initialValues={{ text: `${term !== null ? term : ""}` }}
+          validate={findUserFormValidate}
+          onSubmit={submitHandler}
+        >
           {() => (
             <Form ref={formRef}>
               <Field

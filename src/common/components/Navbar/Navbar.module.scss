@@ -1,5 +1,7 @@
 .nav {
-	width: 5em;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
 }
 .link {
 	text-decoration: none;
@@ -7,9 +9,19 @@
 	cursor: pointer;
 	font-size: 1.25em;
 	color: black;
-	margin-bottom: 3.1em;
-	width: 100%;
-	
+	transition: background-color 0.5s;
+	border-radius: 0;
+	padding: 5px;
+	&:hover {
+			background-color: rgb(37, 45, 154);
+		}
+}
+.activeLink {
+	background-color: rgb(57, 70, 253);
+	&:hover {
+		background-color: rgb(57, 70, 253);
+		cursor: default;
+	}
 }
 .link div {
 	margin-bottom: 1em;
@@ -22,14 +34,11 @@
 	height: 2.5em;
 	margin-right: 0.25em;
 }
-.displayFlex {
-	display: flex;
-}
+
 
 /* burger menu */
 .burgerLinkWrapper{
 	border-bottom: 1px solid #C8C8C8;
-	width: 100%;
 	button {
 		width:100%;
 		justify-content: start;

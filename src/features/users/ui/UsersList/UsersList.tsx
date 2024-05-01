@@ -1,14 +1,12 @@
-import { Avatar, Button } from "@mui/material"
-import Block from "common/components/Block/Block"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { selectorAuthUserId } from "features/auth/model/auth.selectors"
 import { UserResponse } from "features/users/api/users-api"
 import { selectorUsersFollowInProgress } from "features/users/model/users.selectors"
 import { usersThunks } from "features/users/model/users.slice"
 import { useSelector } from "react-redux"
-import { NavLink, useNavigate } from "react-router-dom"
-import s from "./UsersList.module.css"
+import { useNavigate } from "react-router-dom"
 import User from "./User/User"
+import s from "./UsersList.module.scss"
 
 type Props = {
   users: UserResponse[]
@@ -17,7 +15,7 @@ type Props = {
 const UsersList = ({ users }: Props) => {
   const authUserId = useSelector(selectorAuthUserId)
   const followInProgress = useSelector(selectorUsersFollowInProgress)
-	const navigate = useNavigate()
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
   const followHandler = (id: number) => {
@@ -27,9 +25,9 @@ const UsersList = ({ users }: Props) => {
   const unFollowHandler = (id: number) => {
     dispatch(usersThunks.unFollowUser(id))
   }
-	const openProfileHandler = (id: number) => {
-		navigate(`/profile/${id}`)
-	}
+  const openProfileHandler = (id: number) => {
+    navigate(`/profile/${id}`)
+  }
 
   if (users.length === 0) {
     return (
@@ -40,11 +38,12 @@ const UsersList = ({ users }: Props) => {
     )
   }
   return (
-    <>
+    <div className={s.usersList}>
       {users &&
         users.map((user) => {
           return (
             <User
+              key={user.id}
               user={user}
               followInProgress={followInProgress}
               followHandler={followHandler}
@@ -54,7 +53,7 @@ const UsersList = ({ users }: Props) => {
             />
           )
         })}
-    </>
+    </div>
   )
 }
 

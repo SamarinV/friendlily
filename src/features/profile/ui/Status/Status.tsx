@@ -6,7 +6,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik"
 import React, { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import { profileThunks } from "../../model/profile.slice"
-import s from "./Status.module.css"
+import s from "./Status.module.scss"
 
 const Status = () => {
   const userStatus = useSelector(selectorProfileUserStatus)

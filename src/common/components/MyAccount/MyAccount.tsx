@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import Block from "../Block/Block"
 
 import { selectorAuthUserData } from "features/auth/model/auth.selectors"
-import s from "./MyAccount.module.css"
+import s from "./MyAccount.module.scss"
 
 const MyAccount = () => {
   const user = useSelector(selectorAuthUserData)

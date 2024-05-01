@@ -48,7 +48,6 @@ const fetchUsers = createAppAsyncThunk<
   UsersBaseResponse,
   { page: string; count: string; friend: string; term: string | null }
 >(`${slice.name}/fetchUsers`, async (params, { rejectWithValue }) => {
-  console.log(params)
   const res = await usersAPI.getUsers(params)
   if (res.data.error === null) {
     return res.data

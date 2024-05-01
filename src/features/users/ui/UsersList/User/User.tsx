@@ -2,7 +2,7 @@ import { Avatar, Button } from "@mui/material"
 import Block from "common/components/Block/Block"
 import { UserResponse } from "features/users/api/users-api"
 import { NavLink } from "react-router-dom"
-import s from "./User.module.css"
+import s from "./User.module.scss"
 
 type Props = {
   user: UserResponse

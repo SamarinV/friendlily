@@ -1,18 +1,16 @@
-import UsersIcon from "@mui/icons-material/PeopleAlt"
 import ProfileIcon from "@mui/icons-material/Person2"
 import MessagesIcon from "@mui/icons-material/QuestionAnswer"
 import SearchIcon from "@mui/icons-material/Search"
-import { Button, useMediaQuery } from "@mui/material"
-import Tooltip from "@mui/material/Tooltip"
+import { Tooltip, useMediaQuery } from "@mui/material"
 import { selectorAuthUserId } from "features/auth/model/auth.selectors"
 import React from "react"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
-import s from "./Navbar.module.css"
+import s from "./Navbar.module.scss"
 
 type Props = {
   to: string
-  logo: React.ReactNode
+  logo: React.ReactElement
   textInfo: string
   openMenuHandler?: () => void
 }
@@ -34,23 +32,16 @@ const NavLinkWithLogo = ({ to, logo, textInfo, openMenuHandler }: Props) => {
     <>
       {isSmallScreen ? (
         <div className={s.burgerLinkWrapper}>
-          <NavLink onClick={closeBurgerMenu} className={s.link} to={to}>
-            <Button>
-              {logo}
-              <span className={s.menuLinkText}>{textInfo}</span>
-            </Button>
+          <NavLink onClick={closeBurgerMenu} to={to}>
+            {logo}
+            <span className={s.menuLinkText}>{textInfo}</span>
           </NavLink>
         </div>
       ) : (
-        <NavLink className={s.link} to={to}>
-          {({ isActive }) => (
-            <Tooltip title={textInfo} placement="right">
-              <Button>
-                {logo}
-                <span className={isActive ? `${s.linkActive}` : ""}></span>
-              </Button>
-            </Tooltip>
-          )}
+        <NavLink className={({ isActive }) => (isActive ? `${s.link} ${s.activeLink}` : `${s.link}`)} to={to}>
+          <Tooltip title={textInfo} placement="right">
+            {logo}
+          </Tooltip>
         </NavLink>
       )}
     </>
@@ -75,12 +66,6 @@ const Navbar = ({ openMenuHandler }: NavbarProps) => {
         to="/dialogs"
         logo={<MessagesIcon sx={style} />}
         textInfo="Сообщения"
-        openMenuHandler={openMenuHandler}
-      />
-      <NavLinkWithLogo
-        to="/users?count=10&page=1&friend=true"
-        logo={<UsersIcon sx={style} />}
-        textInfo="Друзья"
         openMenuHandler={openMenuHandler}
       />
       <NavLinkWithLogo

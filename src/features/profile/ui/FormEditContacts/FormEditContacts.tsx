@@ -5,7 +5,7 @@ import { profileThunks } from "features/profile/model/profile.slice"
 import { useFormik } from "formik"
 import { useSelector } from "react-redux"
 import * as yup from "yup"
-import s from "./FormEditContacts.module.css"
+import s from "./FormEditContacts.module.scss"
 
 export type FormikValuesContacts = {
   facebook: string

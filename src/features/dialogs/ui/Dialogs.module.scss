@@ -10,6 +10,13 @@
 	border-radius: 0.25em;
 	box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.5);
 }
+.title {
+	display: flex;
+	align-items: center;
+	height: 1.9em;
+	border-bottom: 1px solid #C8C8C8;
+	padding: 0.6em;
+}
 .dialogsList {
 	max-height:calc(100% - 3.25em);
 	overflow-y: auto;
@@ -26,19 +33,13 @@
 		margin-left: 0.6em;
 		font-size: 1.25em;
 	}
+	&:hover {
+		cursor: pointer;
+		background-color: rgba(30, 5, 255, 0.2);
+		transition: background-color 0.5s ease;
+	}
 }
-.dialog:hover {
-	cursor: pointer;
-	background-color: rgba(30, 5, 255, 0.2);
-	transition: background-color 0.5s ease;
-}
-.title {
-	display: flex;
-	align-items: center;
-	height: 1.9em;
-	border-bottom: 1px solid #C8C8C8;
-	padding: 0.6em;
-}
+
 .dialogActive {
 	background-color: rgba(40, 46, 210, 0.5);
 }

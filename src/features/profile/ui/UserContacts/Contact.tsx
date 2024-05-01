@@ -1,5 +1,5 @@
 import { Tooltip } from "@mui/material"
-import s from "./Contact.module.css"
+import s from "./Contact.module.scss"
 
 type Props = {
   contact: string | null

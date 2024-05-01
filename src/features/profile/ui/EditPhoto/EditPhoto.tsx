@@ -5,7 +5,7 @@ import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { selectorProfilePhotoLarge, selectorProfileUserId } from "features/profile/model/profile.selectors"
 import { useSelector } from "react-redux"
 import { profileThunks } from "../../model/profile.slice"
-import s from "./EditPhoto.module.css"
+import s from "./EditPhoto.module.scss"
 
 const EditPhoto = () => {
   const image = useSelector(selectorProfilePhotoLarge)

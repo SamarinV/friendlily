@@ -155,13 +155,13 @@ table {
 .content-wrapper {
 	background-color: #252525;
 	width: 100%;
-	padding: 3em;
+	padding: 2em;
 	min-height: 450px;
 	display: flex;
 	justify-content: center;
 }
 .content {
-	width: 44em;
+	width: 100%;
 }
 
 @media screen and (max-width: 860px) {

@@ -1,4 +1,4 @@
-import s from "./BorderLoader.module.css"
+import s from "./BorderLoader.module.scss"
 
 type Props = {
   loaderIsVisable: boolean

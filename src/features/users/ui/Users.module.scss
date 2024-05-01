@@ -1,14 +1,11 @@
 
 .usersWrapper{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 	position: relative;
 	width: 100%;
+	max-width: 800px;
+	margin: 0 auto;
 }
-.titleAndFilter {
-	position: absolute;
-	top: -2.6em;
+.filter {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -29,7 +26,6 @@
 
 .pagination {
 	ul{
-		
 		li {
 			button {
 				color: #C8C8C8;

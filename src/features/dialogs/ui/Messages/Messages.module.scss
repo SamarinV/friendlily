@@ -1,7 +1,13 @@
 .wrapper {
 	height: 31.25em;
 }
-
+.title {
+	display: flex;
+	align-items: center;
+	height: 1.9em;
+	border-bottom: 1px solid #C8C8C8;
+	padding: 0.6em;
+}
 .messagesAndButton {
 	display: flex;
 	flex-direction: column;
@@ -16,6 +22,8 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: start;
+	padding-right: 10px;
+	padding-top: 10px;
 }
 .showThisInCenter {
 	display: flex;
@@ -27,13 +35,7 @@
 	width: 100%;
 	height: 100%;
 }
-.title {
-	display: flex;
-	align-items: center;
-	height: 1.9em;
-	border-bottom: 1px solid #C8C8C8;
-	padding: 0.6em;
-}
+
 .message {
 	width: 60%;
 	.messageUserInfo {
@@ -60,9 +62,10 @@
 		align-items: start;
 		color: black;
 		margin-bottom: 0.6em;
-		padding: 0.25em;
+		padding: 1em;
 		border-radius: 0.25em;
 		margin-top: 0.6em;
+		box-sizing: border-box;
 	}
 }
 .myMessage {

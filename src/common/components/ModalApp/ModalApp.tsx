@@ -1,6 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close"
 import { Button, Modal } from "@mui/material"
-import s from "./ModalApp.module.css"
+import s from "./ModalApp.module.scss"
 
 type Props = {
   isOpenModal: boolean

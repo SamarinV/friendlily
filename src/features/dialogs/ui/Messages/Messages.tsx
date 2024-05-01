@@ -7,7 +7,7 @@ import { useFormik } from "formik"
 import { useEffect, useRef } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-import s from "./Messages.module.css"
+import s from "./Messages.module.scss"
 
 const Messages = () => {
   const messagesRef = useRef<HTMLDivElement>(null)
@@ -49,6 +49,19 @@ const Messages = () => {
     },
   })
 
+  const messageTime = (value: string) => {
+    const date = new Date(value)
+    const dateTimeFormat = new Intl.DateTimeFormat("ru-RU", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    })
+    return dateTimeFormat.format(date)
+  }
+
   if (!id) {
     return (
       <div className={s.wrapper}>
@@ -68,6 +81,8 @@ const Messages = () => {
             </div>
           ) : messages.length ? (
             messages.map((m) => {
+              const date = messageTime(m.addedAt)
+
               return (
                 <div className={`${s.message} ${m.senderId === authUser.id ? s.myMessage : ""}`} key={m.id}>
                   <div className={s.messageUserInfo}>
@@ -87,7 +102,7 @@ const Messages = () => {
                       <span onClick={() => openProfileHandler(m.senderId)} className={s.senderName}>
                         {m.senderName}
                       </span>
-                      <span className={s.time}>{m.addedAt}</span>
+                      <span className={s.time}>{date}</span>
                     </div>
                   </div>
                   <div className={s.messageText}>{m.body}</div>

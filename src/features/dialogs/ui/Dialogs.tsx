@@ -6,7 +6,7 @@ import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { dialogsThunks } from "../model/dialog.slice"
 import { selectorDialogs } from "../model/dialogs.selectors"
-import s from "./Dialogs.module.css"
+import s from "./Dialogs.module.scss"
 import Messages from "./Messages/Messages"
 
 const Dialogs = () => {

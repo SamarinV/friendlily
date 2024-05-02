@@ -1,9 +1,15 @@
-.wrapper {
+.login {
+	background-image: url("../../../common/assets/loginMainImage.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding: 40px;
+}
+
+.form {
 	background-color: white;
 	border-radius: 0.25em;
 	padding: 1.25em;
-	width: 300px;
-	margin: 0 auto;
+	min-width: 300px;
 
 }
 .formLabel {

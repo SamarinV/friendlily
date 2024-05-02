@@ -39,32 +39,32 @@ function App() {
 
         <div className="navbar-content">
           {isLoggedIn && !isSmallScreen ? <Navbar /> : <></>}
-          <div className="content-wrapper">
-            <div className="content">
+          {isInitialized && isLoggedIn ? (
+            <>
+              <div className="content-wrapper">
+                <div className="content">
+                  <Routes>
+                    <Route path={"#/"} element={<Login />} />
+                    <Route path={"profile"} element={<Login />} />
+                    <Route path={"profile/:id"} element={<Profile />} />
+                    <Route path={"users"} element={<Users />} />
+                    <Route path="login" element={<Login />} />
+                    <Route path="dialogs" element={<Dialogs />} />
+                    <Route path="dialogs/:id" element={<Dialogs />} />
+                    <Route path="account" element={<MyAccount />} />
+                    <Route path="*" element={<Page404 />} />
+                  </Routes>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="wrapper-login">
               <Routes>
-                {isInitialized &&
-                  (isLoggedIn ? (
-                    <>
-                      <Route path={"#/"} element={<Login />} />
-                      <Route path={"profile"} element={<Login />} />
-                      <Route path={"profile/:id"} element={<Profile />} />
-                      <Route path={"users"} element={<Users />} />
-                      <Route path="login" element={<Login />} />
-                      <Route path="dialogs" element={<Dialogs />} />
-                      <Route path="dialogs/:id" element={<Dialogs />} />
-                      <Route path="account" element={<MyAccount />} />
-                      <Route path="*" element={<Page404 />} />
-                    </>
-                  ) : (
-                    <>
-                      <Route path="login" element={<Login />} />
-                      <Route path={"profile/:id"} element={<Profile />} />
-                      <Route path="*" element={<Navigate to={"login"} />} />
-                    </>
-                  ))}
+                <Route path="login" element={<Login />} />
+                <Route path="*" element={<Navigate to={"login"} />} />
               </Routes>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

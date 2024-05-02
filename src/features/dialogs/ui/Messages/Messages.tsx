@@ -65,7 +65,7 @@ const Messages = ({ dialogsIsEmpty }: Props) => {
     })
     return dateTimeFormat.format(date)
   }
-  if (dialogsIsEmpty) {
+  if (dialogsIsEmpty && !isLoadingMessages) {
     return <div className={s.dialogsIsEmpty}></div>
   }
 

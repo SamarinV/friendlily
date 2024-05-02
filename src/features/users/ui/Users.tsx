@@ -52,7 +52,7 @@ const UsersPage = () => {
     submitHandler({ text: e.currentTarget.value })
   }
 
-  if (appStatus === "loading") {
+  if (appStatus === "loading" && users.length === 0) {
     return <></>
   }
 

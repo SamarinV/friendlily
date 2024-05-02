@@ -8,12 +8,14 @@ import { Message, ResponseGetDialogs, ResponseGetMessages, dialogsApi } from "..
   dialogs: ResponseGetDialogs[]
   messages: Message[]
   isLoadingMessages: boolean
+	isLoadingDialogs: boolean
 }
 
 const initialState: DialogsState = {
   dialogs: [],
   messages: [],
   isLoadingMessages: false,
+	isLoadingDialogs: false,
 }
 
 const slice = createSlice({
@@ -35,17 +37,26 @@ const slice = createSlice({
         return initialState
       })
       .addMatcher(isPending, (state, action) => {
-        if (action.type === dialogsThunks.getMessages.pending.type) {
+        if (
+          action.type === dialogsThunks.getMessages.pending.type ||
+          action.type === dialogsThunks.getDialogs.pending.type
+        ) {
           state.isLoadingMessages = true
         }
       })
       .addMatcher(isFulfilled, (state, action) => {
-        if (action.type === dialogsThunks.getMessages.fulfilled.type) {
+        if (
+          action.type === dialogsThunks.getMessages.fulfilled.type ||
+          action.type === dialogsThunks.getDialogs.pending.type
+        ) {
           state.isLoadingMessages = false
         }
       })
       .addMatcher(isRejected, (state, action) => {
-        if (action.type === dialogsThunks.getMessages.rejected.type) {
+        if (
+          action.type === dialogsThunks.getMessages.rejected.type ||
+          action.type === dialogsThunks.getDialogs.pending.type
+        ) {
           state.isLoadingMessages = false
         }
       })

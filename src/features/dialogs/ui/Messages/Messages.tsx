@@ -7,7 +7,6 @@ import { useFormik } from "formik"
 import { useEffect, useRef } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-import iconPointTo from "../../../../common/assets/icons8-point.gif"
 import s from "./Messages.module.scss"
 
 type Props = {

@@ -171,16 +171,26 @@ table {
 	margin: 0 auto;
 }
 
+@media screen and (max-width: 1000px) {
+	body {
+		font-size: 90%;
+	}
+}
 @media screen and (max-width: 860px) {
 	body {
 		font-size: 85%;
 	}
 }
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 780px) {
 	body {
 		font-size: 65%;
 	}
 	.content {
 		width: 100%;
+	}
+}
+@media screen and (max-width: 760px) {
+	.content-wrapper {
+		padding: 0;
 	}
 }

@@ -25,7 +25,7 @@ function App() {
   const isInitialized = useSelector(selectorAppIsInitialized)
   const isLoading = useSelector(selectorAppIsLoading)
   const dispatch = useAppDispatch()
-  const isSmallScreen = useMediaQuery("(max-width: 760px)")
+  const isMediumScreen = useMediaQuery("(max-width: 760px)")
 
   useEffect(() => {
     dispatch(authThunks.initializeApp())
@@ -41,7 +41,7 @@ function App() {
           <div className="navbar-content">
             {isInitialized && isLoggedIn ? (
               <>
-                {isLoggedIn && !isSmallScreen ? <Navbar /> : <></>}
+                {isLoggedIn && !isMediumScreen ? <Navbar /> : <></>}
                 <div className="content-wrapper">
                   <div className="content">
                     <Routes>

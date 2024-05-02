@@ -10,7 +10,6 @@ import { useSelector } from "react-redux"
 import Contact from "./Contact"
 import s from "./userContacts.module.scss"
 
-
 const UserContacts = () => {
   const userContacts = useSelector(selectorProfileUserContacts)
 
@@ -19,16 +18,14 @@ const UserContacts = () => {
   }
 
   return (
-    <div className={s.wrapper}>
-      <div className={s.contacts}>
-        <Contact contact={userContacts.facebook} name="facebook" icon={facebookIcon} />
-        <Contact contact={userContacts.github} name="github" icon={githubIcon} />
-        <Contact contact={userContacts.instagram} name="instagram" icon={instagramIcon} />
-        <Contact contact={userContacts.twitter} name="twitter" icon={twitterIcon} />
-        <Contact contact={userContacts.vk} name="vk" icon={vkIcon} />
-        <Contact contact={userContacts.website} name="website" icon={websiteIcon} />
-        <Contact contact={userContacts.youtube} name="youtube" icon={youtubeIcon} />
-      </div>
+    <div className={s.contacts}>
+      <Contact contact={userContacts.facebook} name="facebook" icon={facebookIcon} />
+      <Contact contact={userContacts.github} name="github" icon={githubIcon} />
+      <Contact contact={userContacts.instagram} name="instagram" icon={instagramIcon} />
+      <Contact contact={userContacts.twitter} name="twitter" icon={twitterIcon} />
+      <Contact contact={userContacts.vk} name="vk" icon={vkIcon} />
+      <Contact contact={userContacts.website} name="website" icon={websiteIcon} />
+      <Contact contact={userContacts.youtube} name="youtube" icon={youtubeIcon} />
     </div>
   )
 }

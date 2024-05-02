@@ -9,9 +9,9 @@
 	background-image: url("../../../common/assets/imageCover.jpg");
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
-	height: 290px;
+	height: 18.125em;
 	box-sizing: border-box;
-	padding-top: 100px;
+	padding-top: 6.25em;
 }
 
 .buttonEdit {
@@ -29,12 +29,12 @@
 	
 }
 .buttonEditProfile {
-	top: 15px;
-	right: 15px;
+	top: 1em;
+	right: 1em;
 }
 .buttonEditPhoto {
-	top: 5px;
-	right: 5px;
+	top: 0.25em;
+	right: 0.25em;
 	opacity: 0;
 	transition: opacity 0.5s;
 }
@@ -60,7 +60,7 @@
 				background-color: rgb(97, 100, 244);
 			}
 		}
-		.img {
+		.imgAvatar {
 			width: 11em;
 			height: 11em;
 			object-fit:cover;
@@ -73,25 +73,25 @@
 }
 
 .paddingLeft {
-	padding-left: 220px;
+	padding-left: 13.75em;
 }
 .person {
 	display: flex;
 	flex-direction: column;
-	.fullName {
+	.nameAndStatus {
 		color: white;
-		font-size: 1.5em;
 		margin-bottom: 1em;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
+		.fullName {
+			font-size: 1.5em;
+			margin-bottom: 0.7em;
+		}
 	}
 
 }
 
 .contacts {
 	background-color: rgba(0, 0, 0, 0.667);
-	height: 80px;
+	height: 5em;
 	width: 100%;
 	display: flex;
 	align-items: center;
@@ -104,14 +104,13 @@
 	background-color: white;
 	padding: 2.5em 1em 1em 1em;
 	color: black;
+	.aboutMeImages {
+			width:5.5em;
+			height: 5.5em;
+	}
 	.title {
 		display: flex;
 		align-items: center;
-		img {
-			width:25px;
-			height: 25px;
-
-		}
 	}
 	.aboutUser {
 		display: flex;
@@ -121,6 +120,10 @@
 		.aboutJob {
 			display: flex;
 			flex-direction: column;
+			img {
+				height: 1.7em;
+				width: 1.7em;
+			}
 		}
 		&:first-child {
 			border-bottom: 1px solid black;
@@ -128,5 +131,12 @@
 	}
 	.aboutUserText {
 		font-size: 0.7em;
+	}
+}
+
+@media screen and (max-width: 860px) {
+	.userPhotoWrapper, .imgAvatar  {
+		width: 10em;
+		height: 10em;
 	}
 }

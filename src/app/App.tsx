@@ -37,38 +37,41 @@ function App() {
       <Header />
       <div className="navbar-content-wrapper">
         {isLoading === "loading" && <LinearLoader />}
-
-        <div className="navbar-content">
-          {isLoggedIn && !isSmallScreen ? <Navbar /> : <></>}
-          {isInitialized && isLoggedIn ? (
-            <>
-              <div className="content-wrapper">
-                <div className="content">
-                  <Routes>
-                    <Route path={"#/"} element={<Login />} />
-                    <Route path={"profile"} element={<Login />} />
-                    <Route path={"profile/:id"} element={<Profile />} />
-                    <Route path={"users"} element={<Users />} />
-                    <Route path="login" element={<Login />} />
-                    <Route path="dialogs" element={<Dialogs />} />
-                    <Route path="dialogs/:id" element={<Dialogs />} />
-                    <Route path="account" element={<MyAccount />} />
-                    <Route path="*" element={<Page404 />} />
-                  </Routes>
+        {isInitialized ? (
+          <div className="navbar-content">
+            {isInitialized && isLoggedIn ? (
+              <>
+                {isLoggedIn && !isSmallScreen ? <Navbar /> : <></>}
+                <div className="content-wrapper">
+                  <div className="content">
+                    <Routes>
+                      <Route path={"#/"} element={<Login />} />
+                      <Route path={"profile"} element={<Login />} />
+                      <Route path={"profile/:id"} element={<Profile />} />
+                      <Route path={"users"} element={<Users />} />
+                      <Route path="login" element={<Login />} />
+                      <Route path="dialogs" element={<Dialogs />} />
+                      <Route path="dialogs/:id" element={<Dialogs />} />
+                      <Route path="account" element={<MyAccount />} />
+                      <Route path="*" element={<Page404 />} />
+                    </Routes>
+                  </div>
                 </div>
+              </>
+            ) : (
+              <div className="wrapper-login">
+                <Routes>
+                  <Route path="login" element={<Login />} />
+                  <Route path="*" element={<Navigate to={"login"} />} />
+                </Routes>
               </div>
-            </>
-          ) : (
-            <div className="wrapper-login">
-              <Routes>
-                <Route path="login" element={<Login />} />
-                <Route path="*" element={<Navigate to={"login"} />} />
-              </Routes>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
-			<Footer />
+      {isInitialized && <Footer />}
     </div>
   )
 }

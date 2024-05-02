@@ -62,11 +62,11 @@ const Login = () => {
   return (
     <div className={s.login}>
       <Grid container>
-        <Grid item xs={8} sx={{ border: "1px solid yellow" }}>
+        <Grid item xs={8}>
           <div style={{ width: "100%" }}>
           </div>
         </Grid>
-        <Grid item xs={4} sx={{ border: "1px solid green" }}>
+        <Grid item xs={4}>
           <div className={s.form}>
             <form onSubmit={formik.handleSubmit}>
               <FormControl focused={false}>

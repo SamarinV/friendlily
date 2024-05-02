@@ -1,8 +1,12 @@
 .block {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	width: 37.5em;
+	width: 100%;
+}
+.image {
+	height: 150px;
 }
 .title {
 	margin-bottom: 1.9em;

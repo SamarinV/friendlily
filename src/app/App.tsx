@@ -1,5 +1,6 @@
 import { useMediaQuery } from "@mui/material"
 import { ErrorSnackbar } from "common/components/ErrorSnackbar/ErrorSnackbar"
+import { Footer } from "common/components/Footer/Footer"
 import Header from "common/components/Header/Header"
 import LinearLoader from "common/components/LinearLoader/LinearLoader"
 import MyAccount from "common/components/MyAccount/MyAccount"
@@ -67,6 +68,7 @@ function App() {
           )}
         </div>
       </div>
+			<Footer />
     </div>
   )
 }

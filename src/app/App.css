@@ -182,9 +182,6 @@ table {
 	}
 }
 @media screen and (max-width: 780px) {
-	body {
-		font-size: 65%;
-	}
 	.content {
 		width: 100%;
 	}

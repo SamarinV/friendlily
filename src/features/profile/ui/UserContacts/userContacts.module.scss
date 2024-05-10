@@ -1,5 +1,21 @@
 .contacts {
 	display: flex;
 	flex-wrap: nowrap;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+}
+.sendMessage {
 	margin-right: 1em;
+}
+
+@media screen and (max-width: 860px) {
+	.contacts {
+		padding: 0 2em;
+	}
+	.sendMessage {
+		margin-left: 2em;
+		display: flex;
+		align-items: center;
+	}
 }

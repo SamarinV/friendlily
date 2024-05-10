@@ -9,9 +9,16 @@ import { selectorProfileUserContacts } from "features/profile/model/profile.sele
 import { useSelector } from "react-redux"
 import Contact from "./Contact"
 import s from "./userContacts.module.scss"
+import { Button, useMediaQuery } from "@mui/material"
 
-const UserContacts = () => {
+type Props = {
+  isMyProfile: boolean
+  openDialogHandler: () => void
+}
+
+const UserContacts = ({ isMyProfile, openDialogHandler }: Props) => {
   const userContacts = useSelector(selectorProfileUserContacts)
+  const isMediumScreen = useMediaQuery("(max-width: 860px)")
 
   if (!userContacts) {
     return <></>
@@ -19,13 +26,23 @@ const UserContacts = () => {
 
   return (
     <div className={s.contacts}>
-      <Contact contact={userContacts.facebook} name="facebook" icon={facebookIcon} />
-      <Contact contact={userContacts.github} name="github" icon={githubIcon} />
-      <Contact contact={userContacts.instagram} name="instagram" icon={instagramIcon} />
-      <Contact contact={userContacts.twitter} name="twitter" icon={twitterIcon} />
-      <Contact contact={userContacts.vk} name="vk" icon={vkIcon} />
-      <Contact contact={userContacts.website} name="website" icon={websiteIcon} />
-      <Contact contact={userContacts.youtube} name="youtube" icon={youtubeIcon} />
+      <div>
+        <Contact contact={userContacts.facebook} name="facebook" icon={facebookIcon} />
+        <Contact contact={userContacts.github} name="github" icon={githubIcon} />
+        <Contact contact={userContacts.instagram} name="instagram" icon={instagramIcon} />
+        <Contact contact={userContacts.twitter} name="twitter" icon={twitterIcon} />
+        <Contact contact={userContacts.vk} name="vk" icon={vkIcon} />
+        <Contact contact={userContacts.website} name="website" icon={websiteIcon} />
+        <Contact contact={userContacts.youtube} name="youtube" icon={youtubeIcon} />
+      </div>
+
+      {!isMyProfile && (
+        <div className={s.sendMessage}>
+          <Button onClick={openDialogHandler} variant="contained" size="medium">
+            Сообщение
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

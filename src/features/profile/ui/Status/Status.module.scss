@@ -18,3 +18,10 @@
 	border-bottom: 1px solid rgb(0, 0, 144);
 	outline: none;
 }
+
+@media screen and (max-width: 860px) {
+	.wrapper {
+		justify-content: center;
+		
+	}
+}

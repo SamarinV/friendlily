@@ -1,17 +1,40 @@
-.wrapper {
+.profile {
 	width: 100%;
 	position: relative;
 	max-width: 1030px;
 	margin: 0 auto;
 	
 }
-.profileWrapper {
+.topBlock {
 	background-image: url("../../../common/assets/imageCover.jpg");
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	height: 18.125em;
 	box-sizing: border-box;
 	padding-top: 6.25em;
+
+	.paddingLeft {
+		padding-left: 13.75em;
+	}
+	.person {
+		display: flex;
+		flex-direction: column;
+		.nameAndStatus {
+			color: white;
+			margin-bottom: 1em;
+			.fullName {
+				font-size: 1.5em;
+				margin-bottom: 0.7em;
+			}
+		}
+		.contacts {
+			background-color: rgba(0, 0, 0, 0.667);
+			min-height: 5em;
+			width: 100%;
+			display: flex;
+			box-sizing: border-box;
+		}
+	}
 }
 
 .buttonEdit {
@@ -42,10 +65,10 @@
 	position: relative;
 	.userPhotoWrapper {
 		position: absolute;
-		top: -10em;
+		top: -9em;
 		left: 1em;
-		width: 11em;
-		height: 11em;
+		width: 100%;
+		height: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -72,35 +95,7 @@
 	}
 }
 
-.paddingLeft {
-	padding-left: 13.75em;
-}
-.person {
-	display: flex;
-	flex-direction: column;
-	.nameAndStatus {
-		color: white;
-		margin-bottom: 1em;
-		.fullName {
-			font-size: 1.5em;
-			margin-bottom: 0.7em;
-		}
-	}
-
-}
-
-.contacts {
-	background-color: rgba(0, 0, 0, 0.667);
-	height: 5em;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding-right: 2em;
-	box-sizing: border-box;
-}
-
-.aboutMe {
+.downBlock {
 	background-color: white;
 	padding: 2.5em 1em 1em 1em;
 	color: black;
@@ -135,8 +130,43 @@
 }
 
 @media screen and (max-width: 860px) {
-	.userPhotoWrapper, .imgAvatar  {
-		width: 10em;
-		height: 10em;
+	.blockWidthPhoto {
+		.userPhotoWrapper {
+			.imgAvatar  {
+				width: 15em;
+				height: 15em;
+			}
+		}
+	}
+	.topBlock {
+		display: flex;
+		flex-direction: column-reverse;
+		align-items: center;
+		height: 100%;
+		padding-top: 2em;
+		.paddingLeft {
+				padding-left: 0;
+			}
+		.person {
+			.contacts {
+				border-radius: 10px;
+				margin-bottom: 1em;
+			}
+		}
+	}
+	.blockWidthPhoto {
+		position: relative;
+		.userPhotoWrapper {
+			position: static;
+		}
+	}	
+	.fullName {
+		text-align: center;
+		margin-top: 20px;
+	}
+}
+@media screen and (max-width: 760px) {
+	.topBlock {
+		border-radius: 0;
 	}
 }

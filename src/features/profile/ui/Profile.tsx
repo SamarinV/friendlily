@@ -1,5 +1,5 @@
 import EditIcon from "@mui/icons-material/Edit"
-import { Button, IconButton, Menu, MenuItem, Tooltip, useMediaQuery } from "@mui/material"
+import { IconButton, Menu, MenuItem, Tooltip, useMediaQuery } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import { selectorAppStatus } from "app/appSelectors"
 import DefaultAvatar from "common/assets/defaultAvatar.png"
@@ -29,8 +29,6 @@ const ProfilePage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const isMyProfile = authUserId == Number(id) ? true : false
-  const isMediumScreen = useMediaQuery("(max-width: 860px)")
-  const isSmallScreen = useMediaQuery("(max-width: 860px)")
 
   useEffect(() => {
     if (!id) {
@@ -98,8 +96,8 @@ const ProfilePage = () => {
     return <></>
   }
   return (
-    <div className={s.wrapper}>
-      <div className={s.profileWrapper}>
+    <div className={s.profile}>
+      <div className={s.topBlock}>
         <div className={s.person}>
           <div className={`${s.nameAndStatus} ${s.paddingLeft}`}>
             <h3 className={s.fullName}>{user.fullName}</h3>
@@ -127,56 +125,45 @@ const ProfilePage = () => {
             <Status />
           </div>
           <div className={`${s.contacts} ${s.paddingLeft}`}>
-            <UserContacts />
-            {!isMyProfile && (
-              <Button onClick={openDialogHandler} variant="contained" size={`${isMediumScreen ? "small" : "medium"}`}>
-                Сообщение
-              </Button>
+            <UserContacts openDialogHandler={openDialogHandler} isMyProfile={isMyProfile} />
+          </div>
+        </div>
+
+        <div className={s.blockWidthPhoto}>
+          <div className={s.userPhotoWrapper}>
+            <BorderLoader loaderIsVisable={photoIsLoading}>
+              <img
+                className={`${s.imgAvatar} ${s.imgIsloading}`}
+                src={user.photos.large ? `${user.photos.large}` : `${DefaultAvatar}`}
+                alt="Фото пользователя"
+                onClick={() => openPhotoHandler(user.photos.large)}
+              />
+            </BorderLoader>
+            {isMyProfile && !photoIsLoading && (
+              <Tooltip title="Загрузить новое фото" placement="top">
+                <IconButton
+                  sx={{
+                    position: "absolute",
+                    top: "5px",
+                    right: "5px",
+                    opacity: "0",
+                    transition: "0.5s",
+                    color: "black",
+                  }}
+                  aria-label="edit"
+                  color="primary"
+                  component="label"
+                >
+                  <EditIcon />
+                  <VisuallyHiddenInput type="file" accept="image/*" onChange={openDownloadPhoto} />
+                </IconButton>
+              </Tooltip>
             )}
           </div>
         </div>
       </div>
-
-      <div className={s.blockWidthPhoto}>
-        {" "}
-        <div className={s.userPhotoWrapper}>
-          <BorderLoader loaderIsVisable={photoIsLoading}>
-            <img
-              className={`${s.imgAvatar} ${s.imgIsloading}`}
-              src={user.photos.large ? `${user.photos.large}` : `${DefaultAvatar}`}
-              alt="Фото пользователя"
-              onClick={() => openPhotoHandler(user.photos.large)}
-            />
-          </BorderLoader>
-
-          {isMyProfile && !photoIsLoading && (
-            <Tooltip title="Загрузить новое фото" placement="top">
-              <IconButton
-                sx={{
-                  position: "absolute",
-                  top: "5px",
-                  right: "5px",
-                  opacity: "0",
-                  transition: "0.5s",
-                  color: "black",
-                }}
-                aria-label="edit"
-                color="primary"
-                component="label"
-              >
-                <EditIcon />
-                <VisuallyHiddenInput type="file" accept="image/*" onChange={openDownloadPhoto} />
-              </IconButton>
-            </Tooltip>
-          )}
-        </div>
-      </div>
-      {/* {isSmallScreen && (
-        <Button onClick={openDialogHandler} variant="contained" size={`${isMediumScreen ? "small" : "medium"}`}>
-          Сообщение
-        </Button>
-      )} */}
-      <div className={s.aboutMe}>
+			
+      <div className={s.downBlock}>
         <div className={s.aboutUser}>
           <img
             className={s.aboutMeImages}

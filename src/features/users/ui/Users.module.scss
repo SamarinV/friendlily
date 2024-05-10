@@ -3,11 +3,11 @@
 	position: relative;
 	width: 100%;
 	max-width: 800px;
-	margin: 0 auto;
+	margin: 1em auto;
 }
 .filter {
 	display: flex;
-	align-items: center;
+	align-items: end;
 	justify-content: space-between;
 	width: 100%;
 	span {
@@ -19,12 +19,15 @@
 		background-color: transparent;
 		color: #C8C8C8;
 		border: none;
-		border-bottom: 2px solid rgb(84, 84, 255);
+		border-bottom: 2px solid rgb(75, 75, 93);
 		outline: none;
 	}
 }
 
+
 .pagination {
+	display: flex;
+	justify-content: center;
 	ul{
 		li {
 			button {
@@ -34,5 +37,11 @@
 				color: #C8C8C8;
 			}
 		}
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.nav {
+		width: 100%;
 	}
 }

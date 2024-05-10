@@ -85,15 +85,16 @@ const UsersPage = () => {
       <UsersList users={users} />
 
       {usersCount > 10 && (
-        <Pagination
-          onChange={(event, page) => changePageUserHandler(page)}
-          count={Math.ceil(usersCount / Number(count))}
-          page={Number(page)}
-          defaultPage={Number(page)}
-          boundaryCount={2}
-          color="primary"
-          className={s.pagination}
-        />
+        <div className={s.pagination}>
+          <Pagination
+            onChange={(event, page) => changePageUserHandler(page)}
+            count={Math.ceil(usersCount / Number(count))}
+            page={Number(page)}
+            defaultPage={Number(page)}
+            boundaryCount={2}
+            color="primary"
+          />
+        </div>
       )}
     </div>
   )

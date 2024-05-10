@@ -1,9 +1,9 @@
-import { PayloadAction, createSlice, isFulfilled } from "@reduxjs/toolkit"
-import { AuthUser, LoginParams, authAPI } from "../api/auth-api"
+import { createSlice } from "@reduxjs/toolkit"
 import { appActions } from "app/app.slice"
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
 import { profileThunks } from "features/profile/model/profile.slice"
 import { usersAPI } from "features/users/api/users-api"
+import { AuthUser, LoginParams, authAPI } from "../api/auth-api"
 
 export type AuthState = {
   userData: AuthUser & { smallPhoto: string }
@@ -53,6 +53,7 @@ const login = createAppAsyncThunk<{userId: number}, LoginParams>(
   async (arg, { rejectWithValue }) => {
     const res = await authAPI.login(arg)
     if (res.data.resultCode === 0) {
+			localStorage.setItem("sn-token", res.data.data.token)
       return { userId: res.data.data.userId }
     } else {
       return rejectWithValue(res.data)
@@ -65,6 +66,7 @@ const logout = createAppAsyncThunk<undefined, undefined>(
   async (_, { dispatch, rejectWithValue }) => {
     const res = await authAPI.logout()
     if (res.data.resultCode === 0) {
+			localStorage.clear()
       return
     } else {
       return rejectWithValue(res.data)

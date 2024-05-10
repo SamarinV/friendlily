@@ -50,7 +50,7 @@
 	width: 260px;
 	background-color: #343a40;
 	transition: left 0.3s ease;
-	z-index: 2;
+	z-index: 1000;
 }
 
 .openedMenu {
@@ -81,5 +81,11 @@
 @media screen and (max-width: 760px) {
 	.burgerMenu {
 		display: block;
+	}
+}
+@media screen and (max-width: 500px) {
+	.header {
+		margin-left: 1em;
+		margin-right: 1em;
 	}
 }

@@ -67,7 +67,6 @@
 		position: absolute;
 		top: -9em;
 		left: 1em;
-		width: 100%;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
@@ -148,9 +147,10 @@
 				padding-left: 0;
 			}
 		.person {
+			width: 100%;
 			.contacts {
-				border-radius: 10px;
-				margin-bottom: 1em;
+				margin-bottom: 0;
+				background-color: rgb(21, 21, 21);
 			}
 		}
 	}

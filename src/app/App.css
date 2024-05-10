@@ -182,11 +182,15 @@ table {
 	}
 }
 @media screen and (max-width: 780px) {
+	body {
+		font-size: 75%;
+	}
 	.content {
 		width: 100%;
 	}
 }
 @media screen and (max-width: 760px) {
+	
 	.content-wrapper {
 		padding: 0;
 	}

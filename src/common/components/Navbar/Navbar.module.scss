@@ -37,17 +37,22 @@
 
 
 /* burger menu */
-.burgerLinkWrapper{
+.burgerLink{
 	border-bottom: 1px solid #C8C8C8;
-	button {
-		width:100%;
+	.link {
+		box-sizing: border-box;
 		justify-content: start;
+		display: flex;
+		align-items: center;
+	}
+	svg {
+		width: 2.8em;
+		height: 2.8em;
 	}
 }
 .menuLinkText {
 	color: #C8C8C8;
-	margin-left: 1.25em;
-	font-size: 1.2em;
+	font-size: 1.3em;
 }
 
 @media screen and (max-width: 760px) {

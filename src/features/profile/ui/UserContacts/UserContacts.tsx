@@ -38,7 +38,7 @@ const UserContacts = ({ isMyProfile, openDialogHandler }: Props) => {
 
       {!isMyProfile && (
         <div className={s.sendMessage}>
-          <Button onClick={openDialogHandler} variant="contained" size="medium">
+          <Button onClick={openDialogHandler} variant="contained" size="medium" fullWidth={true}>
             Сообщение
           </Button>
         </div>

@@ -2,7 +2,8 @@
 	display: flex;
 	flex-wrap: nowrap;
 	width: 100%;
-	justify-content: space-between;
+	// justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 }
 .sendMessage {
@@ -11,11 +12,23 @@
 
 @media screen and (max-width: 860px) {
 	.contacts {
-		padding: 0 2em;
+		padding: 1em 2em;
 	}
 	.sendMessage {
 		margin-left: 2em;
 		display: flex;
 		align-items: center;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.contacts {
+		flex-direction: column;
+		
+		padding: 1em;
+	}
+	.sendMessage {
+		margin: 2em 0 0;
+		width: 100%;
 	}
 }

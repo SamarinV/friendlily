@@ -31,8 +31,12 @@ const NavLinkWithLogo = ({ to, logo, textInfo, openMenuHandler }: Props) => {
   return (
     <>
       {isSmallScreen ? (
-        <div className={s.burgerLinkWrapper}>
-          <NavLink onClick={closeBurgerMenu} to={to}>
+        <div className={s.burgerLink}>
+          <NavLink
+            className={({ isActive }) => (isActive ? `${s.link} ${s.activeLink}` : `${s.link}`)}
+            onClick={closeBurgerMenu}
+            to={to}
+          >
             {logo}
             <span className={s.menuLinkText}>{textInfo}</span>
           </NavLink>

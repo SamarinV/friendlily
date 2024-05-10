@@ -6,7 +6,7 @@ export const authAPI = {
     return instance.get<BaseResponse<AuthUser>>(`/auth/me`)
   },
   login(arg: LoginParams) {
-    return instance.post<BaseResponse<{ userId: number }>>(`/auth/login`, arg)
+    return instance.post<BaseResponse<{ userId: number, token: string }>>(`/auth/login`, arg)
   },
   logout() {
     return instance.delete<BaseResponse<AuthUser>>(`/auth/login`)

@@ -4,18 +4,18 @@ import { createAppAsyncThunk } from "common/utils/create-app-async-thunk"
 import { authThunks } from "features/auth/model/auth.slice"
 import { Message, ResponseGetDialogs, ResponseGetMessages, dialogsApi } from "../api/dialog-api"
 
- export type DialogsState = {
+export type DialogsState = {
   dialogs: ResponseGetDialogs[]
   messages: Message[]
   isLoadingMessages: boolean
-	isLoadingDialogs: boolean
+  isLoadingDialogs: boolean
 }
 
 const initialState: DialogsState = {
   dialogs: [],
   messages: [],
   isLoadingMessages: false,
-	isLoadingDialogs: false,
+  isLoadingDialogs: false,
 }
 
 const slice = createSlice({
@@ -42,6 +42,7 @@ const slice = createSlice({
           action.type === dialogsThunks.getDialogs.pending.type
         ) {
           state.isLoadingMessages = true
+          state.isLoadingDialogs = true
         }
       })
       .addMatcher(isFulfilled, (state, action) => {
@@ -50,6 +51,7 @@ const slice = createSlice({
           action.type === dialogsThunks.getDialogs.pending.type
         ) {
           state.isLoadingMessages = false
+          state.isLoadingDialogs = false
         }
       })
       .addMatcher(isRejected, (state, action) => {
@@ -58,6 +60,7 @@ const slice = createSlice({
           action.type === dialogsThunks.getDialogs.pending.type
         ) {
           state.isLoadingMessages = false
+          state.isLoadingDialogs = false
         }
       })
   },

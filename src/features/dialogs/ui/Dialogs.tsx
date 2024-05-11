@@ -1,17 +1,18 @@
-import { Avatar } from "@mui/material"
+import { Avatar, CircularProgress } from "@mui/material"
 import Block from "common/components/Block/Block"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { dialogsThunks } from "../model/dialog.slice"
-import { selectorDialogs } from "../model/dialogs.selectors"
+import { selectorDialogs, selectorDialogsIsLoading } from "../model/dialogs.selectors"
 import s from "./Dialogs.module.scss"
 import Messages from "./Messages/Messages"
 
 const Dialogs = () => {
   const dispatch = useAppDispatch()
   const dialogs = useSelector(selectorDialogs)
+  const isLoadingDialogs = useSelector(selectorDialogsIsLoading)
   const { id } = useParams()
   const navigate = useNavigate()
 
@@ -28,7 +29,7 @@ const Dialogs = () => {
       <div className={s.wrapper}>
         <div className={s.dialogs}>
           <h2 className={s.title}>Диалоги</h2>
-          {dialogs.length ? (
+          {(isLoadingDialogs && <></>) || dialogs.length ? (
             <div className={s.dialogsList}>
               {dialogs.map((d) => {
                 return (

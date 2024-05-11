@@ -38,7 +38,7 @@ const slice = createSlice({
         state.userData.smallPhoto = action.payload.photos.small
       })
       .addCase(login.fulfilled, (state, action) => {
-				state.isLoggedIn = true
+        state.isLoggedIn = true
         state.userData.id = action.payload.userId
       })
       .addCase(logout.fulfilled, (state, action) => {
@@ -48,12 +48,16 @@ const slice = createSlice({
 })
 
 // thunks
-const login = createAppAsyncThunk<{userId: number}, LoginParams>(
+const login = createAppAsyncThunk<{ userId: number }, LoginParams>(
   `${slice.name}/login`,
   async (arg, { rejectWithValue }) => {
     const res = await authAPI.login(arg)
     if (res.data.resultCode === 0) {
-			localStorage.setItem("sn-token", res.data.data.token)
+      const resApiKey = await authAPI.getNewApiKey(res.data.data.userId)
+      if (resApiKey.status === 200) {
+        localStorage.setItem("api-key", resApiKey.data.Extra.apiKey)
+      }
+      localStorage.setItem("sn-token", res.data.data.token)
       return { userId: res.data.data.userId }
     } else {
       return rejectWithValue(res.data)
@@ -66,7 +70,7 @@ const logout = createAppAsyncThunk<undefined, undefined>(
   async (_, { dispatch, rejectWithValue }) => {
     const res = await authAPI.logout()
     if (res.data.resultCode === 0) {
-			localStorage.clear()
+      localStorage.clear()
       return
     } else {
       return rejectWithValue(res.data)

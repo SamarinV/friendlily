@@ -1,6 +1,6 @@
 import Logout from "@mui/icons-material/Logout"
 import MenuIcon from "@mui/icons-material/Menu"
-import { Avatar, Button, Divider, ListItemIcon, Menu, MenuItem, useMediaQuery } from "@mui/material"
+import { Button, Divider, ListItemIcon, Menu, MenuItem, useMediaQuery } from "@mui/material"
 import DefaultAvatar from "common/assets/defaultAvatar.png"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { selectorAuthUserPhotoSmall, selectorIsLoggedIn } from "features/auth/model/auth.selectors"
@@ -81,11 +81,7 @@ const Header = () => {
             >
               <div className={s.avatarWrapper}>
                 <BorderLoader loaderIsVisable={photoIsLoading}>
-                  <Avatar
-                    alt="Remy Sharp"
-                    src={userPhotoSmall ? `${userPhotoSmall}` : `${DefaultAvatar}`}
-                    sx={{ width: 56, height: 56 }}
-                  />
+                  <img src={userPhotoSmall ? `${userPhotoSmall}` : `${DefaultAvatar}`} />
                 </BorderLoader>
               </div>
             </Button>

@@ -1,5 +1,5 @@
 import EditIcon from "@mui/icons-material/Edit"
-import { IconButton, Menu, MenuItem, Tooltip, useMediaQuery } from "@mui/material"
+import { IconButton, Menu, MenuItem, Tooltip } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import { selectorAppStatus } from "app/appSelectors"
 import DefaultAvatar from "common/assets/defaultAvatar.png"
@@ -162,7 +162,7 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
-			
+
       <div className={s.downBlock}>
         <div className={s.aboutUser}>
           <img

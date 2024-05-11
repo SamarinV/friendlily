@@ -30,12 +30,17 @@
 
 .avatarWrapper {
 	position: relative;
-	width: 3.5em;
-	height: 3.5em;
+	width: 4em;
+	height: 4em;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	display: inline-block;
+	img {
+		width: 4em;
+		height: 4em;
+		border-radius: 50%;
+	}
 }
 
 /* burger menu */

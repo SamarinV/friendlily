@@ -39,8 +39,8 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: "samrvan123@yandex.ru",
-      password: "",
+      email: "free@samuraijs.com",
+      password: "free",
       rememberMe: false,
     },
     validationSchema: validationSchema,
@@ -75,8 +75,8 @@ const Login = () => {
                   </a>
                 </p>
                 <p className={s.text}>или воспользуйтесь тестовым аккаунтом:</p>
-                <p className={s.text}> Email: samrvan123@yandex.ru</p>
-                <p className={s.text}>Password: samrvan123</p>
+                <p className={s.text}> Email: free@samuraijs.com</p>
+                <p className={s.text}>Password: free</p>
               </div>
             </FormLabel>
             <FormGroup>
@@ -127,7 +127,7 @@ const Login = () => {
                 control={<Checkbox {...formik.getFieldProps("rememberMe")} checked={formik.values.rememberMe} />}
               />
               <Button
-                disabled={!(formik.isValid && formik.dirty)}
+                disabled={!formik.isValid}
                 type={"submit"}
                 variant={"contained"}
                 color={"primary"}

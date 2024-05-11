@@ -1,16 +1,9 @@
-import axios from "axios"
 import { instance } from "../../../common/api/common.api"
 import { BaseResponse } from "common/types/types"
 
 export const authAPI = {
   me() {
     return instance.get<BaseResponse<AuthUser>>(`/auth/me`)
-  },
-  getNewApiKey(userId: number) {
-    const instanceApiKey = axios.create({
-      withCredentials: true,
-    })
-    return instanceApiKey.post("https://social-network.samuraijs.com/Auth/Account/RegenerateApiKey", userId)
   },
   login(arg: LoginParams) {
     return instance.post<BaseResponse<{ userId: number; token: string }>>(`/auth/login`, arg)

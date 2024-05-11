@@ -53,10 +53,6 @@ const login = createAppAsyncThunk<{ userId: number }, LoginParams>(
   async (arg, { rejectWithValue }) => {
     const res = await authAPI.login(arg)
     if (res.data.resultCode === 0) {
-      const resApiKey = await authAPI.getNewApiKey(res.data.data.userId)
-      if (resApiKey.status === 200) {
-        localStorage.setItem("api-key", resApiKey.data.Extra.apiKey)
-      }
       localStorage.setItem("sn-token", res.data.data.token)
       return { userId: res.data.data.userId }
     } else {

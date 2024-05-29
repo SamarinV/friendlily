@@ -63,7 +63,25 @@ const Login = () => {
 
   return (
     <div className={s.login}>
-      <div className={s.form}>
+
+      <div className={s.leftBlock}>
+        <p className={s.textAnimation}>Social Network</p>
+        <div className={s.wrapScrollingText}>
+          <div className={s.scrollingText}>
+            <div>
+              <p>Общение</p>
+            </div>
+            <div>
+              <p>Друзья</p>
+            </div>
+            <div>
+              <p>Подписки</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={s.formWrapper}>
         <form onSubmit={formik.handleSubmit}>
           <FormControl focused={false}>
             <FormLabel>

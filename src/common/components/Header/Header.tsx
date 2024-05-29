@@ -78,6 +78,7 @@ const Header = () => {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
+              className={s.buttonAvatar}
             >
               <div className={s.avatarWrapper}>
                 <BorderLoader loaderIsVisable={photoIsLoading}>

@@ -91,6 +91,11 @@ div {
 	animation: scroll-vertical 6s ease infinite;
 }
 
+.text span {
+	color: blue;
+	cursor: pointer;
+}
+
 @keyframes scroll-vertical {
 	0% { margin-top: 4.5rem;}
 	5% { margin-top: 0;}

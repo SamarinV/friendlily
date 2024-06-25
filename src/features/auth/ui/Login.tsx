@@ -1,27 +1,25 @@
+import Visibility from "@mui/icons-material/Visibility"
+import VisibilityOff from "@mui/icons-material/VisibilityOff"
 import {
-  Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  Grid,
-  IconButton,
-  InputAdornment,
-  TextField,
-  useMediaQuery,
+	Button,
+	Checkbox,
+	FormControl,
+	FormControlLabel,
+	FormGroup,
+	FormLabel,
+	IconButton,
+	InputAdornment,
+	TextField,
+	useMediaQuery
 } from "@mui/material"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import { useFormik } from "formik"
+import { useState } from "react"
 import { useSelector } from "react-redux"
 import { Navigate } from "react-router-dom"
 import * as yup from "yup"
 import { selectorAuthUserId, selectorIsLoggedIn } from "../model/auth.selectors"
 import { authThunks } from "../model/auth.slice"
-import Visibility from "@mui/icons-material/Visibility"
-import VisibilityOff from "@mui/icons-material/VisibilityOff"
-import { useState } from "react"
-import loginMainImage from "../../../common/assets/loginMainImage.jpg"
 import s from "./Login.module.scss"
 
 const validationSchema = yup.object().shape({
@@ -36,11 +34,12 @@ const Login = () => {
   const userId = useSelector(selectorAuthUserId)
   const [showPassword, setShowPassword] = useState(false)
   const isMediumScreen = useMediaQuery("(max-width: 760px)")
+	const [isTestPassword, setIsTestPassword] = useState(false)
 
   const formik = useFormik({
     initialValues: {
-      email: "free@samuraijs.com",
-      password: "free",
+      email: '',
+      password: '',
       rememberMe: false,
     },
     validationSchema: validationSchema,
@@ -60,6 +59,10 @@ const Login = () => {
   const handleMouseDownPassword = () => {
     setShowPassword(false)
   }
+
+		const loginTestAccount = () => {
+			dispatch(authThunks.login({email: 'v.a.samarin@yandex.ru', password: 'test123', rememberMe: false}))
+    }
 
   return (
     <div className={s.login}>
@@ -87,13 +90,13 @@ const Login = () => {
               <div className={s.formLabel}>
                 <p className={s.text}>
                   Зарегистрироваться можно{" "}
-                  <a className={s.link} href={"https://social-network.samuraijs.com/"} target={"_blank"}>
+                  <a className={s.link} href={"https://social-network.samuraijs.com/signUp"} target={"_blank"}>
                     здесь
                   </a>
                 </p>
-                <p className={s.text}>или воспользуйтесь тестовым аккаунтом:</p>
-                <p className={s.text}> Email: free@samuraijs.com</p>
-                <p className={s.text}>Password: free</p>
+                <p className={s.text}>
+                  или воспользуйтесь <span onClick={loginTestAccount}>тестовым аккаунтом</span>:
+                </p>
               </div>
             </FormLabel>
             <FormGroup>
@@ -144,7 +147,6 @@ const Login = () => {
                 control={<Checkbox {...formik.getFieldProps("rememberMe")} checked={formik.values.rememberMe} />}
               />
               <Button
-                disabled={!formik.isValid}
                 type={"submit"}
                 variant={"contained"}
                 color={"primary"}

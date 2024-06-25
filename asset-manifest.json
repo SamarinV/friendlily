@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/friendlily/static/css/main.e2e2cbe7.css",
-    "main.js": "/friendlily/static/js/main.b18fb215.js",
+    "main.css": "/friendlily/static/css/main.47cce71c.css",
+    "main.js": "/friendlily/static/js/main.5f9d6d6b.js",
     "static/media/imageCover.jpg": "/friendlily/static/media/imageCover.0a5732c18f0b88d7dad4.jpg",
     "static/media/loginMainImage.jpg": "/friendlily/static/media/loginMainImage.85bfbd29e1640d20353b.jpg",
     "static/media/desert.jpg": "/friendlily/static/media/desert.748e353bfe7f857477c5.jpg",
@@ -14,11 +14,11 @@
     "static/media/icon-facebook.png": "/friendlily/static/media/icon-facebook.49e67d43221b6bb1aa86.png",
     "static/media/icon-twitter.png": "/friendlily/static/media/icon-twitter.f87fab6e76b591c59da9.png",
     "index.html": "/friendlily/index.html",
-    "main.e2e2cbe7.css.map": "/friendlily/static/css/main.e2e2cbe7.css.map",
-    "main.b18fb215.js.map": "/friendlily/static/js/main.b18fb215.js.map"
+    "main.47cce71c.css.map": "/friendlily/static/css/main.47cce71c.css.map",
+    "main.5f9d6d6b.js.map": "/friendlily/static/js/main.5f9d6d6b.js.map"
   },
   "entrypoints": [
-    "static/css/main.e2e2cbe7.css",
-    "static/js/main.b18fb215.js"
+    "static/css/main.47cce71c.css",
+    "static/js/main.5f9d6d6b.js"
   ]
 }

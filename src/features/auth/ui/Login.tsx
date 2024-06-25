@@ -34,7 +34,6 @@ const Login = () => {
   const userId = useSelector(selectorAuthUserId)
   const [showPassword, setShowPassword] = useState(false)
   const isMediumScreen = useMediaQuery("(max-width: 760px)")
-	const [isTestPassword, setIsTestPassword] = useState(false)
 
   const formik = useFormik({
     initialValues: {

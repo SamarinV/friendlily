@@ -66,9 +66,9 @@ const Header = () => {
 
         <div className={s.iconTitleWrapper}>
           <div className={s.icon}>
-            <span>SN</span>
+            <span>F</span>
           </div>
-          <span className={s.title}>Social Network</span>
+          <span className={s.title}>Friendlily</span>
         </div>
         {isLoggedIn ? (
           <div>

@@ -63,9 +63,8 @@ const Login = () => {
 
   return (
     <div className={s.login}>
-
       <div className={s.leftBlock}>
-        <p className={s.textAnimation}>Social Network</p>
+        <p className={s.textAnimation}>Cоциальная сеть для создания позитивных и значимых связей</p>
         <div className={s.wrapScrollingText}>
           <div className={s.scrollingText}>
             <div>

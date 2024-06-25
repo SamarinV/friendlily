@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/friendlily/static/css/main.3a0e4bf4.css",
+    "main.css": "/friendlily/static/css/main.d9d62204.css",
     "main.js": "/friendlily/static/js/main.9a63e684.js",
     "static/media/imageCover.jpg": "/friendlily/static/media/imageCover.0a5732c18f0b88d7dad4.jpg",
     "static/media/loginMainImage.jpg": "/friendlily/static/media/loginMainImage.85bfbd29e1640d20353b.jpg",
@@ -14,11 +14,11 @@
     "static/media/icon-facebook.png": "/friendlily/static/media/icon-facebook.49e67d43221b6bb1aa86.png",
     "static/media/icon-twitter.png": "/friendlily/static/media/icon-twitter.f87fab6e76b591c59da9.png",
     "index.html": "/friendlily/index.html",
-    "main.3a0e4bf4.css.map": "/friendlily/static/css/main.3a0e4bf4.css.map",
+    "main.d9d62204.css.map": "/friendlily/static/css/main.d9d62204.css.map",
     "main.9a63e684.js.map": "/friendlily/static/js/main.9a63e684.js.map"
   },
   "entrypoints": [
-    "static/css/main.3a0e4bf4.css",
+    "static/css/main.d9d62204.css",
     "static/js/main.9a63e684.js"
   ]
 }
